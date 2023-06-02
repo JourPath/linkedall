@@ -1,31 +1,9 @@
-import { supabase } from '../app/utils/supabase-client';
+import Link from 'next/link';
 
-export default function Home({ profiles }) {
-  console.log({ profiles });
-  console.log(supabase.auth.getUser());
+export default async function Home() {
   return (
     <main>
-      <div>Sign In</div>
+      <Link href="/login">Login Page</Link>
     </main>
   );
 }
-
-// async function signInWithLinkedIn() {
-//   const { data, error } = await supabase.auth.signInWithOAuth({
-//     provider: 'linkedin',
-//   });
-// }
-
-async function signout() {
-  const { error } = await supabase.auth.signOut();
-}
-
-export const getStaticProps = async () => {
-  const { data: profiles } = await supabase.from('profiles').select();
-
-  return {
-    props: {
-      profiles,
-    },
-  };
-};

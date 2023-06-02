@@ -1,3 +1,10 @@
+import Profile from '@/components/profile/profile';
+
 export default function Dashboard() {
-  return <div>Hello Dashboard</div>;
+  return (
+    <section>
+      <h2>Dashboard</h2>
+      <Profile />
+    </section>
+  );
 }
