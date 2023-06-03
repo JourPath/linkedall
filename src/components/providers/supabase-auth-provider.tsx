@@ -14,6 +14,7 @@ interface ContextI {
   mutate: any;
   signOut: () => Promise<void>;
   signInWithLinkedIn: () => Promise<void>;
+  signUpWithEmail: (email: string, password: string) => Promise<string | null>;
   signInWithEmail: (email: string, password: string) => Promise<string | null>;
 }
 
@@ -24,6 +25,7 @@ const Context = createContext<ContextI>({
   mutate: null,
   signOut: async () => {},
   signInWithLinkedIn: async () => {},
+  signUpWithEmail: async (email: string, password: string) => null,
   signInWithEmail: async (email: string, password: string) => null,
 });
 
@@ -75,6 +77,35 @@ export default function SupabaseAuthProvider({
     });
   };
 
+  // Sign up with Email
+  const signUpWithEmail = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      return error.message;
+    }
+
+    return null;
+  };
+
+  // Example
+  //   const handleSignUp = async () => {
+  //     await supabase.auth.signUp({
+  //       email,
+  //       password,
+  //       options: {
+  //         emailRedirectTo: `${location.origin}/auth/callback`,
+  //       },
+  //     });
+  //     router.refresh();
+  //   };
+
   // Sign-In with Email
   const signInWithEmail = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -110,6 +141,7 @@ export default function SupabaseAuthProvider({
     mutate,
     signOut,
     signInWithLinkedIn,
+    signUpWithEmail,
     signInWithEmail,
   };
 

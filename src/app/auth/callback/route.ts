@@ -1,5 +1,8 @@
+// used to handle email sign up, see supabase docs
+// https://supabase.com/docs/guides/auth/auth-helpers/nextjs
+
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
