@@ -1,21 +1,18 @@
-import { createClient } from '@/lib/supabase/supabase-server';
 import { NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/supabase-server';
 
 // GET - show lists where participant
-export async function GET(request: Request) {
+export async function GET() {
   const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: user } = await supabase.auth.getUser();
   const { data, error } = await supabase
     .from('list_participants')
     .select('list_id, lists(list_name)')
-    .eq('participant_id', user?.id);
+    .eq('participant_id', user?.user?.id);
   if (error) {
     console.log(error);
     return NextResponse.json({ error });
   } else {
-    console.log(data);
     return NextResponse.json({ data });
   }
 }

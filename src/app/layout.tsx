@@ -1,4 +1,4 @@
-import './globals.css';
+// import './globals.css';
 import { Inter } from 'next/font/google';
 import SupabaseProvider from '@/components/providers/supabase-provider';
 import SupabaseAuthProvider from '@/components/providers/supabase-auth-provider';

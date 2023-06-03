@@ -1,12 +1,13 @@
 import Profile from '@/components/profile/profile';
 import Button2 from '@/components/buttons/button2';
-import Button1 from '@/components/buttons/button1';
+import ListDisplay from './list-display';
 export default function Dashboard() {
   return (
     <section>
       <h2>Dashboard</h2>
       <Profile />
-      <Button1 />
+      {/* @ts-expect-error Async Server Component */}
+      <ListDisplay />
       <Button2 />
     </section>
   );
