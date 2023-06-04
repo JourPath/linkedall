@@ -2,7 +2,7 @@
 
 import { Profile } from '@/lib/types/collections.types';
 import { Session } from '@supabase/supabase-js';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect } from 'react';
 import useSWR from 'swr';
 import { useSupabase } from './supabase-provider';

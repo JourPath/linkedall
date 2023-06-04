@@ -26,7 +26,6 @@ export async function POST(request: Request) {
   const { data, error } = await supabase
     .from('lists')
     .insert({ list_name: 'My List', host_id: user?.id });
-  console.log('here');
   if (error) {
     console.log(error);
     return NextResponse.json({ error });
@@ -40,3 +39,18 @@ export async function POST(request: Request) {
 // DELETE - leave list
 
 // DELETE - remove hosted list
+
+export async function PATCH(request: Request) {
+  const supabase = createClient();
+  const thisThing = await request;
+  console.log(thisThing);
+  const { list_id } = await request.json();
+  console.log(request.json(), '<<<');
+  const { error } = await supabase.from('lists').delete().eq('id', list_id);
+  if (error) {
+    console.log(error);
+    return NextResponse.json({ error });
+  } else {
+    return NextResponse.json({ response: `List ${list_id} deleted` });
+  }
+}

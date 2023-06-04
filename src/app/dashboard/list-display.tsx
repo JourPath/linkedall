@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/supabase-server';
+import ListButton from './list-button';
 
 const getLists = async () => {
   const supabase = createClient();
@@ -19,7 +20,7 @@ const ListDisplay = async () => {
   return (
     <section>
       {lists?.map((list) => {
-        return <p key={list.list_id}>List:{list.lists.list_name}</p>;
+        return <ListButton key={list.list_id} list={list} />;
       })}
     </section>
   );
