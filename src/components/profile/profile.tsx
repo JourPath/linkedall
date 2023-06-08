@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '../providers/supabase-auth-provider';
+import { useAuth } from '../../utils/providers/supabase-auth-provider';
 
 export default function Profile() {
   const { user, signOut } = useAuth();

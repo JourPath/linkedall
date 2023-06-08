@@ -1,6 +1,6 @@
 'use client';
 
-import { List_Id } from '@/lib/types/collections.types';
+import { List_Id } from '@/utils/types/collections.types';
 import Link from 'next/link';
 
 const deleteList = async (list_id: List_Id) => {

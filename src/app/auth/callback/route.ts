@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
-import type { Database } from '@/lib/types/database.types';
+import type { Database } from '@/utils/types/database.types';
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);

@@ -1,6 +1,6 @@
 export default function NavBar() {
   return (
-    <nav className="flex items-center justify-between h-32 px-2 bg-[--white]">
+    <nav className="flex items-center justify-between h-28 px-2 bg-[--white]">
       <img className="w-1/2" src="./LinkedAll_1000x200px.svg" />
       <div className="bg-[--light-blue-1] rounded-full p-3">
         <svg
