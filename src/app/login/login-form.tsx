@@ -33,7 +33,7 @@ const LoginForm = () => {
 
   return (
     <div>
-      <p>Login Form</p>
+      <p className="font-bold">Login Form</p>
       <button onClick={signInWithLinkedIn}>Sign In With LinkedIn</button>
       <form onSubmit={handleSubmit}>
         <label>Email</label>

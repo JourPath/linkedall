@@ -1,8 +1,9 @@
 'use client';
 
+import { List_Id } from '@/lib/types/collections.types';
 import Link from 'next/link';
 
-const deleteList = async (list_id) => {
+const deleteList = async (list_id: List_Id) => {
   console.log(list_id);
   const response = await fetch('http://localhost:3000/api/lists', {
     method: 'PATCH',
@@ -17,7 +18,7 @@ const deleteList = async (list_id) => {
 const ListButton = ({ list }) => {
   return (
     <>
-      <Link href={`/lists/${list.list_id}}`}>{list.lists.list_name}</Link>;
+      <Link href={`/lists/${list.list_id}`}>{list.lists.list_name}</Link>;
       <button onClick={() => deleteList(list.list_id)}>X</button>
     </>
   );
