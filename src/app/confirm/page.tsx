@@ -1,8 +1,13 @@
+import NavBar from '@/components/nav/navBar';
+
 export default function Confirm() {
   return (
-    <section>
-      <h2>Confirm your email</h2>
-      <p>An email has been sent to you asking to confirm your email</p>
+    <section className="bg-[--light-blue-1] h-screen">
+      <NavBar />
+      <h2 className="font-bold text-5xl text-left p-4">Confirm your email</h2>
+      <p className="text-xl text-left p-4">
+        Please check your inbox for an email to confirm your email address
+      </p>
     </section>
   );
 }

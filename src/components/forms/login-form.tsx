@@ -1,7 +1,6 @@
 'use client';
 
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -19,43 +18,47 @@ const LoginForm = () => {
       const error = await signInWithEmail(email, password);
       if (error) {
         setError(error);
+        setPassword('');
       }
     } catch (error) {
       console.log('Something went wrong!');
     }
   };
 
-  // Check if there is a user
-  useEffect(() => {
-    if (user) {
-      router.push('/dashboard');
-    }
-  }, [user]);
-
   return (
-    <div className="rounded-xl bg-[--light-blue-1]">
+    <div className="text-center rounded-xl bg-[--light-blue-1]">
       <img src="./LinkedAll_blue_logo.svg" className="w-16 inline py-4" />
-      <h3 className="font-bold text-2xl pb-4 ">Get Started</h3>
+      <h3 className="font-bold text-2xl pb-4 ">Log In</h3>
       <button
-        className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 "
+        className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4"
         onClick={signInWithLinkedIn}
       >
         <img src="./In-Blue-48.png" className="w-7 inline pr-2" />
-        Sign Up With LinkedIn
+        Log In With LinkedIn
       </button>
-      <p>or</p>
-      <form onSubmit={handleSubmit} className="">
-        <label className="font-medium">Email Address</label>
+      <div className="flex flex-row items-center">
+        <div className="flex-1 h-1 bg-[--light-blue-2] ml-4" />
+        <div>
+          <p className="flex-1 align-self-center px-4">or</p>
+        </div>
+        <div className="flex-1 h-1 bg-[--light-blue-2] mr-4" />
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col justify-center items-center my-4
+        "
+        id="loginForm"
+      >
+        <label className="self-start px-4 font-medium">Email Address</label>
         <input
           className="rounded-full py-4 px-4 w-11/12"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
           type="email"
           placeholder="Enter your email "
         />
-        <label className="font-medium">Password</label>
+        <label className="self-start px-4 pt-2  font-medium">Password</label>
         <input
           className="rounded-full py-4 px-4 w-11/12"
           value={password}
@@ -68,10 +71,10 @@ const LoginForm = () => {
         />
         {error && <div>{error}</div>}
         <button
-          className="bg-[--blue-2] rounded-full text-[--white] my-4 py-4 w-11/12 "
+          className="bg-[--blue-2] rounded-full text-[--white] my-4 py-4 w-11/12"
           type="submit"
         >
-          Sign Up
+          Log In
         </button>
         <p className="text-[--light-blue-3] text-xs">
           By clicking "Sign Up" I agree to LinkedAll's Terms and Privacy Policy.

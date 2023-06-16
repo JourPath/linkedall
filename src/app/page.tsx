@@ -1,10 +1,11 @@
-import NavBar from '@/components/nav/navbar';
+import NavBar from '@/components/nav/navBar';
 import Link from 'next/link';
-import SignUpForm from '../components/forms/sign-up-form';
+import GetStarted from '@/components/sections/getStarted';
+import Footer from '@/components/sections/footer';
 
 export default async function Home() {
   return (
-    <main className="flex flex-col items-center bg-[--white] text-[--dark-blue-3]">
+    <main className="flex flex-col items-center text-center bg-[--white] text-[--dark-blue-3]">
       <NavBar />
       <section id="hero" className="my-8 px-4">
         <h1 className="font-bold text-6xl my-4 text-left">
@@ -25,14 +26,8 @@ export default async function Home() {
       {/* Section explaining with link to page on how it works in detail */}
       {/* Static sections showing features */}
       {/* Testimonials */}
-      <section id="get-started" className="my-8 px-4">
-        <h2 className="font-bold text-5xl text-left">Create a list now</h2>
-        <p className="my-5 text-left">
-          Sign up with LinkedIn to get started right away
-        </p>
-        <SignUpForm />
-      </section>
-      {/* Footer */}
+      <GetStarted />
+      <Footer />
     </main>
   );
 }

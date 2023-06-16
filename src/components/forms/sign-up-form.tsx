@@ -8,45 +8,49 @@ const SignUpForm = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const { signInWithEmail, signInWithLinkedIn, user } = useAuth();
+  const { signUpWithEmail, signInWithLinkedIn } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     try {
-      const error = await signInWithEmail(email, password);
+      const error = await signUpWithEmail(email, password);
       if (error) {
         setError(error);
+      } else {
+        router.push('/confirm');
       }
     } catch (error) {
       console.log('Something went wrong!');
     }
+    setEmail('');
+    setPassword('');
   };
-
-  // Check if there is a user
-  useEffect(() => {
-    if (user) {
-      router.push('/dashboard');
-    }
-  }, [user]);
 
   return (
     <div className="text-center rounded-xl bg-[--light-blue-1]">
       <img src="./LinkedAll_blue_logo.svg" className="w-16 inline py-4" />
       <h3 className="font-bold text-2xl pb-4 ">Get Started</h3>
       <button
-        className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 "
+        className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4 "
         onClick={signInWithLinkedIn}
       >
         <img src="./In-Blue-48.png" className="w-7 inline pr-2" />
         Sign Up With LinkedIn
       </button>
-      <p>or</p>
+      <div className="flex flex-row items-center">
+        <div className="flex-1 h-1 bg-[--light-blue-2] ml-4" />
+        <div>
+          <p className="flex-1 align-self-center px-4">or</p>
+        </div>
+        <div className="flex-1 h-1 bg-[--light-blue-2] mr-4" />
+      </div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center
+        className="flex flex-col justify-center items-center my-4
         "
+        id="signUpForm"
       >
         <label className="self-start px-4 font-medium">Email Address</label>
         <input
@@ -54,7 +58,6 @@ const SignUpForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
           type="email"
           placeholder="Enter your email "
         />

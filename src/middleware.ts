@@ -21,6 +21,20 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // used to block login if logged in
+  if (session && pathname === '/login') {
+    const url = new URL(req.url);
+    url.pathname = '/dashboard';
+    return NextResponse.redirect(url);
+  }
+
+  // used to block confirm if logged in
+  if (session && pathname === '/confirm') {
+    const url = new URL(req.url);
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
+  }
+
   return res;
 }
 

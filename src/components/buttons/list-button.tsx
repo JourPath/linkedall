@@ -18,7 +18,7 @@ const deleteList = async (list_id: List_Id) => {
 const ListButton = ({ list }) => {
   return (
     <>
-      <Link href={`/lists/${list.list_id}`}>{list.lists.list_name}</Link>;
+      <Link href={`/lists/${list.id}`}>{list.list_name}</Link>
       <button onClick={() => deleteList(list.list_id)}>X</button>
     </>
   );

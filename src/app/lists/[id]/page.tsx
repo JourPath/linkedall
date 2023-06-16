@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/supabase-server';
 
 export default async function ListPage({ params }: { params: { id: string } }) {
-  const supabase = createClient();
+  const supabase = createClient(req: NextRequest);
   console.log(params.id);
   const { data, error } = await supabase
     .from('list_participants')

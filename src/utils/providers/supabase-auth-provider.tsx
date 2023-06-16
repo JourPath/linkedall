@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect } from 'react';
 import useSWR from 'swr';
 import { useSupabase } from './supabase-provider';
+import { revalidatePath } from 'next/cache';
 
 interface ContextI {
   user: Profile | null | undefined;
@@ -72,9 +73,10 @@ export default function SupabaseAuthProvider({
     await supabase.auth.signInWithOAuth({
       provider: 'linkedin',
       options: {
-        redirectTo: 'http://localhost:3000/dashboard',
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
+    router.refresh();
   };
 
   // Sign up with Email
