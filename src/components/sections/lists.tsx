@@ -27,7 +27,6 @@ const getLists = async () => {
 
 export default async function Lists() {
   const lists = await getLists();
-  console.log(lists);
   return (
     <div className="bg-[--light-blue-2]">
       <h3 className="font-bold text-2xl">Lists</h3>

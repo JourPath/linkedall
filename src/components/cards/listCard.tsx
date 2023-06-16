@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function ListCard({ list }) {
   return (
     <div className="bg-[--light-blue-1] rounded-full m-2 flex flex-row justify-between h-16 items-center px-4">
@@ -9,13 +11,17 @@ export default function ListCard({ list }) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           ></path>
         </svg>
       </div>
-      <p>{list.lists.list_name}</p>
+
+      <Link href={`/lists/${list.list_id}`}>
+        {list.list_name}
+        <button>{list.lists.list_name}</button>
+      </Link>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

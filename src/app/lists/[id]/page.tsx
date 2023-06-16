@@ -1,24 +1,25 @@
+import PersonCard from '@/components/buttons/personcard';
+import NavBar from '@/components/nav/navBar';
 import { createClient } from '@/lib/supabase/supabase-server';
+import Link from 'next/link';
 
 export default async function ListPage({ params }: { params: { id: string } }) {
-  const supabase = createClient(req: NextRequest);
-  console.log(params.id);
+  const supabase = createClient();
   const { data, error } = await supabase
     .from('list_participants')
-    .select('profiles(full_name)')
+    .select('*, profiles(full_name)')
     .eq('list_id', params.id);
 
   if (error) {
     console.log(error, '<<< error');
   }
-  console.log(data);
-
   const listName = params.id;
   return (
     <>
-      <div>Page for {listName}</div>;
+      <NavBar />
+      <div>Page for {listName}</div>
       {data?.map((person) => {
-        return <p>{person.profiles.full_name}</p>;
+        return <PersonCard person={person} />;
       })}
     </>
   );

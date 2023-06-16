@@ -15,7 +15,7 @@ export default function CreateListForm() {
     setError(null);
     try {
       const response = await fetch('http://localhost:3000/api/lists', {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify({ user, listName }),
       });
       const data = await response.json();
