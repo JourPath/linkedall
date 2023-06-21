@@ -1,26 +1,29 @@
 'use client';
 
-import { headers } from 'next/headers';
 import { useState } from 'react';
 
 export default function JoinList() {
   const [shortId, setShortId] = useState('');
 
-  const joinList = async () => {
+  async function joinList() {
     const response = await fetch('http://localhost:3000/api/join', {
-      method: 'GET',
+      method: 'PUT',
       body: JSON.stringify({ shortId }),
     });
     const data = await response.json();
     return data;
-  };
+  }
 
   return (
     <>
       <div className="bg-[--light-blue-2] border-2 border-[--dark-blue-3] flex flex-row items-center justify-between rounded px-2 mx-2 mb-2">
         <input
           value={shortId}
-          onChange={(e) => setShortId(e.target.value)}
+          type="text"
+          onChange={(e) => {
+            console.log(e.target.value);
+            return setShortId(e.target.value);
+          }}
         ></input>
         <button
           onClick={joinList}
