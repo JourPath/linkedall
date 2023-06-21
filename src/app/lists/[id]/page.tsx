@@ -14,6 +14,8 @@ export default async function ListPage({ params }: { params: { id: string } }) {
     console.log(error, '<<< error');
   }
   const listName = params.id;
+  console.log(params);
+  const listShortId = params.short_id;
   return (
     <>
       <NavBar />

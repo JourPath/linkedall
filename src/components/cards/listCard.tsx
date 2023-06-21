@@ -18,8 +18,7 @@ export default function ListCard({ list }) {
         </svg>
       </div>
 
-      <Link href={`/lists/${list.list_id}`}>
-        {list.list_name}
+      <Link href={`/lists/${list.lists.short_id}`}>
         <button>{list.lists.list_name}</button>
       </Link>
       <svg
