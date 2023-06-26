@@ -16,18 +16,21 @@ export default function JoinList() {
 
   return (
     <>
-      <div className="bg-[--light-blue-2] border-2 border-[--dark-blue-3] flex flex-row items-center justify-between rounded px-2 mx-2 mb-2">
+      <div className="bg-[--white]  flex flex-row items-center justify-between rounded-full mx-2 mb-2 my-4">
         <input
+          className="h-12 w-3/4 rounded-l-full bg-[--white] text-2xl p-2"
           value={shortId}
           type="text"
+          placeholder="Enter code here"
+          minLength={6}
+          maxLength={10}
           onChange={(e) => {
-            console.log(e.target.value);
-            return setShortId(e.target.value);
+            return setShortId(e.target.value.toUpperCase());
           }}
         ></input>
         <button
           onClick={joinList}
-          className="bg-[--blue-2] rounded-full text-[--white] p-2 m-2"
+          className="bg-[--blue-2] rounded-r-full text-[--white] h-12 w-1/4"
         >
           Join List
         </button>

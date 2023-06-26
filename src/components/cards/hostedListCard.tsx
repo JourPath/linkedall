@@ -1,11 +1,12 @@
 'use client';
+
 import { Menu } from '@headlessui/react';
 import Link from 'next/link';
 
-export default function ListCard({ list }) {
-  const leaveList = async (list_id: List_Id) => {
+export default function HostedListCard({ list }) {
+  const deleteList = async (list_id: List_Id) => {
     console.log(list_id);
-    const response = await fetch('http://localhost:3000/api/participants', {
+    const response = await fetch('http://localhost:3000/api/lists', {
       method: 'PATCH',
       body: JSON.stringify({ list_id }),
     });
@@ -30,12 +31,13 @@ export default function ListCard({ list }) {
           />
         </svg>
       </div>
+
       <Link
-        href={`/lists/${list.lists.short_id}`}
+        href={`/lists/${list.short_id} `}
         className="w-full h-12 justify-center flex"
       >
         <button className="text-lg font-medium text-[--dark-blue-3]">
-          {list.lists.list_name}
+          {list.list_name}
         </button>
       </Link>
       <Menu as="div" className="">
@@ -65,14 +67,29 @@ export default function ListCard({ list }) {
                 className={`${
                   active ? 'bg-violet-500 text-white' : 'text-gray-900'
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm m-2`}
-                onClick={() => leaveList(list.list_id)}
+                onClick={() => deleteList(list.id)}
               >
-                Leave List
+                Delete List
               </button>
             )}
           </Menu.Item>
         </Menu.Items>
       </Menu>
+
+      {/* <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+        />
+      </svg> */}
     </div>
   );
 }

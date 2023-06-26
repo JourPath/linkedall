@@ -45,8 +45,7 @@ export default function PersonCard({ person }) {
   };
 
   return (
-    <div id={person.participant_id}>
-      <p>{person.participant_id}</p>
+    <div>
       <div className="bg-[--light-blue-1] rounded-full m-2 flex flex-row justify-between h-16 items-center px-4">
         <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
           <svg
