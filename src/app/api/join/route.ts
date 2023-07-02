@@ -6,7 +6,7 @@ export async function PUT(req: NextRequest) {
   const { shortId } = await req.json();
   const supabase = createRouteHandlerClient({ cookies });
   const { data: user } = await supabase.auth.getUser();
-  const { data: id, error } = await supabase.rpc('get_list_id_from_short_id', {
+  const { data: id, error } = await supabase.rpc('get_list_from_short_id', {
     shortid: shortId,
   });
 
