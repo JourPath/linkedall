@@ -1,9 +1,12 @@
 'use client';
 
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function JoinList() {
   const [shortId, setShortId] = useState('');
+  const { user } = useAuth();
 
   async function joinList() {
     const response = await fetch('http://localhost:3000/api/join', {
@@ -14,8 +17,16 @@ export default function JoinList() {
     return data;
   }
 
-  return (
-    <>
+  if (!user?.linked_in) {
+    return (
+      <Link href="/profile">
+        <p className="bg-amber-300 py-4 text-center w-full">
+          Set LinkedIn URL to join lists
+        </p>
+      </Link>
+    );
+  } else {
+    return (
       <div className="bg-[--white]  flex flex-row items-center justify-between rounded-full mx-2 mb-2 my-4">
         <input
           className="h-12 w-3/4 rounded-l-full bg-[--white] text-2xl p-2"
@@ -35,6 +46,6 @@ export default function JoinList() {
           Join List
         </button>
       </div>
-    </>
-  );
+    );
+  }
 }

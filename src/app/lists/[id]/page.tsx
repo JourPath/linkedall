@@ -1,3 +1,4 @@
+import ClipboardCopy from '@/components/buttons/clipboardCopy';
 import PersonCard from '@/components/cards/personcard';
 import NavBar from '@/components/nav/navBar';
 import ListParticipants from '@/components/sections/listParticipants';
@@ -24,8 +25,6 @@ export default async function ListPage({ params }: { params: { id: string } }) {
     profile_id_param: user.id,
   });
 
-  console.log(data);
-
   return (
     <>
       <NavBar />
@@ -33,9 +32,8 @@ export default async function ListPage({ params }: { params: { id: string } }) {
         <h1 className="text-bold text-2xl text-[--dark-blue-3] text-center underline decoration-[--blue-2] decoration-2 underline-offset-4 mb-2   ">
           {list_name}
         </h1>
-        <p className="h-12 w-1/2 flex  items-center justify-center text-[--blue-2] border-2 border-[--blue-2] rounded-lg">
-          List code: {params.id}
-        </p>
+
+        <ClipboardCopy copyText={params.id} />
       </div>
       {/* <p className="text-end m-2">People to add: {count - 1}</p> */}
       <ListParticipants data={data} />

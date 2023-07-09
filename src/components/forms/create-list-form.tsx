@@ -19,7 +19,6 @@ export default function CreateListForm() {
         body: JSON.stringify({ user, listName }),
       });
       const data = await response.json();
-      console.log(data);
       router.push('/dashboard');
     } catch (error) {
       console.log('Something went wrong!');

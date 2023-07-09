@@ -43,7 +43,6 @@ export async function PUT(request: Request) {
 export async function PATCH(request: Request) {
   const supabase = createRouteHandlerClient({ cookies });
   const { list_id } = await request.json();
-  console.log(request.json(), '<<<');
   const { error } = await supabase.from('lists').delete().eq('id', list_id);
   if (error) {
     console.log(error);

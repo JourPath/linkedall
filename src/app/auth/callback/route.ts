@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
-import type { Database } from '@/utils/types/database.types';
+import type { Database } from '@/utils/types/supabase';
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
@@ -18,5 +18,5 @@ export async function GET(request: NextRequest) {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect('http:localhost:3000/dashboard');
+  return NextResponse.redirect('http:localhost:3000/profile');
 }

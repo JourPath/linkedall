@@ -55,6 +55,21 @@ export default function SupabaseAuthProvider({
     }
   };
 
+  // update user profile
+  // const updateUserProfile = async () => {
+  //   const { data: user, error } = await supabase
+  //     .from('profiles')
+  //     .select('*')
+  //     .eq('id', serverSession?.user?.id)
+  //     .single();
+  //   if (error) {
+  //     console.log(error);
+  //     return null;
+  //   } else {
+  //     return user;
+  //   }
+  // };
+
   const {
     data: user,
     error,

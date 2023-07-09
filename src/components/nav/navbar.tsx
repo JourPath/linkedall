@@ -25,6 +25,7 @@ export default function NavBar() {
     navigation = [
       { name: 'Home', href: '/' },
       { name: 'Dashboard', href: '/dashboard' },
+      { name: 'Profile', href: '/profile' },
     ];
   }
 
@@ -70,7 +71,11 @@ export default function NavBar() {
               {/* Button on Right */}
               <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                 {user ? (
-                  <ProfileButton open={open} user={user} />
+                  <ProfileButton
+                    open={open}
+                    user={user}
+                    avatarUrl={user?.avatar_url}
+                  />
                 ) : (
                   <NavButton open={open} />
                 )}

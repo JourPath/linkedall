@@ -1,6 +1,6 @@
 import { Disclosure } from '@headlessui/react';
 
-export default function ProfileButton({ open, user }) {
+export default function ProfileButton({ open, user, avatarUrl }) {
   return (
     <Disclosure.Button className="inline-flex items-center justify-center rounded-full bg-[--light-blue-1] ui-open:bg-[--blue-2] ui-open:p-3 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[--blue-2]">
       {open ? (
@@ -19,8 +19,8 @@ export default function ProfileButton({ open, user }) {
             d="M6 18L18 6M6 6l12 12"
           />
         </svg>
-      ) : user.avatar_url ? (
-        <img className="w-12 h-12 rounded-full" src={user.avatar_url} />
+      ) : avatarUrl ? (
+        <img className="w-12 h-12 rounded-full" src={avatarUrl} />
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"

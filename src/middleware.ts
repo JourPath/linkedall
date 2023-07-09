@@ -2,7 +2,7 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
-import type { Database } from '@/utils/types/database.types';
+import type { Database } from '@/utils/types/supabase';
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -13,6 +13,8 @@ export async function middleware(req: NextRequest) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
+  const { data } = await supabase.auth.getUser();
 
   // used to block dashboard for those not logged in
   if (!session && pathname === '/dashboard') {
@@ -30,6 +32,13 @@ export async function middleware(req: NextRequest) {
 
   // used to block confirm if logged in
   if (session && pathname === '/confirm') {
+    const url = new URL(req.url);
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
+  }
+
+  // used to block confirm if logged in
+  if (!session && pathname === '/profile') {
     const url = new URL(req.url);
     url.pathname = '/login';
     return NextResponse.redirect(url);

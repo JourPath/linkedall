@@ -9,7 +9,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const { signInWithEmail, signInWithLinkedIn, user } = useAuth();
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

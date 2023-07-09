@@ -10,7 +10,6 @@ export default function PersonCard({ person, setlp, lp }) {
   const { user } = useAuth();
   const supabase = createClient();
   const list_id = person.list_id;
-  console.log(list_id, '<<< list_id');
   // useEffect(() => {
   //   getConnection(person, list_id).then((response) => {
   //     console.log(response);
@@ -19,7 +18,6 @@ export default function PersonCard({ person, setlp, lp }) {
   // }, []);+
 
   const getConnection = async (person, list_id) => {
-    console.log(person, list_id);
     const { data, error } = await supabase
       .from('connections')
       .select('*')
@@ -29,7 +27,6 @@ export default function PersonCard({ person, setlp, lp }) {
     if (error) {
       console.log(error);
     } else {
-      console.log(data);
       return data;
     }
   };
@@ -66,7 +63,6 @@ export default function PersonCard({ person, setlp, lp }) {
       body: JSON.stringify({ connection_id, list_id }),
     });
     const data = await connections.json();
-    console.log(data);
   };
 
   const removedConnection = async (connection_id, list_id) => {
@@ -75,24 +71,26 @@ export default function PersonCard({ person, setlp, lp }) {
       method: 'PUT',
       body: JSON.stringify({ connection_id, list_id }),
     });
-    console.log(connections);
     const data = await connections.json();
-    console.log(data);
   };
 
-  // if (person.participant_id === user?.id) {
-  //   return;
-  // } else {
   return (
     <div>
       <div
-        className={`bg-[--light-blue-1] rounded-full m-2 flex flex-row justify-between h-16 items-center px-4 border-2 ${
-          checked ? 'border-[--grey]' : 'border-[--light-blue-3]'
+        className={` rounded-full m-2 flex flex-row justify-between h-16 items-center px-4 border-2 ${
+          checked
+            ? 'border-[--grey] bg-[--light-blue-1]'
+            : 'border-[--light-blue-3] bg-[--light-blue-2]'
         }`}
       >
-        <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+        <div
+          className={`relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}
+        >
           {person.avatar_url ? (
-            <img className=" rounded-full" src={person.avatar_url} />
+            <img
+              className={` ${checked ? 'grayscale' : ''} rounded-full`}
+              src={person.avatar_url}
+            />
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +107,10 @@ export default function PersonCard({ person, setlp, lp }) {
           )}
         </div>
         <p>{person.full_name}</p>
-        <Link href={`https://linkedin.com/in/martinswdev`} target="blank">
+        <Link
+          href={`https://linkedin.com/in/${person.linked_in}`}
+          target="blank"
+        >
           <button onClick={() => handleClick(person.participant_id, list_id)}>
             Connect
           </button>

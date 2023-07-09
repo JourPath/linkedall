@@ -6,7 +6,6 @@ export default function Button1() {
       method: 'GET',
     });
     const data = await response.json();
-    console.log(data);
     return data;
   }
 
