@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 const getLists = async () => {
   const response = await fetch('https://www.linkedall.online/api/lists', {
     method: 'GET',
-    headers: headers(),
+    // headers: headers(),
   });
   const data = await response.json();
   return data;
