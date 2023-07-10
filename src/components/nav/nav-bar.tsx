@@ -65,6 +65,16 @@ export default function NavBar() {
                         {item.name}
                       </a>
                     ))}
+                    {user ? (
+                      <a
+                        onClick={signOut}
+                        className="text-[--dark-blue-3] hover:bg-[--blue-2] hover:text-[--white] block rounded-md px-3 py-2 text-base font-medium"
+                      >
+                        Sign Out
+                      </a>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </div>
               </div>
