@@ -1,10 +1,11 @@
 'use client';
 
+import { List } from '@/utils/types/collections.types';
 import { Menu } from '@headlessui/react';
 import Link from 'next/link';
 
-export default function HostedListCard({ list }) {
-  const deleteList = async (list_id: List_Id) => {
+export default function HostedListCard({ list }: { list: List }) {
+  const deleteList = async (list_id: List['id']) => {
     const response = await fetch('http://localhost:3000/api/lists', {
       method: 'PATCH',
       body: JSON.stringify({ list_id }),

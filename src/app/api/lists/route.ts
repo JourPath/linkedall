@@ -4,7 +4,7 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { createClient } from '@/lib/supabase/supabase-server';
 
 // GET - show lists where participant
-export async function GET(req: NextRequest) {
+export async function GET() {
   const supabase = createRouteHandlerClient({ cookies });
   const { data: user } = await supabase.auth.getUser();
   const { data, error } = await supabase
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST - create new list
+// PUT - create new list
 export async function PUT(request: Request) {
   const supabase = createRouteHandlerClient({ cookies });
   const { user, listName } = await request.json();
@@ -33,12 +33,6 @@ export async function PUT(request: Request) {
     return NextResponse.json({ data });
   }
 }
-
-// INSERT - join existing list
-
-// DELETE - leave list
-
-// DELETE - remove hosted list
 
 export async function PATCH(request: Request) {
   const supabase = createRouteHandlerClient({ cookies });

@@ -1,6 +1,6 @@
 import { Disclosure } from '@headlessui/react';
 
-export default function NavButton({ open }) {
+export default function NavButton({ open }: { open: Boolean }) {
   return (
     <Disclosure.Button className="inline-flex items-center justify-center rounded-full bg-[--light-blue-1] ui-open:bg-[--blue-2] p-3 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[--blue-2]">
       {open ? (

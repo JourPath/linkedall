@@ -1,7 +1,6 @@
 import { createClient } from '@/lib/supabase/supabase-server';
 import ListCard from '../cards/listCard';
 import { headers } from 'next/headers';
-import Link from 'next/link';
 
 const getLists = async () => {
   const response = await fetch('http://localhost:3000/api/lists', {
@@ -12,19 +11,13 @@ const getLists = async () => {
   return data;
 };
 
-// const getLists = async () => {
-//   const supabase = createClient();
-//   const { data: user } = await supabase.auth.getUser();
-//   const { data, error } = await supabase
-//     .from('list_participants')
-//     .select('list_id, lists(list_name)')
-//     .eq('participant_id', user.user?.id);
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     return data;
-//   }
-// };
+type ListResponse = {
+  list_id: string;
+  lists: {
+    list_name: string;
+    short_id: string;
+  };
+} | null;
 
 export default async function Lists() {
   const lists = await getLists();
@@ -36,8 +29,8 @@ export default async function Lists() {
         </h3>
       </div>
       <div className="flex flex-col bg-[--white] px-2 mx-2 mb-4 rounded-b-lg">
-        {lists.data?.map((list) => {
-          return <ListCard key={list.list_id} list={list} />;
+        {lists.data?.map((list: ListResponse) => {
+          return <ListCard key={list?.list_id} list={list} />;
         })}
       </div>
     </>

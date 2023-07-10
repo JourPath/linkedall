@@ -169,6 +169,7 @@ export interface Database {
           participant_id: string
           full_name: string
           avatar_url: string
+          linked_in: string
           created_at: string
           connection: boolean
         }[]

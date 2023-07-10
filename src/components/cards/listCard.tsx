@@ -1,9 +1,16 @@
 'use client';
 import { Menu } from '@headlessui/react';
 import Link from 'next/link';
+type IncomingList = {
+  list_id: string;
+  lists: {
+    list_name: string;
+    short_id: string;
+  };
+} | null;
 
-export default function ListCard({ list }) {
-  const leaveList = async (list_id: List_Id) => {
+export default function ListCard({ list }: { list: IncomingList }) {
+  const leaveList = async (list_id: string) => {
     const response = await fetch('http://localhost:3000/api/participants', {
       method: 'PATCH',
       body: JSON.stringify({ list_id }),
@@ -28,11 +35,11 @@ export default function ListCard({ list }) {
         </svg>
       </div>
       <Link
-        href={`/lists/${list.lists.short_id}`}
+        href={`/lists/${list?.lists.short_id}`}
         className="w-full h-12 justify-center flex"
       >
         <button className="text-lg font-medium text-[--dark-blue-3]">
-          {list.lists.list_name}
+          {list?.lists.list_name}
         </button>
       </Link>
       <Menu as="div" className="">
@@ -62,7 +69,7 @@ export default function ListCard({ list }) {
                 className={`${
                   active ? 'bg-violet-500 text-white' : 'text-gray-900'
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm m-2`}
-                onClick={() => leaveList(list.list_id)}
+                onClick={() => leaveList(list?.list_id!)}
               >
                 Leave List
               </button>

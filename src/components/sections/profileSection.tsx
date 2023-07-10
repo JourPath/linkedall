@@ -16,7 +16,7 @@ export default function ProfileSection() {
 
   useEffect(() => {
     if (user) {
-      setFullName(user?.full_name);
+      setFullName(user.full_name || '');
       if (user.linked_in) {
         setLinkedIn(user?.linked_in);
       }
@@ -26,7 +26,7 @@ export default function ProfileSection() {
     }
   }, [user]);
 
-  const handleClick = async (url) => {
+  const handleClick = async (url: string) => {
     await supabase
       .from('profiles')
       .update({ full_name: fullName, linked_in: linkedIn, avatar_url: url })
@@ -49,7 +49,10 @@ export default function ProfileSection() {
           <label htmlFor="linked_in" className="text-xs mx-4">
             Profile Picture
           </label>
-          <AvatarButton url={avatar} onUpload={(url) => setAvatar(url)} />
+          <AvatarButton
+            url={avatar}
+            onUpload={(url: string) => setAvatar(url)}
+          />
         </div>
       </div>
       {!fullName ? (

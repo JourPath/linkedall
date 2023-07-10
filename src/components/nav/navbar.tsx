@@ -8,7 +8,7 @@ import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import ProfileButton from '../buttons/profileButton';
 import Link from 'next/link';
 
-function classNames(...classes) {
+function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -71,11 +71,7 @@ export default function NavBar() {
               {/* Button on Right */}
               <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                 {user ? (
-                  <ProfileButton
-                    open={open}
-                    user={user}
-                    avatarUrl={user?.avatar_url}
-                  />
+                  <ProfileButton open={open} avatarUrl={user.avatar_url} />
                 ) : (
                   <NavButton open={open} />
                 )}

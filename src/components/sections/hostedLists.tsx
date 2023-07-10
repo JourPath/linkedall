@@ -1,7 +1,4 @@
 import { createClient } from '@/lib/supabase/supabase-server';
-import ListButton from '@/components/buttons/list-button';
-import Link from 'next/link';
-import ListCard from '../cards/listCard';
 import HostedListCard from '../cards/hostedListCard';
 import HostedListButton from '../buttons/hostedListButton';
 

@@ -1,35 +1,21 @@
 'use client';
 
 import { createClient } from '@/lib/supabase/supabase-browser';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-export default function AvatarButton({ url, onUpload }) {
-  const [avatarUrl, setAvatarUrl] = useState(null);
+export default function AvatarButton({
+  url,
+  onUpload,
+}: {
+  url: string;
+  onUpload: Function;
+}) {
   const [uploading, setUploading] = useState(false);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const supabase = createClient();
 
-  // useEffect(() => {
-  //   if (url) downloadImage(url);
-  // }, [url]);
-
-  // async function downloadImage(path) {
-  //   try {
-  //     const { data, error } = await supabase.storage
-  //       .from('avatars')
-  //       .download(path);
-  //     if (error) {
-  //       throw error;
-  //     }
-  //     const url = URL.createObjectURL(data);
-  //     setAvatarUrl(url);
-  //   } catch (error) {
-  //     console.log('Error downloading image: ', error.message);
-  //   }
-  // }
-
-  async function uploadAvatar(event) {
+  async function uploadAvatar(event: React.ChangeEvent<HTMLInputElement>) {
     try {
       setUploading(true);
 
@@ -54,14 +40,18 @@ export default function AvatarButton({ url, onUpload }) {
       } = supabase.storage.from('avatars').getPublicUrl(filePath);
       onUpload(publicUrl);
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        throw error;
+      }
     } finally {
       setUploading(false);
     }
   }
 
   const handleClick = () => {
-    inputRef?.current?.click();
+    inputRef.current?.click();
   };
 
   return (

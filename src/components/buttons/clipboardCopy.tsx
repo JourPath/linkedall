@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
 
-export default function ClipboardCopy({ copyText }) {
+export default function ClipboardCopy({ copyText }: { copyText: string }) {
   const [isCopied, setIsCopied] = useState(false);
 
-  async function copyTextToClipboard(text) {
+  async function copyTextToClipboard(text: string) {
     if ('clipboard' in navigator) {
       return await navigator.clipboard.writeText(text);
     } else {

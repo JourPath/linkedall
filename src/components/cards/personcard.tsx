@@ -3,26 +3,48 @@
 import { createClient } from '@/lib/supabase/supabase-browser';
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-export default function PersonCard({ person, setlp, lp }) {
+type Person = {
+  list_id: string;
+  participant_id: string;
+  full_name: string;
+  avatar_url: string;
+  linked_in: string;
+  created_at: string;
+  connection: boolean;
+};
+
+type LP = {
+  list_id: string;
+  participant_id: string;
+  full_name: string;
+  avatar_url: string;
+  linked_in: string;
+  created_at: string;
+  connection: boolean;
+}[];
+
+export default function PersonCard({
+  person,
+  setlp,
+  lp,
+}: {
+  person: Person;
+  setlp: Function;
+  lp: LP;
+}) {
   const [checked, setChecked] = useState(person.connection);
   const { user } = useAuth();
   const supabase = createClient();
   const list_id = person.list_id;
-  // useEffect(() => {
-  //   getConnection(person, list_id).then((response) => {
-  //     console.log(response);
-  //     response[0] ? setChecked(true) : setChecked(false);
-  //   });
-  // }, []);+
 
-  const getConnection = async (person, list_id) => {
+  const getConnection = async (person: Person, list_id: string) => {
     const { data, error } = await supabase
       .from('connections')
       .select('*')
       .eq('profile_id', user?.id)
-      .eq('list_id', list_id.id)
+      .eq('list_id', list_id)
       .eq('connection_id', person.participant_id);
     if (error) {
       console.log(error);
@@ -31,7 +53,7 @@ export default function PersonCard({ person, setlp, lp }) {
     }
   };
 
-  const handleChange = async (connection_id, list_id) => {
+  const handleChange = async (connection_id: string, list_id: string) => {
     if (connection_id != user?.id) {
       checked
         ? await removedConnection(connection_id, list_id)
@@ -49,14 +71,14 @@ export default function PersonCard({ person, setlp, lp }) {
     }
   };
 
-  const handleClick = async (connection_id, list_id) => {
+  const handleClick = async (connection_id: string, list_id: string) => {
     if (!checked) {
       await addConnection(connection_id, list_id);
       setChecked(true);
     }
   };
 
-  const addConnection = async (connection_id, list_id) => {
+  const addConnection = async (connection_id: string, list_id: string) => {
     setChecked(true);
     const connections = await fetch('http://localhost:3000/api/connections', {
       method: 'POST',
@@ -65,7 +87,7 @@ export default function PersonCard({ person, setlp, lp }) {
     const data = await connections.json();
   };
 
-  const removedConnection = async (connection_id, list_id) => {
+  const removedConnection = async (connection_id: string, list_id: string) => {
     setChecked(false);
     const connections = await fetch('http://localhost:3000/api/connections', {
       method: 'PUT',

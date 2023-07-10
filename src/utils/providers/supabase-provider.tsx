@@ -2,7 +2,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createContext, useContext, useState } from 'react';
-import { Database } from '@/utils/types/supabase';
+import { Database } from '@/utils/types/database.types';
 import { createClient } from '@/lib/supabase/supabase-browser';
 
 type SupabaseContext = {
