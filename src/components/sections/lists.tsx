@@ -1,22 +1,37 @@
+'use client';
+
+import { createClient } from '@/lib/supabase/supabase-browser';
 import ListCard from '../cards/list-card';
-import { headers } from 'next/headers';
+// import { headers } from 'next/headers';
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
 
 const getLists = async () => {
-  const response = await fetch('https://www.linkedall.online/api/lists', {
-    method: 'GET',
-    // headers: headers(),
-  });
-  const data = await response.json();
-  return data;
+  const supabase = createClient();
+  const { user } = useAuth();
+  const { data, error } = await supabase
+    .from('list_participants')
+    .select('list_id, lists(list_name, short_id)')
+    .eq('participant_id', user?.id);
+
+  if (error) {
+    console.log(error);
+  } else {
+    return data;
+  }
+  // const response = await fetch('https://www.linkedall.online/api/lists', {
+  //   method: 'GET',
+  // headers: headers(),
+  // });
+  // const data = await response.json();
 };
 
-type ListResponse = {
+type List = {
   list_id: string;
   lists: {
-    list_name: string;
+    list_name: string | null;
     short_id: string;
-  };
-} | null;
+  } | null;
+};
 
 export default async function Lists() {
   const lists = await getLists();
@@ -28,7 +43,7 @@ export default async function Lists() {
         </h3>
       </div>
       <div className="flex flex-col bg-[--white] px-2 mx-2 mb-4 rounded-b-lg">
-        {lists.data?.map((list: ListResponse) => {
+        {lists?.map((list) => {
           return <ListCard key={list?.list_id} list={list} />;
         })}
       </div>

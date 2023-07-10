@@ -4,10 +4,10 @@ import Link from 'next/link';
 type IncomingList = {
   list_id: string;
   lists: {
-    list_name: string;
+    list_name: string | null;
     short_id: string;
-  };
-} | null;
+  } | null;
+};
 
 export default function ListCard({ list }: { list: IncomingList }) {
   const leaveList = async (list_id: string) => {
@@ -38,11 +38,11 @@ export default function ListCard({ list }: { list: IncomingList }) {
         </svg>
       </div>
       <Link
-        href={`/lists/${list?.lists.short_id}`}
+        href={`/lists/${list?.lists?.short_id}`}
         className="w-full h-12 justify-center flex"
       >
         <button className="text-lg font-medium text-[--dark-blue-3]">
-          {list?.lists.list_name}
+          {list?.lists?.list_name}
         </button>
       </Link>
       <Menu as="div" className="">

@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { createClient } from '@/lib/supabase/supabase-server';
 
 // GET - show lists where participant
 export async function GET() {
