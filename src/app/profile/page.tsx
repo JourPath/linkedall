@@ -1,6 +1,6 @@
-import NavBar from '@/components/nav/navBar';
+import NavBar from '@/components/nav/nav-bar';
 import Footer from '@/components/sections/footer';
-import ProfileSection from '@/components/sections/profileSection';
+import ProfileSection from '@/components/sections/profile-section';
 
 export default async function Profile() {
   return (

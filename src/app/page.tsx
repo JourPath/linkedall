@@ -1,6 +1,6 @@
-import NavBar from '@/components/nav/navBar';
+import NavBar from '@/components/nav/nav-bar';
 import Link from 'next/link';
-import GetStarted from '@/components/sections/getStarted';
+import GetStarted from '@/components/sections/get-started';
 import Footer from '@/components/sections/footer';
 
 export default async function Home() {

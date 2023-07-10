@@ -1,4 +1,4 @@
-import NavBar from '@/components/nav/navBar';
+import NavBar from '@/components/nav/nav-bar';
 import SignUpForm from '../../components/forms/sign-up-form';
 
 export default async function SignUp() {

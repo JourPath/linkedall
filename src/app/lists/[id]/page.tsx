@@ -1,6 +1,6 @@
-import ClipboardCopy from '@/components/buttons/clipboardCopy';
-import NavBar from '@/components/nav/navBar';
-import ListParticipants from '@/components/sections/listParticipants';
+import ClipboardCopy from '@/components/buttons/clipboard-copy';
+import NavBar from '@/components/nav/nav-bar';
+import ListParticipants from '@/components/sections/list-participants';
 import { createClient } from '@/lib/supabase/supabase-server';
 import {
   get_list_from_short_id,

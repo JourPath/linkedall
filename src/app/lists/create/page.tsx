@@ -1,5 +1,5 @@
 import CreateListForm from '@/components/forms/create-list-form';
-import NavBar from '@/components/nav/navBar';
+import NavBar from '@/components/nav/nav-bar';
 
 export default function CreateList() {
   return (

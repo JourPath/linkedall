@@ -3,9 +3,9 @@
 import { Disclosure } from '@headlessui/react';
 
 import { usePathname } from 'next/navigation';
-import NavButton from '../buttons/navButton';
+import NavButton from '../buttons/nav-button';
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import ProfileButton from '../buttons/profileButton';
+import ProfileButton from '../buttons/profile-button';
 import Link from 'next/link';
 
 function classNames(...classes: (string | undefined | null | false)[]): string {

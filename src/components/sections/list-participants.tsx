@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import PersonCard from '../cards/personcard';
+import PersonCard from '../cards/person-card';
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import { get_list_participants } from '@/utils/types/collections.types';
 

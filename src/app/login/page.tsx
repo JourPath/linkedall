@@ -1,5 +1,5 @@
 import LoginForm from '@/components/forms/login-form';
-import NavBar from '@/components/nav/navBar';
+import NavBar from '@/components/nav/nav-bar';
 
 export default async function Login() {
   return (

@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/supabase-server';
-import HostedListCard from '../cards/hostedListCard';
-import HostedListButton from '../buttons/hostedListButton';
+import HostedListCard from '../cards/hosted-list-card';
+import HostedListButton from '../buttons/hosted-list-button';
 
 const getHostedLists = async () => {
   const supabase = createClient();

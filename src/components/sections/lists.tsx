@@ -1,5 +1,4 @@
-import { createClient } from '@/lib/supabase/supabase-server';
-import ListCard from '../cards/listCard';
+import ListCard from '../cards/list-card';
 import { headers } from 'next/headers';
 
 const getLists = async () => {

@@ -2,7 +2,7 @@
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import { useSupabase } from '@/utils/providers/supabase-provider';
 import { useEffect, useState } from 'react';
-import AvatarButton from '../buttons/avatarButton';
+import AvatarButton from '../buttons/avatar-button';
 import { useRouter } from 'next/navigation';
 
 export default function ProfileSection() {
