@@ -5,46 +5,52 @@ import type { NextRequest } from 'next/server';
 import type { Database } from '@/utils/types/database.types';
 
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const pathname = req.nextUrl.pathname;
+  try {
+    const res = NextResponse.next();
+    const pathname = req.nextUrl.pathname;
 
-  const supabase = createMiddlewareClient<Database>({ req, res });
+    const supabase = createMiddlewareClient<Database>({ req, res });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
-  const { data } = await supabase.auth.getUser();
+    const { data } = await supabase.auth.getUser();
 
-  // used to block dashboard for those not logged in
-  if (!session && pathname === '/dashboard') {
-    const url = new URL(req.url);
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
+    // used to block dashboard for those not logged in
+    if (!session && pathname === '/dashboard') {
+      const url = new URL(req.url);
+      url.pathname = '/login';
+      return NextResponse.redirect(url);
+    }
+
+    // used to block login if logged in
+    if (session && pathname === '/login') {
+      const url = new URL(req.url);
+      url.pathname = '/dashboard';
+      return NextResponse.redirect(url);
+    }
+
+    // used to block confirm if logged in
+    if (session && pathname === '/confirm') {
+      const url = new URL(req.url);
+      url.pathname = '/login';
+      return NextResponse.redirect(url);
+    }
+
+    // used to block confirm if logged in
+    if (!session && pathname === '/profile') {
+      const url = new URL(req.url);
+      url.pathname = '/login';
+      return NextResponse.redirect(url);
+    }
+
+    return res;
+  } catch (err) {
+    console.error(err);
+    // handle error or send a response indicating error
+    return NextResponse.error();
   }
-
-  // used to block login if logged in
-  if (session && pathname === '/login') {
-    const url = new URL(req.url);
-    url.pathname = '/dashboard';
-    return NextResponse.redirect(url);
-  }
-
-  // used to block confirm if logged in
-  if (session && pathname === '/confirm') {
-    const url = new URL(req.url);
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
-  }
-
-  // used to block confirm if logged in
-  if (!session && pathname === '/profile') {
-    const url = new URL(req.url);
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
-  }
-
-  return res;
 }
 
 // might need matcher to specify route for dashboard
