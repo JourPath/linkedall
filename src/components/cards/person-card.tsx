@@ -80,7 +80,7 @@ export default function PersonCard({
 
   const addConnection = async (connection_id: string, list_id: string) => {
     setChecked(true);
-    const connections = await fetch('http://localhost:3000/api/connections', {
+    const connections = await fetch('https://www.linkedall.online/api/connections', {
       method: 'POST',
       body: JSON.stringify({ connection_id, list_id }),
     });
@@ -89,7 +89,7 @@ export default function PersonCard({
 
   const removedConnection = async (connection_id: string, list_id: string) => {
     setChecked(false);
-    const connections = await fetch('http://localhost:3000/api/connections', {
+    const connections = await fetch('https://www.linkedall.online/api/connections', {
       method: 'PUT',
       body: JSON.stringify({ connection_id, list_id }),
     });

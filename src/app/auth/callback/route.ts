@@ -18,5 +18,5 @@ export async function GET(request: NextRequest) {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect('http:localhost:3000/profile');
+  return NextResponse.redirect('https://www.linkedall.online/profile');
 }

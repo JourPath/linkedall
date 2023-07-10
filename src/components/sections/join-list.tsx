@@ -9,7 +9,7 @@ export default function JoinList() {
   const { user } = useAuth();
 
   async function joinList() {
-    const response = await fetch('http://localhost:3000/api/join', {
+    const response = await fetch('https://www.linkedall.online/api/join', {
       method: 'PUT',
       body: JSON.stringify({ shortId }),
     });

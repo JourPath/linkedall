@@ -2,7 +2,7 @@ import ListCard from '../cards/list-card';
 import { headers } from 'next/headers';
 
 const getLists = async () => {
-  const response = await fetch('http://localhost:3000/api/lists', {
+  const response = await fetch('https://www.linkedall.online/api/lists', {
     method: 'GET',
     headers: headers(),
   });
