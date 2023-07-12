@@ -47,7 +47,7 @@ export default function NavBar() {
                 </div>
                 {/* Normal screen menu items */}
                 <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
+                  <div className="flex space-x-4 items-center my-1">
                     {navigation.map((item) => (
                       <a
                         key={item.name}
@@ -68,7 +68,7 @@ export default function NavBar() {
                     {user ? (
                       <a
                         onClick={signOut}
-                        className="text-[--dark-blue-3] hover:bg-[--blue-2] hover:text-[--white] block rounded-md px-3 py-2 text-base font-medium"
+                        className="text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white] rounded-md px-3 py-2 text-sm font-medium"
                       >
                         Sign Out
                       </a>
@@ -98,8 +98,8 @@ export default function NavBar() {
                   href={item.href}
                   className={classNames(
                     item.href === pathname
-                      ? 'bg-[--dark-blue-3] text-[--white]'
-                      : 'text-[--dark-blue-3] hover:bg-[--blue-2] hover:text-[--white]',
+                      ? 'bg-[--blue-1] text-[--white]'
+                      : 'text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white]',
                     'block rounded-md px-3 py-2 text-base font-medium'
                   )}
                   aria-current={item.href === pathname ? 'page' : undefined}
@@ -110,7 +110,7 @@ export default function NavBar() {
               {user ? (
                 <Disclosure.Button
                   onClick={signOut}
-                  className="text-[--dark-blue-3] hover:bg-[--blue-2] hover:text-[--white] block rounded-md px-3 py-2 text-base font-medium"
+                  className="text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white] rounded-md px-3 py-2 text-base font-medium"
                 >
                   Sign Out
                 </Disclosure.Button>
