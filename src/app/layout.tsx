@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/supabase-server';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import GAnalytics from '@/lib/google/analytics';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 const josefin = Josefin_Sans({ subsets: ['latin'] });
@@ -34,6 +35,12 @@ export default async function RootLayout({
             {children}
             <GAnalytics />
             <Analytics />
+            <Script
+              id="CookieDeclaration"
+              src="https://consent.cookiebot.com/282d6d86-0b13-48b9-8d4c-48b99e1c5e21/cd.js"
+              type="text/javascript"
+              async
+            ></Script>
           </SupabaseAuthProvider>
         </SupabaseProvider>
       </body>
