@@ -3,6 +3,7 @@ import { Inter, Josefin_Sans } from 'next/font/google';
 import SupabaseProvider from '@/utils/providers/supabase-provider';
 import SupabaseAuthProvider from '@/utils/providers/supabase-auth-provider';
 import { createClient } from '@/lib/supabase/supabase-server';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -30,6 +31,7 @@ export default async function RootLayout({
         <SupabaseProvider>
           <SupabaseAuthProvider serverSession={session}>
             {children}
+            <Analytics />
           </SupabaseAuthProvider>
         </SupabaseProvider>
       </body>

@@ -41,13 +41,13 @@ export default function NavBar() {
                   <Link href="/">
                     <img
                       className="block h-12 w-auto"
-                      src="/LinkedAll_1000x200px.svg"
+                      src="/LinkedAll_1000x200.svg"
                     />
                   </Link>
                 </div>
                 {/* Normal screen menu items */}
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4 items-center my-1">
+                <div className="hidden sm:ml-6 sm:flex items-center">
+                  <div className="flex space-x-4 items-center">
                     {navigation.map((item) => (
                       <a
                         key={item.name}
