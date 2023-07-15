@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/supabase-server';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import Head from 'next/head';
+import GAnalytics from '@/lib/google/analytics';
 
 const inter = Inter({ subsets: ['latin'] });
 const josefin = Josefin_Sans({ subsets: ['latin'] });
@@ -41,6 +42,7 @@ export default async function RootLayout({
         <SupabaseProvider>
           <SupabaseAuthProvider serverSession={session}>
             {children}
+            <GAnalytics />
             <Analytics />
           </SupabaseAuthProvider>
         </SupabaseProvider>
