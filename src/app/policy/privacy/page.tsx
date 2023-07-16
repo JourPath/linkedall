@@ -1,9 +1,6 @@
-import NavBar from '@/components/nav/nav-bar';
-
 export default async function Privacy() {
   return (
     <>
-      <NavBar />
       <div className="bg-[--white] border-4 border-[--blue-3] rounded-md w-2/3 m-auto mt-8 p-20">
         <h1 className="text-2xl font-bold">
           Privacy Policy for LinkedAll, a Jourpath Ltd Product

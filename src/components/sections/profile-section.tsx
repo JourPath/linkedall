@@ -78,7 +78,7 @@ export default function ProfileSection() {
       </div>
       {!linkedIn ? (
         <div className="flex flex-row ">
-          <img src="./downward-arrow-right.svg" />
+          <img src="/downward-arrow-right.svg" />
           <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-full  text-center ">
             Help people find you on LinkedIn
           </p>

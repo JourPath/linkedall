@@ -12,14 +12,14 @@ export default function Footer() {
           target="_blank"
           className="inline-block mx-2"
         >
-          <img src="./LinkedIn_icon.svg" alt="LinkedIn Logo" />
+          <img src="/LinkedIn_icon.svg" alt="LinkedIn Logo" />
         </a>
         <a
           href="https://twitter.com/linkedallonline"
           target="_blank"
           className="inline-block mx-2"
         >
-          <img src="./Twitter_icon.svg" alt="Twitter Logo" />
+          <img src="/Twitter_icon.svg" alt="Twitter Logo" />
         </a>
         <Link href="/policy/privacy">Privacy Policy</Link>
       </div>

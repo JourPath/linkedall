@@ -7,6 +7,8 @@ import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import GAnalytics from '@/lib/google/analytics';
 import Script from 'next/script';
+import NavBar from '@/components/nav/nav-bar';
+import Footer from '@/components/sections/footer';
 
 const inter = Inter({ subsets: ['latin'] });
 const josefin = Josefin_Sans({ subsets: ['latin'] });
@@ -32,7 +34,6 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SupabaseProvider>
           <SupabaseAuthProvider serverSession={session}>
-            {children}
             <GAnalytics />
             <Analytics />
             <Script
@@ -42,6 +43,9 @@ export default async function RootLayout({
               type="text/javascript"
               async
             ></Script>
+            <NavBar />
+            {children}
+            <Footer />
           </SupabaseAuthProvider>
         </SupabaseProvider>
       </body>

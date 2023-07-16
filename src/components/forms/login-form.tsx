@@ -26,13 +26,13 @@ const LoginForm = () => {
 
   return (
     <div className="text-center rounded-xl bg-[--light-blue-1]">
-      <img src="./LinkedAll_blue_logo.svg" className="w-16 inline py-4" />
+      <img src="/LinkedAll_blue_logo.svg" className="w-16 inline py-4" />
       <h3 className="font-bold text-2xl pb-4 ">Log In</h3>
       <button
         className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4"
         onClick={signInWithLinkedIn}
       >
-        <img src="./In-Blue-48.png" className="w-7 inline pr-2" />
+        <img src="/In-Blue-48.png" className="w-7 inline pr-2" />
         Log In With LinkedIn
       </button>
       <div className="flex flex-row items-center">

@@ -1,5 +1,4 @@
 import ClipboardCopy from '@/components/buttons/clipboard-copy';
-import NavBar from '@/components/nav/nav-bar';
 import ListParticipants from '@/components/sections/list-participants';
 import { createClient } from '@/lib/supabase/supabase-server';
 import {
@@ -43,7 +42,6 @@ export default async function ListPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <NavBar />
       <div className="flex flex-col justify-around content-center items-center mt-4 mr-4">
         <h1 className="text-bold text-2xl text-[--dark-blue-3] text-center underline decoration-[--blue-2] decoration-2 underline-offset-4 mb-2   ">
           {list_name as string}
