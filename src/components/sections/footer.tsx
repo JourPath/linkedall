@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <section
@@ -19,7 +21,7 @@ export default function Footer() {
         >
           <img src="./Twitter_icon.svg" alt="Twitter Logo" />
         </a>
-        <div>Policy's</div>
+        <Link href="/policy/privacy">Privacy Policy</Link>
       </div>
       <p className="text-xs">© 2023, Jourpath, All Rights Reserved.</p>
     </section>
