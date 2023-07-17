@@ -10,8 +10,14 @@ import Script from 'next/script';
 import NavBar from '@/components/nav/nav-bar';
 import Footer from '@/components/sections/footer';
 
-const inter = Inter({ subsets: ['latin'] });
-const josefin = Josefin_Sans({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
+const josefin = Josefin_Sans({
+  subsets: ['latin'],
+  variable: '--font-josefin',
+});
 
 export const metadata = {
   title: 'LinkedAll',
@@ -30,8 +36,11 @@ export default async function RootLayout({
   } = await supabase.auth.getSession();
 
   return (
-    <html lang="en" className="text-[--dark-blue-3] bg-[--light-blue-1]">
-      <body className={inter.className}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${josefin.variable}  text-[--dark-blue-3] bg-[--light-blue-1]`}
+    >
+      <body className={`flex flex-col h-screen`}>
         <SupabaseProvider>
           <SupabaseAuthProvider serverSession={session}>
             <GAnalytics />

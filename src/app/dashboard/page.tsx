@@ -4,12 +4,36 @@ import JoinList from '@/components/sections/join-list';
 
 export default function Dashboard() {
   return (
-    <main>
-      <JoinList />
-      {/* @ts-expect-error Async Server Component */}
-      <HostedLists />
-      {/* @ts-expect-error Async Server Component */}
-      <Lists />
+    <main className="">
+      <div className="lg:grid lg:grid-cols-3 lg:mx-8 lg:gap-4 ">
+        <div>
+          <img
+            src="/Dashcard-1.svg"
+            alt="Create a new list for people to join"
+            className="w-full rounded text-[--white]"
+          />
+          {/* @ts-expect-error Async Server Component */}
+          <HostedLists />
+        </div>
+        <div>
+          <img
+            src="/Dashcard-2.svg"
+            alt="See all the lists you have already joined"
+            className="w-full rounded text-[--white]"
+          />
+          {/* @ts-expect-error Async Server Component */}
+          <Lists />
+        </div>
+        <div>
+          <img
+            src="/Dashcard-3.svg"
+            alt="Join an existing list by entering
+their list code"
+            className="w-full rounded text-[--white]"
+          />
+          <JoinList />
+        </div>
+      </div>
     </main>
   );
 }

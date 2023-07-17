@@ -45,7 +45,7 @@ export default function ListCard({ list }: { list: IncomingList }) {
           {list?.lists?.list_name}
         </button>
       </Link>
-      <Menu as="div" className="">
+      <Menu as="div" className="relative">
         <Menu.Button className="p-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +70,10 @@ export default function ListCard({ list }: { list: IncomingList }) {
             {({ active }) => (
               <button
                 className={`${
-                  active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                } group flex w-full items-center rounded-md px-2 py-2 text-sm m-2`}
+                  active
+                    ? 'bg-[--blue-1] text-[--white]'
+                    : 'text-[--dark-blue-3]'
+                } group flex w-full items-center rounded-md px-2 py-2 text-sm z-10`}
                 onClick={() => leaveList(list?.list_id!)}
               >
                 Leave List

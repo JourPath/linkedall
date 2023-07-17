@@ -27,7 +27,7 @@ export default function JoinList() {
     );
   } else {
     return (
-      <div className="bg-[--white]  flex flex-row items-center justify-between rounded-full mx-2 mb-2 my-4">
+      <div className="bg-[--white] h-12 flex flex-row items-center justify-between rounded-full mx-2 mb-2 my-4 lg:mx-0">
         <input
           className="h-12 w-3/4 rounded-l-full bg-[--white] text-2xl p-2"
           value={shortId}

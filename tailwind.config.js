@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import { fontFamily } from 'tailwindcss/defaultTheme';
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,7 +14,8 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        text: ['Josefin Sans'],
+        josefin: ['var(--font-josefin)', ...fontFamily.sans],
+        inter: ['var(--font-inter)', ...fontFamily.mono],
       },
     },
   },

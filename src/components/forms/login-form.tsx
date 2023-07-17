@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -76,7 +77,15 @@ const LoginForm = () => {
           Log In
         </button>
         <p className="text-[--light-blue-3] text-xs">
-          By clicking "Sign Up" I agree to LinkedAll's Terms and Privacy Policy.
+          By clicking "Sign Up" I agree to LinkedAll's{' '}
+          <Link href="/policy/terms" target="_blank">
+            Terms
+          </Link>
+          and{' '}
+          <Link href="/policy/policy" target="_blank">
+            Privacy Policy
+          </Link>
+          .
         </p>
       </form>
     </div>

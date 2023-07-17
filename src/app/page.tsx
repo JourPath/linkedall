@@ -3,7 +3,7 @@ import GetStarted from '@/components/sections/get-started';
 
 export default async function Home() {
   return (
-    <main className="flex flex-col items-center text-center bg-[--white] text-[--dark-blue-3]">
+    <main className="flex flex-col items-center text-center bg-[--white] text-[--dark-blue-3] lg:h-screen">
       <section id="hero" className="my-8 px-4">
         <h1 className="font-bold text-6xl my-4 text-left">
           Connect with <span className="text-[--blue-2]">All</span> your

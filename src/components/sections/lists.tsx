@@ -36,17 +36,17 @@ type List = {
 export default async function Lists() {
   const lists = await getLists();
   return (
-    <>
-      <div className="bg-[--light-blue-2] h-12 flex flex-row items-center justify-between rounded-t-lg mx-2 mt-4">
+    <section>
+      <div className="bg-[--light-blue-2] h-12 flex flex-row items-center justify-between rounded-t-lg mx-2 mt-4 lg:mx-0">
         <h3 className="font-bold text-2xl w-3/4 px-2 text-[--dark-blue-3]">
           Lists
         </h3>
       </div>
-      <div className="flex flex-col bg-[--white] px-2 mx-2 mb-4 rounded-b-lg">
+      <div className="flex flex-col bg-[--white] px-2 mx-2 mb-4 rounded-b-lg lg:mx-0">
         {lists?.map((list) => {
           return <ListCard key={list?.list_id} list={list} />;
         })}
       </div>
-    </>
+    </section>
   );
 }
