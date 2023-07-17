@@ -9,6 +9,7 @@ export default function ProfileSection() {
   const { user } = useAuth();
   const [fullName, setFullName] = useState('');
   const [linkedIn, setLinkedIn] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [avatar, setAvatar] = useState('');
 
   const { supabase } = useSupabase();
@@ -24,6 +25,7 @@ export default function ProfileSection() {
         setAvatar(user?.avatar_url);
       }
     }
+    setIsLoading(false);
   }, [user]);
 
   const handleClick = async (url: string) => {
@@ -34,6 +36,9 @@ export default function ProfileSection() {
     setAvatar(avatar);
     router.replace('/dashboard');
   };
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <section className="flex flex-col justify-around content-center items-center mt-4">
@@ -46,7 +51,7 @@ export default function ProfileSection() {
       )}
       <div className="w-11/12 mb-4 pb-2 ">
         <div className="text-center flex flex-col items-center">
-          <label htmlFor="linked_in" className="text-xs mx-4">
+          <label htmlFor="linked_in" className="text-xs mx-4 font-bold">
             Profile Picture
           </label>
           <AvatarButton
@@ -64,11 +69,11 @@ export default function ProfileSection() {
       )}
       <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 ">
         <div className="">
-          <label htmlFor="linked_in" className="text-xs mx-4">
+          <label htmlFor="linked_in" className="text-xs mx-8 font-bold">
             Name
           </label>
           <input
-            className="mx-4 w-11/12 bg-[--light-blue-2] font-bold"
+            className="mx-8 w-11/12 bg-[--light-blue-2] font-bold"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -88,12 +93,12 @@ export default function ProfileSection() {
       )}
       <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 ">
         <div className="">
-          <label htmlFor="linked_in" className="text-xs mx-4">
+          <label htmlFor="linked_in" className="text-xs mx-8 font-bold">
             LinkedIn URL: https://www.linkedin.com/in/
           </label>
           <input
             id="linked_in"
-            className="mx-4 w-11/12 bg-[--light-blue-2] font-bold"
+            className="mx-8 w-11/12 bg-[--light-blue-2] font-bold"
             value={linkedIn}
             onChange={(e) => setLinkedIn(e.target.value)}
             required

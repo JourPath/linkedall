@@ -80,20 +80,18 @@ export default function PersonCard({
 
   const addConnection = async (connection_id: string, list_id: string) => {
     setChecked(true);
-    const connections = await fetch('https://www.linkedall.online/api/connections', {
+    await fetch('https://www.linkedall.online/api/connections', {
       method: 'POST',
       body: JSON.stringify({ connection_id, list_id }),
     });
-    const data = await connections.json();
   };
 
   const removedConnection = async (connection_id: string, list_id: string) => {
     setChecked(false);
-    const connections = await fetch('https://www.linkedall.online/api/connections', {
+    await fetch('https://www.linkedall.online/api/connections', {
       method: 'PUT',
       body: JSON.stringify({ connection_id, list_id }),
     });
-    const data = await connections.json();
   };
 
   return (
@@ -106,7 +104,7 @@ export default function PersonCard({
         }`}
       >
         <div
-          className={`relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}
+          className={`relative w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}
         >
           {person.avatar_url ? (
             <img
@@ -128,22 +126,26 @@ export default function PersonCard({
             </svg>
           )}
         </div>
-        <p>{person.full_name}</p>
+        <p className="text-lg">{person.full_name}</p>
         <Link
           href={`https://linkedin.com/in/${person.linked_in}`}
           target="blank"
+          className="w-2/3 h-12 justify-center flex"
         >
-          <button onClick={() => handleClick(person.participant_id, list_id)}>
+          <button
+            className="text-lg font-medium text-[--dark-blue-3]"
+            onClick={() => handleClick(person.participant_id, list_id)}
+          >
             Connect
           </button>
         </Link>
         <div className="flex items-center">
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className=" rounded-full text-gray-900 dark:text-gray-300">
             <input
               type="checkbox"
               checked={checked}
               onChange={() => handleChange(person.participant_id, list_id)}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="rounded-full w-12 h-12 text-[--grey] bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
           </label>
         </div>

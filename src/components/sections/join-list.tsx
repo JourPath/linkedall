@@ -2,11 +2,16 @@
 
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function JoinList() {
   const [shortId, setShortId] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [user?.linked_in]);
 
   async function joinList() {
     const response = await fetch('https://www.linkedall.online/api/join', {
@@ -15,6 +20,10 @@ export default function JoinList() {
     });
     const data = await response.json();
     return data;
+  }
+
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
 
   if (!user?.linked_in) {
