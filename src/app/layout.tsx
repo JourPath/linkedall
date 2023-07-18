@@ -45,13 +45,6 @@ export default async function RootLayout({
           <SupabaseAuthProvider serverSession={session}>
             <GAnalytics />
             <Analytics />
-            <Script
-              id="Cookiebot"
-              src="https://consent.cookiebot.com/uc.js"
-              data-cbid="282d6d86-0b13-48b9-8d4c-48b99e1c5e21"
-              type="text/javascript"
-              async
-            ></Script>
             <NavBar />
             {children}
             <Footer />
