@@ -73,7 +73,7 @@ export default function ProfileSection() {
             Name
           </label>
           <input
-            className="mx-8 w-11/12 bg-[--light-blue-2] font-bold"
+            className="mx-8 w-10/12 bg-[--light-blue-2] font-bold"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -98,7 +98,7 @@ export default function ProfileSection() {
           </label>
           <input
             id="linked_in"
-            className="mx-8 w-11/12 bg-[--light-blue-2] font-bold"
+            className="mx-8 w-10/12 bg-[--light-blue-2] font-bold"
             value={linkedIn}
             onChange={(e) => setLinkedIn(e.target.value)}
             required

@@ -7,11 +7,11 @@ import { useAuth } from '@/utils/providers/supabase-auth-provider';
 
 const getLists = async () => {
   const supabase = createClient();
-  const { user } = useAuth();
+  const { data: user } = await supabase.auth.getUser();
   const { data, error } = await supabase
     .from('list_participants')
     .select('list_id, lists(list_name, short_id)')
-    .eq('participant_id', user?.id);
+    .eq('participant_id', user?.user?.id);
 
   if (error) {
     console.log(error);
