@@ -40,7 +40,7 @@ export default function ClipboardCopy({ copyText }: { copyText: string }) {
             type="text"
             value={copyText}
             readOnly
-            className="bg-transparent w-1/2 text-center"
+            className="bg-transparent w-1/2 text-center min-w-[30%] "
           />
         </>
       )}

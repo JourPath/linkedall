@@ -104,11 +104,13 @@ export default function PersonCard({
         }`}
       >
         <div
-          className={`relative w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}
+          className={`relative w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 shrink-0`}
         >
           {person.avatar_url ? (
             <img
-              className={` ${checked ? 'grayscale' : ''} rounded-full`}
+              className={` ${
+                checked ? 'grayscale' : ''
+              } rounded-full w-12 h-12 shrink-0`}
               src={person.avatar_url}
             />
           ) : (
@@ -126,7 +128,7 @@ export default function PersonCard({
             </svg>
           )}
         </div>
-        <p className="text-lg">{person.full_name}</p>
+        <p className="text-lg whitespace-nowrap ml-2">{person.full_name}</p>
         <Link
           href={`https://linkedin.com/in/${person.linked_in}`}
           target="blank"
