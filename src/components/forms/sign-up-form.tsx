@@ -86,7 +86,7 @@ const SignUpForm = () => {
             Terms
           </Link>{' '}
           and{' '}
-          <Link href="/policy/policy" target="_blank">
+          <Link href="/policy/privacy" target="_blank">
             Privacy Policy
           </Link>
           .
