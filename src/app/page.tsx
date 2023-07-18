@@ -20,7 +20,11 @@ export default async function Home() {
             </button>
           </Link>
         </div>
-        <img src="/connect.svg" alt="three business people looking at camera" />
+        <img
+          src="/Connect.svg"
+          alt="three business people looking at camera"
+          className="hidden lg:block"
+        />
       </section>
       {/* Some sort of carousel showing how it works */}
       {/* Section explaining with link to page on how it works in detail */}
