@@ -79,7 +79,7 @@ const LoginForm = () => {
           By clicking "Sign Up" I agree to LinkedAll's{' '}
           <Link href="/policy/terms" target="_blank">
             Terms
-          </Link>
+          </Link>{' '}
           and{' '}
           <Link href="/policy/policy" target="_blank">
             Privacy Policy
