@@ -2,14 +2,13 @@
 
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const LoginForm = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const { signInWithEmail, signInWithLinkedIn, user } = useAuth();
+  const { signInWithEmail, signInWithLinkedIn } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
