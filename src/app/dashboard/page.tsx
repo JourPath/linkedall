@@ -8,7 +8,7 @@ export default function Dashboard() {
       <div className="lg:grid lg:grid-cols-3 lg:mx-8 lg:gap-4 ">
         <div>
           <img
-            src="/Dashcard-1.svg"
+            src="/Dashcard-1.png"
             alt="Create a new list for people to join"
             className="w-full rounded text-[--white]"
           />
@@ -17,7 +17,7 @@ export default function Dashboard() {
         </div>
         <div>
           <img
-            src="/Dashcard-2.svg"
+            src="/Dashcard-2.png"
             alt="See all the lists you have already joined"
             className="w-full rounded text-[--white]"
           />
@@ -26,7 +26,7 @@ export default function Dashboard() {
         </div>
         <div>
           <img
-            src="/Dashcard-3.svg"
+            src="/Dashcard-3.png"
             alt="Join an existing list by entering
 their list code"
             className="w-full rounded text-[--white]"

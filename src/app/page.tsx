@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import GetStarted from '@/components/sections/get-started';
+import Image from 'next/image';
 
 export default async function Home() {
   return (
@@ -20,10 +21,12 @@ export default async function Home() {
             </button>
           </Link>
         </div>
-        <img
-          src="/Connect.svg"
+        <Image
+          src="/Connect.png"
           alt="three business people looking at camera"
           className="hidden lg:block"
+          width={400}
+          height={400}
         />
       </section>
       {/* Some sort of carousel showing how it works */}
