@@ -31,8 +31,8 @@ export async function PUT(request: Request) {
   .eq('host_id', user?.id)  
   if (error) {
     return NextResponse.json({ error });
-  } else {
-    return NextResponse.json({ data });
+  } else if (data !== null) {
+    return NextResponse.json({ data: data[0] });
   }
 }
 
