@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { Profile } from '@/utils/types/collections.types';
-import { Session } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
-import { createContext, useContext, useEffect } from 'react';
-import useSWR from 'swr';
-import { useSupabase } from './supabase-provider';
-import { revalidatePath } from 'next/cache';
+import { Profile } from "@/utils/types/collections.types";
+import { Session } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+import { createContext, useContext, useEffect } from "react";
+import useSWR from "swr";
+import { useSupabase } from "./supabase-provider";
+import { revalidatePath } from "next/cache";
 
 interface ContextI {
   user: Profile | null | undefined;
@@ -15,7 +15,11 @@ interface ContextI {
   mutate: any;
   signOut: () => Promise<void>;
   signInWithLinkedIn: () => Promise<void>;
-  signUpWithEmail: (email: string, password: string) => Promise<string | null>;
+  signUpWithEmail: (
+    email: string,
+    password: string,
+    plan: string | null
+  ) => Promise<string | null>;
   signInWithEmail: (email: string, password: string) => Promise<string | null>;
 }
 
@@ -26,7 +30,11 @@ const Context = createContext<ContextI>({
   mutate: null,
   signOut: async () => {},
   signInWithLinkedIn: async () => {},
-  signUpWithEmail: async (email: string, password: string) => null,
+  signUpWithEmail: async (
+    email: string,
+    password: string,
+    plan: string | null
+  ) => null,
   signInWithEmail: async (email: string, password: string) => null,
 });
 
@@ -43,9 +51,9 @@ export default function SupabaseAuthProvider({
   // Get USER
   const getUser = async () => {
     const { data: user, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', serverSession?.user?.id)
+      .from("profiles")
+      .select("*")
+      .eq("id", serverSession?.user?.id)
       .single();
     if (error) {
       console.log(error);
@@ -75,32 +83,36 @@ export default function SupabaseAuthProvider({
     error,
     isLoading,
     mutate,
-  } = useSWR(serverSession ? 'profile-context' : null, getUser);
+  } = useSWR(serverSession ? "profile-context" : null, getUser);
 
   // Sign Out
   const signOut = async () => {
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push("/login");
   };
 
   // Sign in with LinkedIn
   const signInWithLinkedIn = async () => {
     await supabase.auth.signInWithOAuth({
-      provider: 'linkedin',
+      provider: "linkedin",
       options: {
-        redirectTo: 'https://www.linkedall.online/dashboard',
+        redirectTo: "https://www.linkedall.online/dashboard",
       },
     });
     router.refresh();
   };
 
   // Sign up with Email
-  const signUpWithEmail = async (email: string, password: string) => {
+  const signUpWithEmail = async (
+    email: string,
+    password: string,
+    plan: string | null
+  ) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
+        emailRedirectTo: `${location.origin}/auth/callback?plan=${plan}`,
       },
     });
 
@@ -168,7 +180,7 @@ export default function SupabaseAuthProvider({
 export const useAuth = () => {
   const context = useContext(Context);
   if (context === undefined) {
-    throw new Error('useAuth must be inside SupabaseAuthProvider');
+    throw new Error("useAuth must be inside SupabaseAuthProvider");
   } else {
     return context;
   }

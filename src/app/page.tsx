@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default async function Home() {
   return (
-    <main className="flex flex-col items-center text-left bg-[--white] text-[--dark-blue-3] lg:h-screen">
+    <main className="flex flex-col items-center text-left bg-[--white] text-[--dark-blue-3]">
       <section id="hero" className="flex flex-row my-8 px-4">
         <div>
           <h1 className="font-bold text-6xl my-4 text-left">

@@ -11,6 +11,7 @@ import type { Database } from '@/utils/types/database.types';
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
+  const plan = requestUrl.searchParams.get('plan');
 
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies });
@@ -18,5 +19,10 @@ export async function GET(request: NextRequest) {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect('https://www.linkedall.online/profile');
+  if (plan) {
+    return NextResponse.redirect(`https://localhost:3000/profile?plan=${plan}`);
+  } else {
+    
+    return NextResponse.redirect('https://localhost:3000/profile');
+  }
 }
