@@ -112,7 +112,7 @@ export default function SupabaseAuthProvider({
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/auth/callback?plan=${plan}`,
+        emailRedirectTo: `https://linkedall.online/auth/callback?plan=${plan}`,
       },
     });
 
