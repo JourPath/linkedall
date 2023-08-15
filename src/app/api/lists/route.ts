@@ -26,7 +26,7 @@ export async function PUT(request: Request) {
     .insert({ list_name: listName, host_id: user?.id })
   const { data } = await supabase
   .from('lists')
-  .select('id')
+  .select('short_id')
   .eq('list_name', listName)
   .eq('host_id', user?.id)  
   if (error) {
