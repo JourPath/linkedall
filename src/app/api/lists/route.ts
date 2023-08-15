@@ -32,7 +32,8 @@ export async function PUT(request: Request) {
   if (error) {
     return NextResponse.json({ error });
   } else if (data !== null) {
-    return NextResponse.json({ data: data[0] });
+    const short_id = data[0].short_id;
+    return NextResponse.json({ short_id });
   }
 }
 

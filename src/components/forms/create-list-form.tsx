@@ -22,9 +22,8 @@ export default function CreateListForm() {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.json();
-      const shortId = data.short_id;
-      router.push(`/lists/${shortId}`);
+      const { short_id } = await response.json();
+      router.push(`/lists/${short_id}`);
     } catch (error) {
       console.log("Something went wrong!");
     }
