@@ -8,6 +8,6 @@ export type get_list_participants =
   Database['public']['Functions']['get_list_participants'];
 
 export type get_list_from_short_id =
-  Database['public']['Functions']['get_short_list_id'];
+  Database['public']['Functions']['get_list_from_short_id'];
 
 export type List = Database['public']['Tables']['lists']['Row'];

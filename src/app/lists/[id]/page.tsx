@@ -1,14 +1,14 @@
-import ClipboardCopy from '@/components/buttons/clipboard-copy';
-import ListParticipants from '@/components/sections/list-participants';
-import { createClient } from '@/lib/supabase/supabase-server';
+import ClipboardCopy from "@/components/buttons/clipboard-copy";
+import ListParticipants from "@/components/sections/list-participants";
+import { createClient } from "@/lib/supabase/supabase-server";
 import {
   get_list_from_short_id,
   get_list_participants,
-} from '@/utils/types/collections.types';
+} from "@/utils/types/collections.types";
 
 export default async function ListPage({ params }: { params: { id: string } }) {
   const supabase = createClient();
-  const result = await supabase.rpc('get_list_from_short_id', {
+  const result = await supabase.rpc("get_list_from_short_id", {
     shortid: params.id,
   });
 
@@ -17,18 +17,18 @@ export default async function ListPage({ params }: { params: { id: string } }) {
     return;
   }
 
-  const { id, list_name } = result.data as get_list_from_short_id['Returns'];
+  const { id, list_name } = result.data as get_list_from_short_id["Returns"];
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    console.log('No user found');
+    console.log("No user found");
     return;
   }
 
-  const participantsResult = await supabase.rpc('get_list_participants', {
+  const participantsResult = await supabase.rpc("get_list_participants", {
     list_id_param: id as string,
     profile_id_param: user?.id,
   });
@@ -38,7 +38,7 @@ export default async function ListPage({ params }: { params: { id: string } }) {
     return;
   }
 
-  const data = participantsResult.data as get_list_participants['Returns'];
+  const data = participantsResult.data as get_list_participants["Returns"];
 
   return (
     <section className="lg:grid lg:grid-cols-2 lg:mx-8 lg:gap-4 ">
@@ -54,7 +54,7 @@ export default async function ListPage({ params }: { params: { id: string } }) {
       </div>
       <div className="mt-28 text-[--white] font-bold font-josefin">
         <p className="bg-[--blue-1] rounded p-2 my-2">
-          Here you will see all the people in this list{' '}
+          Here you will see all the people in this list{" "}
         </p>
         <p className="bg-[--blue-1] rounded p-2 my-2">
           Everybody can see everybody else
