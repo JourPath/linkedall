@@ -15,7 +15,7 @@ export default async function SubscriptionSection() {
 
   if (plan && plan !== "null") {
     const response = await fetch(
-      `http://localhost:3000/api/stripe/subscription/${plan}`,
+      `https://linkedall.online/api/stripe/subscription/${plan}`,
       {
         method: "POST",
       }
@@ -37,7 +37,7 @@ export default async function SubscriptionSection() {
     if (planToManage === "basic") {
     }
 
-    const response = await fetch("http://localhost:3000/api/stripe/portal", {
+    const response = await fetch("https://linkedall.online/api/stripe/portal", {
       method: "POST",
       //   body: JSON.stringify({ shortId }),
     });
