@@ -50,7 +50,7 @@ export default async function SubscriptionSection() {
       {data?.plan !== "BASIC" ? (
         <>
           <p>Interval: {data?.interval}</p>
-          <button onClick={() => loadPortal(data?.plan)}>
+          <button onClick={() => loadPortal(data?.plan!)}>
             Manage Subscription
           </button>
         </>
