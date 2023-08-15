@@ -23,7 +23,8 @@ export async function PUT(request: Request) {
   const { user, listName } = await request.json();
   const { data, error } = await supabase
     .from('lists')
-    .insert({ list_name: listName, host_id: user?.id });
+    .insert({ list_name: listName, host_id: user?.id })
+    .select()
   if (error) {
     return NextResponse.json({ error });
   } else {
