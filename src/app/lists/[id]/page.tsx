@@ -13,15 +13,13 @@ export default async function ListPage({ params }: { params: { id: string } }) {
     shortid: params.id,
   });
 
-  console.log(result);
-
   if (result.error) {
-    console.log(result.error, "eeerrorr");
+    console.log(result.error);
     return;
   }
 
-  const { id, list_name } = result.data as get_list_from_short_id["Returns"];
-  console.log(id, list_name);
+  const list = result.data as get_list_from_short_id["Returns"];
+  const { id, list_name } = list[0];
   const {
     data: { user },
   } = await supabase.auth.getUser();
