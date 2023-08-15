@@ -21,10 +21,14 @@ export async function GET() {
 export async function PUT(request: Request) {
   const supabase = createRouteHandlerClient({ cookies });
   const { user, listName } = await request.json();
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('lists')
     .insert({ list_name: listName, host_id: user?.id })
-    .select()
+  const { data } = await supabase
+  .from('lists')
+  .select('id')
+  .eq('list_name', listName)
+  .eq('host_id', user?.id)  
   if (error) {
     return NextResponse.json({ error });
   } else {
