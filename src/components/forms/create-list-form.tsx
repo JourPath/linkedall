@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { headers } from "next/headers";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -17,6 +18,7 @@ export default function CreateListForm() {
       const response = await fetch("https://www.linkedall.online/api/lists", {
         method: "PUT",
         body: JSON.stringify({ user, listName }),
+        headers: headers(),
       });
       console.log(response);
       if (!response.ok) {
