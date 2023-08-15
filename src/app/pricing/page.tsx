@@ -7,14 +7,12 @@ export default async function Pricing() {
   });
 
   const { data: prices } = await stripe.prices.list();
-  console.log(prices);
 
   let plans = await Promise.all(
     prices
       .filter((price) => price.active === true)
       .map(async (price) => {
         const product = await stripe.products.retrieve(price.product as string);
-        console.log(product);
         return {
           id: price.id,
           name: product.name,

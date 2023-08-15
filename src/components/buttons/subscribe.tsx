@@ -18,9 +18,7 @@ export default function Subscribe({ planId }: { planId: string }) {
           method: "POST",
         }
       );
-      console.log(response, "<<<response here");
       const data = await response.json();
-      console.log(data, "<<<data here");
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
       await stripe?.redirectToCheckout({ sessionId: data.id });
       return data;

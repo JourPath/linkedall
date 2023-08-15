@@ -13,7 +13,6 @@ export async function PUT(req: NextRequest) {
     .eq('profile_id', user?.user?.id)
     .eq('list_id', list_id);
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else {
     return NextResponse.json({ data });

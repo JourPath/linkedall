@@ -11,7 +11,6 @@ export default async function SubscriptionSection() {
 
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
-  console.log(plan, typeof plan);
 
   if (plan && plan !== "null") {
     const response = await fetch(
@@ -21,7 +20,6 @@ export default async function SubscriptionSection() {
       }
     );
     const data = await response.json();
-    console.log(data, "<<<data here");
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
     await stripe?.redirectToCheckout({ sessionId: data.id });
   }

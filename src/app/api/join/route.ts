@@ -12,14 +12,12 @@ export async function PUT(req: NextRequest) {
 
   // tidy up logic
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else if (!error) {
     const { data, error } = await supabase
       .from('list_participants')
       .insert({ list_id: id.id, participant_id: user?.user?.id });
     if (error) {
-      console.log(error);
       return NextResponse.json({ error });
     } else {
       return NextResponse.json({ data });

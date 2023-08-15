@@ -11,7 +11,6 @@ export async function GET() {
     .select('list_id, lists(list_name, short_id)')
     .eq('participant_id', user?.user?.id);
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else {
     return NextResponse.json({ data });
@@ -26,7 +25,6 @@ export async function PUT(request: Request) {
     .from('lists')
     .insert({ list_name: listName, host_id: user?.id });
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else {
     return NextResponse.json({ data });
@@ -38,7 +36,6 @@ export async function PATCH(request: Request) {
   const { list_id } = await request.json();
   const { error } = await supabase.from('lists').delete().eq('id', list_id);
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else {
     return NextResponse.json({ response: `List ${list_id} deleted` });

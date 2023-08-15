@@ -3,11 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 export async function POST(request: NextRequest) {
-  console.log(request)
   const body = await request.json()
-  // console.log(body)
   const url = new URL(request.url!)
-  // console.log(url)
   const apiRouteSecret = url.searchParams.get("API_ROUTE_SECRET");
   if (apiRouteSecret !== process.env.API_ROUTE_SECRET) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
@@ -28,7 +25,6 @@ export async function POST(request: NextRequest) {
     };
 
     const customer: Stripe.Customer = await stripe.customers.create(params);
-    console.log(customer)
     const supabaseResponse = await supabase
       .from('customers')
       .update({
@@ -36,14 +32,11 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', body?.record.id);
 
-    console.log(supabaseResponse);
-
     return NextResponse.json({
       message: `stripe customer created ${customer.id}`,
     });
   }
   catch (e) {
-    console.log(e)
     return NextResponse.error();
   }
 }

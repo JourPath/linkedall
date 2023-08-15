@@ -12,7 +12,6 @@ export async function PATCH(request: Request) {
     .eq('list_id', list_id)
     .eq('participant_id', user.user?.id);
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else {
     return NextResponse.json({ response: `List ${list_id} deleted` });

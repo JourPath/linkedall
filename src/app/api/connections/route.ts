@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
     })
     .eq('profile_id', user?.user?.id);
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else {
     return NextResponse.json({ data });
@@ -37,7 +36,6 @@ export async function PUT(req: NextRequest) {
     .eq('list_id', list_id);
 
   if (error) {
-    console.log(error);
     return NextResponse.json({ error });
   } else {
     return NextResponse.json({ data });

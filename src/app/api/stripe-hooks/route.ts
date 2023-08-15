@@ -15,10 +15,6 @@ type StripeSubscriptionObject = {
   };
 };
 
-export const config = { api: { bodyParser: false } }
-
-
-
 export async function POST(request: NextRequest) {
   let event : Stripe.Event
   const reqString = await request.text()
@@ -38,7 +34,6 @@ export async function POST(request: NextRequest) {
 
     event = stripe.webhooks.constructEvent(reqString, signature, process.env.STRIPE_WEBHOOK_SECRET!)
     } catch (err) {
-        console.log(err)
         return NextResponse.json({ message: `Webhook error` }, { status: 400 })
     }
 
@@ -59,7 +54,6 @@ export async function POST(request: NextRequest) {
         break;
 
     }
-    console.log({event})
 
    return NextResponse.json({ message: 'event received' }, { status: 200 })
 
