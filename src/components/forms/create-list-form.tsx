@@ -18,10 +18,12 @@ export default function CreateListForm() {
         method: "PUT",
         body: JSON.stringify({ user, listName }),
       });
+      console.log(response);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      console.log(data);
       const shortId = data.short_id;
       router.push(`/lists/${shortId}`);
     } catch (error) {
