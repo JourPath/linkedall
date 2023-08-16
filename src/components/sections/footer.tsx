@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
     >
       <div className="flex flex-row items-center">
         <a
-          href="https://www.linkedin.com/company/linkedall-online"
+          href="https://linkedin.com/company/linkedall-online"
           target="_blank"
           className="inline-block mx-2"
         >

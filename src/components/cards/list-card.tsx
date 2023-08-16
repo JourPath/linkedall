@@ -1,6 +1,6 @@
-'use client';
-import { Menu } from '@headlessui/react';
-import Link from 'next/link';
+"use client";
+import { Menu } from "@headlessui/react";
+import Link from "next/link";
 type IncomingList = {
   list_id: string;
   lists: {
@@ -11,13 +11,10 @@ type IncomingList = {
 
 export default function ListCard({ list }: { list: IncomingList }) {
   const leaveList = async (list_id: string) => {
-    const response = await fetch(
-      'https://www.linkedall.online/api/participants',
-      {
-        method: 'PATCH',
-        body: JSON.stringify({ list_id }),
-      }
-    );
+    const response = await fetch("https://linkedall.online/api/participants", {
+      method: "PATCH",
+      body: JSON.stringify({ list_id }),
+    });
     const data = await response.json();
     return data;
   };
@@ -71,8 +68,8 @@ export default function ListCard({ list }: { list: IncomingList }) {
               <button
                 className={`${
                   active
-                    ? 'bg-[--blue-1] text-[--white]'
-                    : 'text-[--dark-blue-3]'
+                    ? "bg-[--blue-1] text-[--white]"
+                    : "text-[--dark-blue-3]"
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm z-10`}
                 onClick={() => leaveList(list?.list_id!)}
               >

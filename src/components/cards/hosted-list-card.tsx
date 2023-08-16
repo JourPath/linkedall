@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { List } from '@/utils/types/collections.types';
-import { Menu } from '@headlessui/react';
-import Link from 'next/link';
+import { List } from "@/utils/types/collections.types";
+import { Menu } from "@headlessui/react";
+import Link from "next/link";
 
 export default function HostedListCard({ list }: { list: List }) {
-  const deleteList = async (list_id: List['id']) => {
-    const response = await fetch('https://www.linkedall.online/api/lists', {
-      method: 'PATCH',
+  const deleteList = async (list_id: List["id"]) => {
+    const response = await fetch("https://linkedall.online/api/lists", {
+      method: "PATCH",
       body: JSON.stringify({ list_id }),
     });
     const data = await response.json();
@@ -64,8 +64,8 @@ export default function HostedListCard({ list }: { list: List }) {
               <button
                 className={`${
                   active
-                    ? 'bg-[--blue-1] text-[--white]'
-                    : 'text-[--dark-blue-3]'
+                    ? "bg-[--blue-1] text-[--white]"
+                    : "text-[--dark-blue-3]"
                 } group flex w-full items-center rounded-md px-2 py-2 text-sm z-10`}
                 onClick={() => deleteList(list.id)}
               >
