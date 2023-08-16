@@ -17,6 +17,7 @@ export async function PUT(req: NextRequest) {
     const { data, error } = await supabase
       .from('list_participants')
       .insert({ list_id: id.id, participant_id: user?.user?.id });
+      console.log(error)
     if (error) {
       return NextResponse.json({ error });
     } else {

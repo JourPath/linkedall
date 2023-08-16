@@ -1,14 +1,14 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 export default function ClipboardCopy({ copyText }: { copyText: string }) {
   const [isCopied, setIsCopied] = useState(false);
 
   async function copyTextToClipboard(text: string) {
-    if ('clipboard' in navigator) {
+    if ("clipboard" in navigator) {
       return await navigator.clipboard.writeText(text);
     } else {
-      return document.execCommand('copy', true, text);
+      return document.execCommand("copy", true, text);
     }
   }
   const handleCopyClick = () => {
@@ -40,7 +40,7 @@ export default function ClipboardCopy({ copyText }: { copyText: string }) {
             type="text"
             value={copyText}
             readOnly
-            className="bg-transparent w-1/2 text-center min-w-[30%] "
+            className="bg-transparent w-1/2 text-center min-w-[30%] cursor-pointer"
           />
         </>
       )}
