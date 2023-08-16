@@ -45,8 +45,8 @@ export async function POST(request: NextRequest) {
         mode: 'subscription',
         payment_method_types: ['card'],
         line_items: lineItems,
-        success_url: `https://linkedall.online/payment/success`,
-        cancel_url: `https://linkedall.online/payment/cancelled`,
+        success_url: `https://www.linkedall.online/payment/success`,
+        cancel_url: `https://www.linkedall.online/payment/cancelled`,
     })
 
     return NextResponse.json({id: session.id});

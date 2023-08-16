@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function HostedListCard({ list }: { list: List }) {
   const deleteList = async (list_id: List["id"]) => {
-    const response = await fetch("https://linkedall.online/api/lists", {
+    const response = await fetch("https://www.linkedall.online/api/lists", {
       method: "PATCH",
       body: JSON.stringify({ list_id }),
     });

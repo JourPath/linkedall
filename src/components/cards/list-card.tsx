@@ -11,10 +11,13 @@ type IncomingList = {
 
 export default function ListCard({ list }: { list: IncomingList }) {
   const leaveList = async (list_id: string) => {
-    const response = await fetch("https://linkedall.online/api/participants", {
-      method: "PATCH",
-      body: JSON.stringify({ list_id }),
-    });
+    const response = await fetch(
+      "https://www.linkedall.online/api/participants",
+      {
+        method: "PATCH",
+        body: JSON.stringify({ list_id }),
+      }
+    );
     const data = await response.json();
     return data;
   };

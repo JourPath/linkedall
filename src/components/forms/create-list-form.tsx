@@ -15,7 +15,7 @@ export default function CreateListForm() {
     e.preventDefault();
     setError(null);
     try {
-      const response = await fetch("https://linkedall.online/api/lists", {
+      const response = await fetch("https://www.linkedall.online/api/lists", {
         method: "PUT",
         body: JSON.stringify({ user, listName }),
       });

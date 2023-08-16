@@ -20,9 +20,9 @@ export async function GET(request: NextRequest) {
 
   // URL to redirect to after sign in process completes
   if (plan) {
-    return NextResponse.redirect(`https://linkedall.online/profile?plan=${plan}`);
+    return NextResponse.redirect(`https://www.linkedall.online/profile?plan=${plan}`);
   } else {
     
-    return NextResponse.redirect('https://linkedall.online/profile');
+    return NextResponse.redirect('https://www.linkedall.online/profile');
   }
 }

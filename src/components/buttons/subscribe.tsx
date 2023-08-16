@@ -13,7 +13,7 @@ export default function Subscribe({ planId }: { planId: string }) {
       router.push(`/signup?plan=${id}`);
     } else {
       const response = await fetch(
-        `https://linkedall.online/api/stripe/subscription/${id}`,
+        `https://www.linkedall.online/api/stripe/subscription/${id}`,
         {
           method: "POST",
         }

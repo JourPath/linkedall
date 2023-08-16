@@ -14,7 +14,7 @@ export default function JoinList() {
   }, [user?.linked_in]);
 
   async function joinList() {
-    const response = await fetch("https://linkedall.online/api/join", {
+    const response = await fetch("https://www.linkedall.online/api/join", {
       method: "PUT",
       body: JSON.stringify({ shortId }),
     });
