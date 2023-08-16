@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import Link from 'next/link';
-import { useState } from 'react';
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import Link from "next/link";
+import { useState } from "react";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const { signInWithEmail, signInWithLinkedIn } = useAuth();
 
@@ -17,10 +17,10 @@ const LoginForm = () => {
       const error = await signInWithEmail(email, password);
       if (error) {
         setError(error);
-        setPassword('');
+        setPassword("");
       }
     } catch (error) {
-      console.log('Something went wrong!');
+      console.log("Something went wrong!");
     }
   };
 
@@ -76,12 +76,12 @@ const LoginForm = () => {
           Log In
         </button>
         <p className="text-[--light-blue-3] text-xs">
-          By clicking "Sign Up" I agree to LinkedAll's{' '}
+          By clicking "Sign Up" I agree to LinkedAll's{" "}
           <Link href="/policy/terms" target="_blank">
             Terms
-          </Link>{' '}
-          and{' '}
-          <Link href="/policy/policy" target="_blank">
+          </Link>{" "}
+          and{" "}
+          <Link href="/policy/privacy" target="_blank">
             Privacy Policy
           </Link>
           .
