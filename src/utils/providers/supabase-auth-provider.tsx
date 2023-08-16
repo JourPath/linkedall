@@ -96,7 +96,7 @@ export default function SupabaseAuthProvider({
     await supabase.auth.signInWithOAuth({
       provider: "linkedin",
       options: {
-        redirectTo: "https://www.linkedall.online/dashboard",
+        redirectTo: "https://www.linkedall.online/profile",
       },
     });
     router.refresh();
