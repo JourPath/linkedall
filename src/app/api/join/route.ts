@@ -6,17 +6,18 @@ export async function PUT(req: NextRequest) {
   const { shortId } = await req.json();
   const supabase = createRouteHandlerClient({ cookies });
   const { data: user } = await supabase.auth.getUser();
-  const { data: id, error } = await supabase.rpc('get_list_from_short_id', {
+  const response = await supabase.rpc('get_list_from_short_id', {
     shortid: shortId,
   });
+  console.log(response)
 
   // tidy up logic
-  if (error) {
-    return NextResponse.json({ error });
-  } else if (!error) {
+  if (response.error) {
+    return NextResponse.json({ error: response.error });
+  } else if (!response.error) {
     const { data, error } = await supabase
       .from('list_participants')
-      .insert({ list_id: id.id, participant_id: user?.user?.id });
+      .insert({ list_id: response.data.id, participant_id: user?.user?.id });
       console.log(error)
     if (error) {
       return NextResponse.json({ error });
