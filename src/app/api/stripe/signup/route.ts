@@ -4,7 +4,9 @@ import { createClient } from '@supabase/supabase-js';
 
 export async function POST(request: NextRequest) {
   const body = await request.json()
+  console.log(body, "body")
   const url = new URL(request.url!)
+  console.log(url, "url")
   const apiRouteSecret = url.searchParams.get("API_ROUTE_SECRET");
   if (apiRouteSecret !== process.env.API_ROUTE_SECRET) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
@@ -25,6 +27,7 @@ export async function POST(request: NextRequest) {
     };
 
     const customer: Stripe.Customer = await stripe.customers.create(params);
+    console.log(customer)
     const supabaseResponse = await supabase
       .from('customers')
       .update({
