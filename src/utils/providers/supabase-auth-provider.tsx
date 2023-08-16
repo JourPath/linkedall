@@ -99,7 +99,7 @@ export default function SupabaseAuthProvider({
         redirectTo: "https://linkedall.online/auth/callback",
       },
     });
-    router.refresh();
+    // router.refresh();
   };
 
   // Sign up with Email
