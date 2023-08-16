@@ -10,12 +10,14 @@ export async function PUT(req: NextRequest) {
   const result = await supabase.rpc('get_list_from_short_id', {
     shortid: shortId,
   });
+  console.log(result, 'result')
 
   if (result.error) {
     console.log(result.error);
     return;
   }
   const list = result.data as get_list_from_short_id["Returns"];
+  console.log(list,  'list');
   const { id } = list[0];
   const { data, error } = await supabase
       .from('list_participants')
