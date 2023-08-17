@@ -1,40 +1,46 @@
-'use client';
+"use client";
 
-import { createClient } from '@/lib/supabase/supabase-browser';
-import ListCard from '../cards/list-card';
+import { createClient } from "@/lib/supabase/supabase-browser";
+import ListCard from "../cards/list-card";
 // import { headers } from 'next/headers';
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import { useEffect, useState } from "react";
 
-const getLists = async () => {
-  const supabase = createClient();
-  const { data: user } = await supabase.auth.getUser();
-  const { data, error } = await supabase
-    .from('list_participants')
-    .select('list_id, lists(list_name, short_id)')
-    .eq('participant_id', user?.user?.id);
-
-  if (error) {
-    console.log(error);
-  } else {
-    return data;
-  }
-  // const response = await fetch('https://www.linkedall.online/api/lists', {
-  //   method: 'GET',
-  // headers: headers(),
-  // });
-  // const data = await response.json();
-};
-
-type List = {
-  list_id: string;
-  lists: {
-    list_name: string | null;
-    short_id: string;
-  } | null;
-};
+type List =
+  | {
+      list_id: string;
+      lists: {
+        list_name: string | null;
+        short_id: string;
+      } | null;
+    }[]
+  | undefined;
 
 export default async function Lists() {
-  const lists = await getLists();
+  const [lists, setLists] = useState<List>([]);
+  const supabase = createClient();
+  const { data: user } = await supabase.auth.getUser();
+
+  useEffect(() => {
+    const getLists = async () => {
+      const { data, error } = await supabase
+        .from("list_participants")
+        .select("list_id, lists(list_name, short_id)")
+        .eq("participant_id", user?.user?.id);
+
+      if (error) {
+        console.log(error);
+      } else {
+        setLists(data);
+      }
+      // const response = await fetch('https://www.linkedall.online/api/lists', {
+      //   method: 'GET',
+      // headers: headers(),
+      // });
+      // const data = await response.json();
+    };
+    getLists();
+  }, [user]);
+
   return (
     <section>
       <div className="bg-[--light-blue-2] h-12 flex flex-row items-center justify-between rounded-t-lg mx-2 mt-4 lg:mx-0">

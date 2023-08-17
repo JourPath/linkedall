@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/supabase-browser";
 import { useAuth } from "@/utils/providers/supabase-auth-provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { customer } from "@/utils/types/collections.types";
 
 export default async function SubscriptionSection() {
@@ -30,7 +30,6 @@ export default async function SubscriptionSection() {
 
   useEffect(() => {
     const customerData = async function () {
-      console.log(user);
       const { data } = await supabase
         .from("customers")
         .select("*")
