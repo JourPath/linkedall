@@ -4,10 +4,14 @@ import { createClient } from "@/lib/supabase/supabase-browser";
 import { useAuth } from "@/utils/providers/supabase-auth-provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
+import { useCallback, useEffect, useState } from "react";
+import { customer } from "@/utils/types/collections.types";
 
 export default async function SubscriptionSection() {
+  const [customer, setCustomer] = useState<customer>();
   const router = useRouter();
   const supabase = createClient();
+  const { user } = useAuth();
 
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
@@ -24,15 +28,19 @@ export default async function SubscriptionSection() {
     await stripe?.redirectToCheckout({ sessionId: data.id });
   }
 
-  const { user } = useAuth();
-  const { data } = await supabase
-    .from("customers")
-    .select("*")
-    .eq("id", user?.id)
-    .single();
+  useCallback(async () => {
+    const { data } = await supabase
+      .from("customers")
+      .select("*")
+      .eq("id", user?.id)
+      .single();
+    if (data) {
+      setCustomer(data);
+    }
+  }, []);
 
   async function loadPortal(planToManage: string) {
-    if (planToManage === "basic") {
+    if (planToManage === "BASIC") {
     }
 
     const response = await fetch(
@@ -49,11 +57,11 @@ export default async function SubscriptionSection() {
   return (
     <div>
       <h2>Subscription</h2>
-      <p>Plan: {data?.plan}</p>
-      {data?.plan !== "BASIC" ? (
+      <p>Plan: {customer?.plan}</p>
+      {customer?.plan !== "BASIC" ? (
         <>
-          <p>Interval: {data?.interval}</p>
-          <button onClick={() => loadPortal(data?.plan!)}>
+          <p>Interval: {customer?.interval}</p>
+          <button onClick={() => loadPortal(customer?.plan!)}>
             Manage Subscription
           </button>
         </>
