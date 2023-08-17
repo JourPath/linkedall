@@ -29,12 +29,14 @@ export default function ProfileSection() {
   }, [user]);
 
   const handleClick = async (url: string) => {
-    await supabase
-      .from("profiles")
-      .update({ full_name: fullName, linked_in: linkedIn, avatar_url: url })
-      .eq("id", user?.id);
-    setAvatar(avatar);
-    router.push("/dashboard");
+    if (fullName && linkedIn) {
+      await supabase
+        .from("profiles")
+        .update({ full_name: fullName, linked_in: linkedIn, avatar_url: url })
+        .eq("id", user?.id);
+      setAvatar(avatar);
+      router.push("/dashboard");
+    }
   };
   if (isLoading) {
     return <p>Loading...</p>;
@@ -107,6 +109,7 @@ export default function ProfileSection() {
         </div>
       </div>
       {/* <input>{userLocal[0]?.linked_in}</input> */}
+      {!fullName || !linkedIn ? <p>Enter Name and LinkedIn to Save</p> : ""}
       <button
         className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/4"
         onClick={() => handleClick(avatar)}

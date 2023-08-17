@@ -8,7 +8,6 @@ import {
 
 export default async function ListPage({ params }: { params: { id: string } }) {
   const supabase = createClient();
-  console.log(params.id);
   const result = await supabase.rpc("get_list_from_short_id", {
     shortid: params.id,
   });
