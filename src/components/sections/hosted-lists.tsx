@@ -1,8 +1,10 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/supabase-server";
 import HostedListCard from "../cards/hosted-list-card";
 import HostedListButton from "../buttons/hosted-list-button";
 import { List } from "@/utils/types/collections.types";
+import { createClient } from "@/lib/supabase/supabase-browser";
 
 const getHostedLists = async () => {
   const supabase = createClient();

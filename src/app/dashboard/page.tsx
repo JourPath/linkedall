@@ -1,6 +1,6 @@
-import HostedLists from '@/components/sections/hosted-lists';
-import Lists from '@/components/sections/lists';
-import JoinList from '@/components/sections/join-list';
+import HostedLists from "@/components/sections/hosted-lists";
+import Lists from "@/components/sections/lists";
+import JoinList from "@/components/sections/join-list";
 
 export default function Dashboard() {
   return (
@@ -31,6 +31,7 @@ export default function Dashboard() {
 their list code"
             className="w-full rounded text-[--white]"
           />
+          {/* @ts-expect-error Async Server Component */}
           <JoinList />
         </div>
       </div>
