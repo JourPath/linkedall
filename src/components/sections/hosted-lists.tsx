@@ -1,23 +1,55 @@
-import { createClient } from '@/lib/supabase/supabase-server';
-import HostedListCard from '../cards/hosted-list-card';
-import HostedListButton from '../buttons/hosted-list-button';
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/supabase-server";
+import HostedListCard from "../cards/hosted-list-card";
+import HostedListButton from "../buttons/hosted-list-button";
+import { List } from "@/utils/types/collections.types";
 
 const getHostedLists = async () => {
   const supabase = createClient();
   const { data: user } = await supabase.auth.getUser(); // <-- this works
   const { data, error } = await supabase
-    .from('lists')
-    .select('*')
-    .eq('host_id', user?.user?.id);
+    .from("lists")
+    .select("*")
+    .eq("host_id", user?.user?.id);
   if (error) {
-    console.log(error);
-  } else {
-    return data;
+    throw error;
   }
+
+  return data;
 };
 
 export default async function HostedLists() {
-  const lists = await getHostedLists();
+  const [lists, setLists] = useState<List[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLists = async () => {
+      try {
+        const data = await getHostedLists();
+        setLists(data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLists();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <section>
       <div className="bg-[--light-blue-2] h-12 flex flex-row items-center justify-between rounded-t-lg mx-2 mt-4 lg:mx-0">
