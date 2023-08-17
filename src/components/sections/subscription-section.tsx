@@ -28,16 +28,20 @@ export default async function SubscriptionSection() {
     await stripe?.redirectToCheckout({ sessionId: data.id });
   }
 
-  useCallback(async () => {
-    const { data } = await supabase
-      .from("customers")
-      .select("*")
-      .eq("id", user?.id)
-      .single();
-    if (data) {
-      setCustomer(data);
-    }
-  }, []);
+  useEffect(() => {
+    const customerData = async function () {
+      console.log(user);
+      const { data } = await supabase
+        .from("customers")
+        .select("*")
+        .eq("id", user?.id)
+        .single();
+      if (data) {
+        setCustomer(data);
+      }
+    };
+    customerData();
+  }, [user]);
 
   async function loadPortal(planToManage: string) {
     if (planToManage === "BASIC") {
