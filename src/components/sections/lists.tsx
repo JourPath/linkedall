@@ -2,44 +2,60 @@
 
 import { createClient } from "@/lib/supabase/supabase-browser";
 import ListCard from "../cards/list-card";
-// import { headers } from 'next/headers';
 import { useEffect, useState } from "react";
 
-type List =
-  | {
-      list_id: string;
-      lists: {
-        list_name: string | null;
-        short_id: string;
-      } | null;
-    }[]
-  | undefined;
+type Lists = {
+  list_id: string;
+  lists: {
+    list_name: string | null;
+    short_id: string;
+  } | null;
+}[];
 
 export default async function Lists() {
-  const [lists, setLists] = useState<List>([]);
+  const [lists, setLists] = useState<Lists | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const supabase = createClient();
-  const { data: user } = await supabase.auth.getUser();
 
   useEffect(() => {
     const getLists = async () => {
-      const { data, error } = await supabase
-        .from("list_participants")
-        .select("list_id, lists(list_name, short_id)")
-        .eq("participant_id", user?.user?.id);
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
-      if (error) {
-        console.log(error);
-      } else {
+        const { data, error } = await supabase
+          .from("list_participants")
+          .select("list_id, lists(list_name, short_id)")
+          .eq("participant_id", user?.id);
+
+        if (error) {
+          throw error;
+        }
+
         setLists(data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
       }
-      // const response = await fetch('https://www.linkedall.online/api/lists', {
-      //   method: 'GET',
-      // headers: headers(),
-      // });
-      // const data = await response.json();
     };
     getLists();
-  }, [user]);
+  }, [supabase]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <section>
