@@ -14,6 +14,7 @@ type Lists = {
 
 export default async function Lists() {
   const [lists, setLists] = useState<Lists | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const supabase = createClient();
@@ -41,10 +42,16 @@ export default async function Lists() {
         } else {
           setError('An unexpected error occurred.');
         }
+      } finally {
+        setLoading(false);
       }
     };
     getLists();
   }, [supabase]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (error) {
     return <div>Error: {error}</div>;

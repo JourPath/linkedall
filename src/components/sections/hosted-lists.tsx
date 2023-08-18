@@ -23,6 +23,7 @@ const getHostedLists = async () => {
 export default async function HostedLists() {
   const [lists, setLists] = useState<List[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLists = async () => {
@@ -35,11 +36,17 @@ export default async function HostedLists() {
         } else {
           setError('An unexpected error occurred.');
         }
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchLists();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (error) {
     return <div>Error: {error}</div>;

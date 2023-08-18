@@ -2,12 +2,17 @@
 
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default async function JoinList() {
   const [shortId, setShortId] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [joinListError, setJoinListError] = useState<string | null>(null);
   const { user } = useAuth();
+
+  useEffect(() => {
+    setIsLoading(!user);
+  }, [user]);
 
   const joinList = async () => {
     try {
@@ -25,6 +30,10 @@ export default async function JoinList() {
         setJoinListError(err.message);
       } else {
         setJoinListError('An unexpected error occurred.');
+      }
+
+      if (isLoading) {
+        return <p>Loading...</p>;
       }
     }
 
