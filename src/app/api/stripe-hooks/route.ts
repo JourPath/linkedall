@@ -46,10 +46,10 @@ export async function POST(request: NextRequest) {
       case 'customer.subscription.updated':
         const subscriptionObjectUpdated = event.data
           .object as StripeSubscriptionObject;
+        console.log(subscriptionObjectUpdated);
         await supabase
           .from('customers')
           .update({
-            is_subscribed: true,
             interval:
               subscriptionObjectUpdated.items.data[0].price.recurring.interval,
           })
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
           .object as StripeSubscriptionObject;
         await supabase
           .from('customers')
-          .update({ is_subscribed: false, interval: null })
+          .update({ plan: 'BASIC', interval: null })
           .eq('stripe_customer_id', subscriptionObjectDeleted.customer);
         break;
     }
