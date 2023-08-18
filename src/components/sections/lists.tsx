@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { createClient } from "@/lib/supabase/supabase-browser";
-import ListCard from "../cards/list-card";
-import { useEffect, useState } from "react";
+import { createClient } from '@/lib/supabase/supabase-browser';
+import ListCard from '../cards/list-card';
+import { useEffect, useState } from 'react';
 
 type Lists = {
   list_id: string;
@@ -14,7 +14,6 @@ type Lists = {
 
 export default async function Lists() {
   const [lists, setLists] = useState<Lists | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const supabase = createClient();
@@ -27,9 +26,9 @@ export default async function Lists() {
         } = await supabase.auth.getUser();
 
         const { data, error } = await supabase
-          .from("list_participants")
-          .select("list_id, lists(list_name, short_id)")
-          .eq("participant_id", user?.id);
+          .from('list_participants')
+          .select('list_id, lists(list_name, short_id)')
+          .eq('participant_id', user?.id);
 
         if (error) {
           throw error;
@@ -40,18 +39,12 @@ export default async function Lists() {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError("An unexpected error occurred.");
+          setError('An unexpected error occurred.');
         }
-      } finally {
-        setLoading(false);
       }
     };
     getLists();
   }, [supabase]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   if (error) {
     return <div>Error: {error}</div>;
