@@ -13,6 +13,7 @@ type StripeSubscriptionObject = {
       };
     }>;
   };
+  plan: { product: string };
 };
 
 export async function POST(request: NextRequest) {
@@ -46,11 +47,13 @@ export async function POST(request: NextRequest) {
       case 'customer.subscription.updated':
         const subscriptionObjectUpdated = event.data
           .object as StripeSubscriptionObject;
-        console.log(subscriptionObjectUpdated.items.data);
-        console.log(subscriptionObjectUpdated.items.data[0]);
+        const product = await stripe.products.retrieve(
+          subscriptionObjectUpdated.plan.product
+        );
         await supabase
           .from('customers')
           .update({
+            plan: product.name.toUpperCase(),
             interval:
               subscriptionObjectUpdated.items.data[0].price.recurring.interval,
           })
