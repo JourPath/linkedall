@@ -17,14 +17,13 @@ export default async function Lists() {
   const [lists, setLists] = useState<Lists | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
 
   const supabase = createClient();
 
   useEffect(() => {
     const getLists = async () => {
       try {
-        const { user } = useAuth();
-
         const { data, error } = await supabase
           .from('list_participants')
           .select('list_id, lists(list_name, short_id)')
