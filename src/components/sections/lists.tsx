@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/supabase-browser';
 import ListCard from '../cards/list-card';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
 
 type Lists = {
   list_id: string;
@@ -22,9 +23,7 @@ export default async function Lists() {
   useEffect(() => {
     const getLists = async () => {
       try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+        const { user } = useAuth();
 
         const { data, error } = await supabase
           .from('list_participants')

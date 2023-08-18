@@ -5,14 +5,15 @@ import HostedListCard from '../cards/hosted-list-card';
 import HostedListButton from '../buttons/hosted-list-button';
 import { List } from '@/utils/types/collections.types';
 import { createClient } from '@/lib/supabase/supabase-browser';
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
 
 const getHostedLists = async () => {
   const supabase = createClient();
-  const { data: user } = await supabase.auth.getUser(); // <-- this works
+  const { user } = useAuth();
   const { data, error } = await supabase
     .from('lists')
     .select('*')
-    .eq('host_id', user?.user?.id);
+    .eq('host_id', user?.id);
   if (error) {
     throw error;
   }
