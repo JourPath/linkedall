@@ -4,6 +4,7 @@ import { useSupabase } from '@/utils/providers/supabase-provider';
 import { useEffect, useState } from 'react';
 import AvatarButton from '../buttons/avatar-button';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function ProfileSection() {
   const { user, isLoading } = useAuth();
@@ -84,7 +85,12 @@ export default function ProfileSection() {
       </div>
       {!linkedIn ? (
         <div className="flex flex-row ">
-          <img src="/downward-arrow-right.svg" />
+          <Image
+            src="/downward-arrow-right.svg"
+            height={50}
+            width={50}
+            alt="downward arrow"
+          />
           <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-full  text-center ">
             Help people find you on LinkedIn
           </p>
