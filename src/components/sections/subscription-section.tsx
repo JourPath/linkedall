@@ -39,7 +39,9 @@ export default async function SubscriptionSection() {
         setCustomer(data);
       }
     };
-    customerData();
+    if (user) {
+      customerData();
+    }
   }, [user]);
 
   if (isLoading) {
