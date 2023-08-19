@@ -17,24 +17,24 @@ export default async function SubscriptionSection() {
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
 
-  useEffect(() => {
-    async function fetchCustomerData() {
-      if (user) {
-        const { data } = await supabase
-          .from('customers')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-        if (data) {
-          setCustomer(data);
-        }
-        setCustomerLoading(false);
-      }
-    }
-    if (!isLoading) {
-      fetchCustomerData();
-    }
-  }, [isLoading, user]);
+  // useEffect(() => {
+  //   async function fetchCustomerData() {
+  //     if (user) {
+  //       const { data } = await supabase
+  //         .from('customers')
+  //         .select('*')
+  //         .eq('id', user.id)
+  //         .single();
+  //       if (data) {
+  //         setCustomer(data);
+  //       }
+  //       setCustomerLoading(false);
+  //     }
+  //   }
+  //   if (!isLoading) {
+  //     fetchCustomerData();
+  //   }
+  // }, [isLoading, user]);
 
   // useEffect(() => {
   //   async function handleStripeCheckout() {
