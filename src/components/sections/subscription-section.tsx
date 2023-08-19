@@ -29,10 +29,10 @@ export default async function SubscriptionSection() {
       }
       setCustomerLoading(false);
     }
-    if (!isLoading && user) {
+    if (!isLoading) {
       fetchCustomerData();
     }
-  }, [user]);
+  }, [isLoading]);
 
   if (plan && plan !== 'basic') {
     const response = await fetch(
