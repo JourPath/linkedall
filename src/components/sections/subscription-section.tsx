@@ -57,7 +57,7 @@ export default async function SubscriptionSection() {
     };
 
     fetchCustomerData();
-  }, [user, supabase]);
+  }, []);
 
   useEffect(() => {
     const redirectToStripe = async () => {
