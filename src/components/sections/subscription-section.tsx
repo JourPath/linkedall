@@ -16,8 +16,10 @@ export default async function SubscriptionSection() {
   const { supabase } = useSupabase();
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
-
+  console.log(isLoading, 'isLoading 1');
   useEffect(() => {
+    console.log(isLoading, 'isLoading 2');
+
     async function fetchCustomerData() {
       const { data } = await supabase
         .from('customers')
@@ -35,6 +37,7 @@ export default async function SubscriptionSection() {
   }, [isLoading]);
 
   if (plan && plan !== 'basic') {
+    console.log(isLoading, 'isLoading 3');
     const response = await fetch(
       `https://www.linkedall.online/api/stripe/subscription/${plan}`,
       {
