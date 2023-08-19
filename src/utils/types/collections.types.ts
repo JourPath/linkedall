@@ -12,4 +12,6 @@ export type get_list_from_short_id =
 
 export type List = Database['public']['Tables']['lists']['Row'];
 
-export type customer = Database['public']['Tables']['customers']['Row']
+export type Customer = Database['public']['Tables']['customers']['Row'];
+
+export type Plan = Database['public']['Tables']['customers']['Row']['plan'];

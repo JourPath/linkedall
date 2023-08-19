@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import { createClient } from "@/lib/supabase/supabase-browser";
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import { useRouter, useSearchParams } from "next/navigation";
-import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useState } from "react";
-import { customer } from "@/utils/types/collections.types";
+import { createClient } from '@/lib/supabase/supabase-browser';
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { loadStripe } from '@stripe/stripe-js';
+import { useEffect, useState } from 'react';
+import { Customer } from '@/utils/types/collections.types';
 
 export default async function SubscriptionSection() {
-  const [customer, setCustomer] = useState<customer>();
+  const [customer, setCustomer] = useState<Customer>();
   const router = useRouter();
   const supabase = createClient();
   const { user } = useAuth();
 
   const searchParams = useSearchParams();
-  const plan = searchParams.get("plan");
+  const plan = searchParams.get('plan');
 
-  if (plan && plan !== "null") {
+  if (plan && plan !== 'BASIC') {
     const response = await fetch(
       `https://www.linkedall.online/api/stripe/subscription/${plan}`,
       {
-        method: "POST",
+        method: 'POST',
       }
     );
     const data = await response.json();
@@ -31,9 +31,9 @@ export default async function SubscriptionSection() {
   useEffect(() => {
     const customerData = async function () {
       const { data } = await supabase
-        .from("customers")
-        .select("*")
-        .eq("id", user?.id)
+        .from('customers')
+        .select('*')
+        .eq('id', user?.id)
         .single();
       if (data) {
         setCustomer(data);
@@ -43,13 +43,13 @@ export default async function SubscriptionSection() {
   }, [user]);
 
   async function loadPortal(planToManage: string) {
-    if (planToManage === "BASIC") {
+    if (planToManage === 'BASIC') {
     }
 
     const response = await fetch(
-      "https://www.linkedall.online/api/stripe/portal",
+      'https://www.linkedall.online/api/stripe/portal',
       {
-        method: "POST",
+        method: 'POST',
         //   body: JSON.stringify({ shortId }),
       }
     );
@@ -61,7 +61,7 @@ export default async function SubscriptionSection() {
     <div>
       <h2>Subscription</h2>
       <p>Plan: {customer?.plan}</p>
-      {customer?.plan !== "BASIC" ? (
+      {customer?.plan !== 'BASIC' ? (
         <>
           <p>Interval: {customer?.interval}</p>
           <button onClick={() => loadPortal(customer?.plan!)}>
@@ -69,7 +69,7 @@ export default async function SubscriptionSection() {
           </button>
         </>
       ) : (
-        ""
+        ''
       )}
     </div>
   );
