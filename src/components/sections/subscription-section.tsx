@@ -34,23 +34,17 @@ export default async function SubscriptionSection() {
     }
   }, [user]);
 
-  useEffect(() => {
-    const redirectToStripe = async () => {
-      if (plan && plan !== 'basic') {
-        const response = await fetch(
-          `https://www.linkedall.online/api/stripe/subscription/${plan}`,
-          {
-            method: 'POST',
-          }
-        );
-        const data = await response.json();
-        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
-        await stripe?.redirectToCheckout({ sessionId: data.id });
+  if (plan && plan !== 'basic') {
+    const response = await fetch(
+      `https://www.linkedall.online/api/stripe/subscription/${plan}`,
+      {
+        method: 'POST',
       }
-    };
-
-    redirectToStripe();
-  }, [plan]);
+    );
+    const data = await response.json();
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
+    await stripe?.redirectToCheckout({ sessionId: data.id });
+  }
 
   if (isLoading || customerLoading) {
     return <p>Loading Subscription...</p>;
