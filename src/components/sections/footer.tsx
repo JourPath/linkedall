@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -12,11 +13,11 @@ export default function Footer() {
           target="_blank"
           className="inline-block mx-2"
         >
-          <img
+          <Image
             src="/LinkedIn_icon.svg"
             alt="LinkedIn Logo"
-            height="2em"
-            width="2em"
+            height={24}
+            width={24}
           />
         </a>
         <a
@@ -24,11 +25,11 @@ export default function Footer() {
           target="_blank"
           className="inline-block mx-2"
         >
-          <img
+          <Image
             src="/Twitter_icon.svg"
             alt="Twitter Logo"
-            height="2em"
-            width="2em"
+            height={24}
+            width={24}
           />
         </a>
         <Link href="/policy/privacy" className="mx-2 text-xs lg:text-base">
