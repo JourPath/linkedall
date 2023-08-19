@@ -16,7 +16,7 @@ export default async function SubscriptionSection() {
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
 
-  if (plan && plan !== 'BASIC') {
+  if (plan && plan !== 'basic') {
     const response = await fetch(
       `https://www.linkedall.online/api/stripe/subscription/${plan}`,
       {
