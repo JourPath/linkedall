@@ -16,38 +16,42 @@ export default async function SubscriptionSection() {
   const { supabase } = useSupabase();
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
-  console.log(isLoading, 'isLoading 1');
-  useEffect(() => {
-    console.log(isLoading, 'isLoading 2');
 
+  useEffect(() => {
     async function fetchCustomerData() {
-      const { data } = await supabase
-        .from('customers')
-        .select('*')
-        .eq('id', user?.id)
-        .single();
-      if (data) {
-        setCustomer(data);
+      if (user) {
+        const { data } = await supabase
+          .from('customers')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+        if (data) {
+          setCustomer(data);
+        }
+        setCustomerLoading(false);
       }
-      setCustomerLoading(false);
     }
     if (!isLoading) {
       fetchCustomerData();
     }
-  }, [isLoading]);
+  }, [isLoading, user]);
 
-  if (plan && plan !== 'basic') {
-    console.log(isLoading, 'isLoading 3');
-    const response = await fetch(
-      `https://www.linkedall.online/api/stripe/subscription/${plan}`,
-      {
-        method: 'POST',
+  useEffect(() => {
+    async function handleStripeCheckout() {
+      if (plan && plan !== 'basic') {
+        const response = await fetch(
+          `https://www.linkedall.online/api/stripe/subscription/${plan}`,
+          {
+            method: 'POST',
+          }
+        );
+        const data = await response.json();
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
+        await stripe?.redirectToCheckout({ sessionId: data.id });
       }
-    );
-    const data = await response.json();
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
-    await stripe?.redirectToCheckout({ sessionId: data.id });
-  }
+    }
+    handleStripeCheckout();
+  }, [plan]);
 
   if (isLoading || customerLoading) {
     return <p>Loading Subscription...</p>;
