@@ -42,7 +42,7 @@ export default async function SubscriptionSection() {
     if (user) {
       customerData();
     }
-  }, [user]);
+  }, []);
 
   if (isLoading) {
     return <p>Loading Subscription...</p>;
