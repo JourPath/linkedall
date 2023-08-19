@@ -39,9 +39,6 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.variable} ${josefin.variable}  text-[--dark-blue-3] bg-[--light-blue-1]`}
     >
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </head>
       <body className={`flex flex-col h-screen justify-between`}>
         <SupabaseProvider>
           <SupabaseAuthProvider serverSession={session}>
