@@ -43,20 +43,19 @@ export default async function SubscriptionSection() {
 
   useEffect(() => {
     const fetchCustomerData = async () => {
-      if (user) {
-        const { data } = await supabase
-          .from('customers')
-          .select('*')
-          .eq('id', user?.id)
-          .single();
-        if (data) {
-          setCustomer(data);
-        }
-        setCustomerLoading(false);
+      const { data } = await supabase
+        .from('customers')
+        .select('*')
+        .eq('id', user?.id)
+        .single();
+      if (data) {
+        setCustomer(data);
       }
+      setCustomerLoading(false);
     };
-
-    fetchCustomerData();
+    if (user) {
+      fetchCustomerData();
+    }
   }, [user]);
 
   useEffect(() => {
