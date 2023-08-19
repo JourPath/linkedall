@@ -17,30 +17,6 @@ export default async function SubscriptionSection() {
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
 
-  // if (plan && plan !== 'basic') {
-  //   const response = await fetch(
-  //     `https://www.linkedall.online/api/stripe/subscription/${plan}`,
-  //     {
-  //       method: 'POST',
-  //     }
-  //   );
-  //   const data = await response.json();
-  //   const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
-  //   await stripe?.redirectToCheckout({ sessionId: data.id });
-  // }
-
-  // if (user) {
-  //   const { data } = await supabase
-  //     .from('customers')
-  //     .select('*')
-  //     .eq('id', user?.id)
-  //     .single();
-  //   if (data) {
-  //     setCustomer(data);
-  //   }
-  //   setCustomerLoading(false);
-  // }
-
   useEffect(() => {
     const fetchCustomerData = async () => {
       const { data } = await supabase
@@ -53,7 +29,7 @@ export default async function SubscriptionSection() {
       }
       setCustomerLoading(false);
     };
-    if (user) {
+    if (!isLoading && user) {
       fetchCustomerData();
     }
   }, [user]);
