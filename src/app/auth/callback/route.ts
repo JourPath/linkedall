@@ -18,11 +18,11 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  // URL to redirect to after sign in process completes
   if (plan) {
-    return NextResponse.redirect(`https://www.linkedall.online/profile?plan=${plan}`);
+    return NextResponse.redirect(
+      `https://www.linkedall.online/profile?plan=${plan}`
+    );
   } else {
-    
     return NextResponse.redirect('https://www.linkedall.online/profile');
   }
 }

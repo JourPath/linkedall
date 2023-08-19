@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 const SignUpForm = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const { signUpWithEmail, signInWithLinkedIn } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const plan = searchParams.get("plan");
+  const plan = searchParams.get('plan');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,13 +22,13 @@ const SignUpForm = () => {
       if (error) {
         setError(error);
       } else {
-        router.push("/confirm");
+        router.push('/confirm');
       }
     } catch (error) {
-      console.log("Something went wrong!");
+      console.log('Something went wrong!');
     }
-    setEmail("");
-    setPassword("");
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -83,11 +83,11 @@ const SignUpForm = () => {
           Sign Up
         </button>
         <p className="text-[--light-blue-3] text-xs">
-          By clicking "Sign Up" I agree to LinkedAll's{" "}
+          By clicking "Sign Up" I agree to LinkedAll's{' '}
           <Link href="/policy/terms" target="_blank">
             Terms
-          </Link>{" "}
-          and{" "}
+          </Link>{' '}
+          and{' '}
           <Link href="/policy/privacy" target="_blank">
             Privacy Policy
           </Link>

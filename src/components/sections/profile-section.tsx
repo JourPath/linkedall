@@ -1,23 +1,22 @@
-"use client";
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import { useSupabase } from "@/utils/providers/supabase-provider";
-import { useEffect, useState } from "react";
-import AvatarButton from "../buttons/avatar-button";
-import { useRouter } from "next/navigation";
+'use client';
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import { useSupabase } from '@/utils/providers/supabase-provider';
+import { useEffect, useState } from 'react';
+import AvatarButton from '../buttons/avatar-button';
+import { useRouter } from 'next/navigation';
 
 export default function ProfileSection() {
-  const { user } = useAuth();
-  const [fullName, setFullName] = useState("");
-  const [linkedIn, setLinkedIn] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [avatar, setAvatar] = useState("");
+  const { user, isLoading } = useAuth();
+  const [fullName, setFullName] = useState('');
+  const [linkedIn, setLinkedIn] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   const { supabase } = useSupabase();
   const router = useRouter();
 
   useEffect(() => {
     if (user) {
-      setFullName(user.full_name || "");
+      setFullName(user.full_name || '');
       if (user.linked_in) {
         setLinkedIn(user?.linked_in);
       }
@@ -25,21 +24,21 @@ export default function ProfileSection() {
         setAvatar(user?.avatar_url);
       }
     }
-    setIsLoading(false);
   }, [user]);
 
   const handleClick = async (url: string) => {
     if (fullName && linkedIn) {
       await supabase
-        .from("profiles")
+        .from('profiles')
         .update({ full_name: fullName, linked_in: linkedIn, avatar_url: url })
-        .eq("id", user?.id);
+        .eq('id', user?.id);
       setAvatar(avatar);
-      router.push("/dashboard");
+      router.push('/dashboard');
     }
   };
+
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>Loading Profile...</p>;
   }
 
   return (
@@ -49,7 +48,7 @@ export default function ProfileSection() {
           Let people see who you are 😊
         </p>
       ) : (
-        ""
+        ''
       )}
       <div className="w-11/12 mb-4 pb-2 ">
         <div className="text-center flex flex-col items-center">
@@ -67,7 +66,7 @@ export default function ProfileSection() {
           Don't forget your name 📛
         </p>
       ) : (
-        ""
+        ''
       )}
       <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 ">
         <div className="">
@@ -91,7 +90,7 @@ export default function ProfileSection() {
           </p>
         </div>
       ) : (
-        ""
+        ''
       )}
       <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 ">
         <div className="">
@@ -109,7 +108,7 @@ export default function ProfileSection() {
         </div>
       </div>
       {/* <input>{userLocal[0]?.linked_in}</input> */}
-      {!fullName || !linkedIn ? <p>Enter Name and LinkedIn to Save</p> : ""}
+      {!fullName || !linkedIn ? <p>Enter Name and LinkedIn to Save</p> : ''}
       <button
         className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/4"
         onClick={() => handleClick(avatar)}

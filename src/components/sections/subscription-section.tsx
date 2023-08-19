@@ -1,17 +1,17 @@
 'use client';
 
-import { createClient } from '@/lib/supabase/supabase-browser';
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { Customer } from '@/utils/types/collections.types';
+import { useSupabase } from '@/utils/providers/supabase-provider';
 
 export default async function SubscriptionSection() {
   const [customer, setCustomer] = useState<Customer>();
   const router = useRouter();
-  const supabase = createClient();
-  const { user } = useAuth();
+  const { supabase } = useSupabase();
+  const { user, isLoading } = useAuth();
 
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
@@ -42,15 +42,15 @@ export default async function SubscriptionSection() {
     customerData();
   }, [user]);
 
-  async function loadPortal(planToManage: string) {
-    if (planToManage === 'BASIC') {
-    }
+  if (isLoading) {
+    return <p>Loading Subscription...</p>;
+  }
 
+  async function loadPortal(planToManage: string) {
     const response = await fetch(
       'https://www.linkedall.online/api/stripe/portal',
       {
         method: 'POST',
-        //   body: JSON.stringify({ shortId }),
       }
     );
     const data = await response.json();

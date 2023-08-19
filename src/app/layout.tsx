@@ -6,7 +6,6 @@ import { createClient } from '@/lib/supabase/supabase-server';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import GAnalytics from '@/lib/google/analytics';
-import Script from 'next/script';
 import NavBar from '@/components/nav/nav-bar';
 import Footer from '@/components/sections/footer';
 
