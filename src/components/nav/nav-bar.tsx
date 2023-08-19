@@ -13,7 +13,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 }
 
 export default function NavBar() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isLoading } = useAuth();
   const pathname = usePathname();
   let navigation = [
     { name: 'Home', href: '/' },
@@ -29,6 +29,10 @@ export default function NavBar() {
       { name: 'Profile', href: '/profile' },
       { name: 'Upgrade', href: '/pricing' },
     ];
+  }
+
+  if (isLoading) {
+    return <p>Loading Profile...</p>;
   }
 
   return (

@@ -17,41 +17,41 @@ export default async function SubscriptionSection() {
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
 
-  // useEffect(() => {
-  //   async function fetchCustomerData() {
-  //     if (user) {
-  //       const { data } = await supabase
-  //         .from('customers')
-  //         .select('*')
-  //         .eq('id', user.id)
-  //         .single();
-  //       if (data) {
-  //         setCustomer(data);
-  //       }
-  //       setCustomerLoading(false);
-  //     }
-  //   }
-  //   if (!isLoading) {
-  //     fetchCustomerData();
-  //   }
-  // }, [isLoading, user]);
+  useEffect(() => {
+    async function fetchCustomerData() {
+      if (user) {
+        const { data } = await supabase
+          .from('customers')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+        if (data) {
+          setCustomer(data);
+        }
+        setCustomerLoading(false);
+      }
+    }
+    if (!isLoading) {
+      fetchCustomerData();
+    }
+  }, [isLoading, user]);
 
-  // useEffect(() => {
-  //   async function handleStripeCheckout() {
-  //     if (plan && plan !== 'basic') {
-  //       const response = await fetch(
-  //         `https://www.linkedall.online/api/stripe/subscription/${plan}`,
-  //         {
-  //           method: 'POST',
-  //         }
-  //       );
-  //       const data = await response.json();
-  //       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
-  //       await stripe?.redirectToCheckout({ sessionId: data.id });
-  //     }
-  //   }
-  //   handleStripeCheckout();
-  // }, [plan]);
+  useEffect(() => {
+    async function handleStripeCheckout() {
+      if (plan && plan !== 'basic') {
+        const response = await fetch(
+          `https://www.linkedall.online/api/stripe/subscription/${plan}`,
+          {
+            method: 'POST',
+          }
+        );
+        const data = await response.json();
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
+        await stripe?.redirectToCheckout({ sessionId: data.id });
+      }
+    }
+    handleStripeCheckout();
+  }, [plan]);
 
   if (isLoading || customerLoading) {
     return <p>Loading Subscription...</p>;
