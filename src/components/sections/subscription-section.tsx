@@ -8,17 +8,17 @@ import { Customer } from '@/utils/types/collections.types';
 import { useSupabase } from '@/utils/providers/supabase-provider';
 
 export default async function SubscriptionSection() {
+  const { user, isLoading } = useAuth();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [customerLoading, setCustomerLoading] = useState(true);
   const router = useRouter();
-  const { supabase } = useSupabase();
-  const { user, isLoading } = useAuth();
 
+  const { supabase } = useSupabase();
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
 
   useEffect(() => {
-    const fetchCustomerData = async () => {
+    async function fetchCustomerData() {
       const { data } = await supabase
         .from('customers')
         .select('*')
@@ -28,7 +28,7 @@ export default async function SubscriptionSection() {
         setCustomer(data);
       }
       setCustomerLoading(false);
-    };
+    }
     if (!isLoading && user) {
       fetchCustomerData();
     }
