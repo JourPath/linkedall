@@ -8,7 +8,8 @@ import { Customer } from '@/utils/types/collections.types';
 import { useSupabase } from '@/utils/providers/supabase-provider';
 
 export default async function SubscriptionSection() {
-  const [customer, setCustomer] = useState<Customer>();
+  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [customerLoading, setCustomerLoading] = useState(true);
   const router = useRouter();
   const { supabase } = useSupabase();
   const { user, isLoading } = useAuth();
@@ -28,23 +29,19 @@ export default async function SubscriptionSection() {
     await stripe?.redirectToCheckout({ sessionId: data.id });
   }
 
-  useEffect(() => {
-    const customerData = async function () {
-      const { data } = await supabase
-        .from('customers')
-        .select('*')
-        .eq('id', user?.id)
-        .single();
-      if (data) {
-        setCustomer(data);
-      }
-    };
-    if (user) {
-      customerData();
+  if (user) {
+    const { data } = await supabase
+      .from('customers')
+      .select('*')
+      .eq('id', user?.id)
+      .single();
+    if (data) {
+      setCustomer(data);
     }
-  }, [isLoading]);
+    setCustomerLoading(false);
+  }
 
-  if (isLoading) {
+  if (isLoading || customerLoading) {
     return <p>Loading Subscription...</p>;
   }
 
