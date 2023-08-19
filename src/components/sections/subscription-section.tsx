@@ -39,10 +39,8 @@ export default async function SubscriptionSection() {
         setCustomer(data);
       }
     };
-    if (user) {
-      customerData();
-    }
-  }, []);
+    customerData();
+  }, [isLoading]);
 
   if (isLoading) {
     return <p>Loading Subscription...</p>;
