@@ -12,7 +12,7 @@ type Lists = {
   } | null;
 }[];
 
-export default async function Lists() {
+export default function Lists() {
   const [lists, setLists] = useState<Lists | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

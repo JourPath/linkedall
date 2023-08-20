@@ -4,7 +4,7 @@ import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default async function JoinList() {
+export default function JoinList() {
   const [shortId, setShortId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [joinListError, setJoinListError] = useState<string | null>(null);

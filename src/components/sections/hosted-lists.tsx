@@ -20,7 +20,7 @@ const getHostedLists = async () => {
   return data;
 };
 
-export default async function HostedLists() {
+export default function HostedLists() {
   const [lists, setLists] = useState<List[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
