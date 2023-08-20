@@ -47,8 +47,9 @@ export default function NavBar() {
                 <div className="flex flex-shrink-1 items-center">
                   <Link href="/">
                     <Image
-                      className="block w-auto"
+                      className="block"
                       height={48}
+                      width={240}
                       src="/LinkedAll_1000x200.svg"
                       alt="LinkedAll Logo"
                     />
