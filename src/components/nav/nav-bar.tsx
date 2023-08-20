@@ -7,6 +7,7 @@ import NavButton from '../buttons/nav-button';
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import ProfileButton from '../buttons/profile-button';
 import Link from 'next/link';
+import Image from 'next/image';
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -45,9 +46,11 @@ export default function NavBar() {
                 {/* Logo */}
                 <div className="flex flex-shrink-1 items-center">
                   <Link href="/">
-                    <img
-                      className="block h-12 w-auto"
+                    <Image
+                      className="block w-auto"
+                      height={48}
                       src="/LinkedAll_1000x200.svg"
+                      alt="LinkedAll Logo"
                     />
                   </Link>
                 </div>
@@ -55,7 +58,7 @@ export default function NavBar() {
                 <div className="hidden sm:ml-6 sm:flex items-center">
                   <div className="flex space-x-4 items-center">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -69,7 +72,7 @@ export default function NavBar() {
                         }
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                     {user ? (
                       <a
