@@ -31,9 +31,9 @@ export default function NavBar() {
     ];
   }
 
-  if (isLoading) {
-    return <p>Loading Nav...</p>;
-  }
+  // if (isLoading) {
+  //   return <p>Loading Nav...</p>;
+  // }
 
   return (
     <Disclosure as="nav" className="bg-[--light-blue-1]">
