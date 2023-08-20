@@ -6,7 +6,6 @@ export default async function Profile() {
     <>
       <div className="bg-[--light-blue-1] h-screen">
         {/* <ProfileSection /> */}
-        {/* @ts-expect-error Async Server Component */}
         <SubscriptionSection />
       </div>
     </>

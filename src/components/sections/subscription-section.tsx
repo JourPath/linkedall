@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { Customer } from '@/utils/types/collections.types';
 import { useSupabase } from '@/utils/providers/supabase-provider';
 
-export default async function SubscriptionSection() {
+export default function SubscriptionSection() {
   const { user, isLoading } = useAuth();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [customerLoading, setCustomerLoading] = useState(true);

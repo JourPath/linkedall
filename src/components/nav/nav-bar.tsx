@@ -32,7 +32,7 @@ export default function NavBar() {
   }
 
   if (isLoading) {
-    return <p>Loading Profile...</p>;
+    return <p>Loading Nav...</p>;
   }
 
   return (
