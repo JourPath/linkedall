@@ -9,6 +9,7 @@ export default function HostedListButton() {
   const { user } = useAuth();
   const { supabase } = useSupabase();
   const [profile, setProfile] = useState(user);
+  const [profileLoading, setProfileLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -19,12 +20,15 @@ export default function HostedListButton() {
           .eq('id', user?.id)
           .single();
         setProfile(profile.data);
+        setProfileLoading(false);
       };
       getProfile();
     }
   }, [user]);
 
-  if (profile?.linked_in) {
+  if (profileLoading) return <></>;
+
+  if (profile?.linked_in || user?.linked_in) {
     return (
       <Link className="min-w-[35%] w-auto" href="/lists/create" passHref>
         <button className="bg-[--blue-2] h-12 rounded-tr-lg px-2 w-full whitespace-nowrap flex items-center justify-around">

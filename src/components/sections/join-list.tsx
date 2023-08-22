@@ -11,6 +11,7 @@ export default function JoinList() {
   const [shortId, setShortId] = useState('');
   const [joinListError, setJoinListError] = useState<string | null>(null);
   const [profile, setProfile] = useState(user);
+  const [profileLoading, setProfileLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -21,6 +22,7 @@ export default function JoinList() {
           .eq('id', user?.id)
           .single();
         setProfile(profile.data);
+        setProfileLoading(false);
       };
       getProfile();
     }
@@ -50,7 +52,9 @@ export default function JoinList() {
     return <p>Loading...</p>;
   }
 
-  if (!profile?.linked_in) {
+  if (profileLoading) return <></>;
+
+  if (!profile?.linked_in || !user?.linked_in) {
     return (
       <Link href="/profile">
         <p className="bg-amber-300 py-4 text-center w-full">
