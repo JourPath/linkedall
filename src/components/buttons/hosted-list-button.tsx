@@ -12,7 +12,7 @@ export default function HostedListButton() {
   const [profileLoading, setProfileLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
+    if (user && !user.linked_in) {
       const getProfile = async () => {
         const profile = await supabase
           .from('profiles')
@@ -20,9 +20,11 @@ export default function HostedListButton() {
           .eq('id', user?.id)
           .single();
         setProfile(profile.data);
-        setProfileLoading(false);
       };
       getProfile();
+    }
+    if (user) {
+      setProfileLoading(false);
     }
   }, [user]);
 

@@ -14,7 +14,7 @@ export default function JoinList() {
   const [profileLoading, setProfileLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
+    if (user && !user.linked_in) {
       const getProfile = async () => {
         const profile = await supabase
           .from('profiles')
@@ -22,9 +22,11 @@ export default function JoinList() {
           .eq('id', user?.id)
           .single();
         setProfile(profile.data);
-        setProfileLoading(false);
       };
       getProfile();
+    }
+    if (user) {
+      setProfileLoading(false);
     }
   }, [user]);
 
@@ -54,7 +56,7 @@ export default function JoinList() {
 
   if (profileLoading) return <></>;
 
-  if (!profile?.linked_in || !user?.linked_in) {
+  if (!profile?.linked_in && !user?.linked_in) {
     return (
       <Link href="/profile">
         <p className="bg-amber-300 py-4 text-center w-full">
