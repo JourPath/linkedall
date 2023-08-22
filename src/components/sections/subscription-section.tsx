@@ -1,40 +1,20 @@
 'use client';
 
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loadStripe } from '@stripe/stripe-js';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Customer } from '@/utils/types/collections.types';
-import { useSupabase } from '@/utils/providers/supabase-provider';
+import Link from 'next/link';
 
-export default function SubscriptionSection() {
-  const { user, isLoading } = useAuth();
-  const [customer, setCustomer] = useState<Customer | null>(null);
-  const [customerLoading, setCustomerLoading] = useState(true);
+export default function SubscriptionSection({
+  customer,
+}: {
+  customer: Customer;
+}) {
   const router = useRouter();
 
-  const { supabase } = useSupabase();
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
-
-  useEffect(() => {
-    async function fetchCustomerData() {
-      if (user) {
-        const { data } = await supabase
-          .from('customers')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-        if (data) {
-          setCustomer(data);
-        }
-        setCustomerLoading(false);
-      }
-    }
-    if (!isLoading) {
-      fetchCustomerData();
-    }
-  }, [isLoading, user]);
 
   useEffect(() => {
     async function handleStripeCheckout() {
@@ -53,10 +33,6 @@ export default function SubscriptionSection() {
     handleStripeCheckout();
   }, [plan]);
 
-  if (isLoading || customerLoading) {
-    return <p>Loading Subscription...</p>;
-  }
-
   async function loadPortal(planToManage: string) {
     const response = await fetch(
       'https://www.linkedall.online/api/stripe/portal',
@@ -69,19 +45,29 @@ export default function SubscriptionSection() {
   }
 
   return (
-    <div>
-      <h2>Subscription</h2>
-      <p>Plan: {customer?.plan}</p>
+    <section className="flex flex-col justify-center content-center md:w-1/2 items-center mx-8 mt-4 rounded-3xl bg-[--white] w-10/12 ">
+      <h3 className="bg-[--light-blue-2] text-center font-bold text-2xl w-full px-2 py-4 rounded-t-3xl text-[--dark-blue-3]">
+        Account
+      </h3>
+      <p className="my-4 ">Plan: {customer?.plan}</p>
       {customer?.plan !== 'BASIC' ? (
         <>
-          <p>Interval: {customer?.interval}</p>
-          <button onClick={() => loadPortal(customer?.plan!)}>
+          <p>Interval: {customer?.interval?.toUpperCase()}</p>
+          <button
+            className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/2 my-4 px-2"
+            onClick={() => loadPortal(customer?.plan!)}
+          >
             Manage Subscription
           </button>
         </>
       ) : (
-        ''
+        <Link
+          className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/4 my-4"
+          href={`/pricing`}
+        >
+          Upgrade
+        </Link>
       )}
-    </div>
+    </section>
   );
 }

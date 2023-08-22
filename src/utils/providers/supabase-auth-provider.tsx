@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect } from 'react';
 import useSWR from 'swr';
 import { useSupabase } from './supabase-provider';
-import { revalidatePath } from 'next/cache';
 
 interface ContextI {
   user: Profile | null | undefined;

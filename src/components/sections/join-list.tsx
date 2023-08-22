@@ -1,13 +1,30 @@
 'use client';
 
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import { useSupabase } from '@/utils/providers/supabase-provider';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function JoinList() {
+  const { user, isLoading } = useAuth();
+  const { supabase } = useSupabase();
   const [shortId, setShortId] = useState('');
   const [joinListError, setJoinListError] = useState<string | null>(null);
-  const { user, isLoading } = useAuth();
+  const [profile, setProfile] = useState(user);
+
+  useEffect(() => {
+    if (user) {
+      const getProfile = async () => {
+        const profile = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user?.id)
+          .single();
+        setProfile(profile.data);
+      };
+      getProfile();
+    }
+  }, [user]);
 
   const joinList = async () => {
     try {
@@ -33,7 +50,7 @@ export default function JoinList() {
     return <p>Loading...</p>;
   }
 
-  if (!user?.linked_in) {
+  if (!profile?.linked_in) {
     return (
       <Link href="/profile">
         <p className="bg-amber-300 py-4 text-center w-full">
@@ -44,9 +61,9 @@ export default function JoinList() {
   }
 
   return (
-    <div className="bg-[--white] h-12 flex flex-row items-center justify-between rounded-full mx-2 mb-2 my-4 lg:mx-0">
+    <div className="bg-[--white] h-12 flex flex-row items-center justify-between rounded-full  mb-2 my-4 lg:mx-0">
       <input
-        className="h-12 w-3/4 rounded-l-full bg-[--white] text-2xl p-2"
+        className="h-12 w-3/4 rounded-l-full bg-[--white] text-xl p-2"
         value={shortId}
         type="text"
         placeholder="Enter code here"

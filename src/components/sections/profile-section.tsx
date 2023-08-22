@@ -43,10 +43,13 @@ export default function ProfileSection() {
   }
 
   return (
-    <section className="flex flex-col justify-around content-center items-center mt-4">
+    <section className="flex flex-col justify-around content-center items-center mt-4 mx-8 rounded-3xl bg-[--white] w-10/12">
+      <h3 className="bg-[--light-blue-2] text-center font-bold text-2xl w-full px-2 py-4 rounded-t-3xl text-[--dark-blue-3]">
+        Profile
+      </h3>
       {!user?.avatar_url ? (
-        <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-full  text-center ">
-          Let people see who you are 😊
+        <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-11/12  text-center ">
+          Add Profile Picture so people can see who you are 😊
         </p>
       ) : (
         ''
@@ -84,16 +87,17 @@ export default function ProfileSection() {
         </div>
       </div>
       {!linkedIn ? (
-        <div className="flex flex-row ">
-          <Image
-            src="/downward-arrow-right.svg"
-            height={50}
-            width={50}
-            alt="downward arrow"
-          />
+        <div className="flex flex-row items-center ">
           <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-full  text-center ">
-            Help people find you on LinkedIn
+            Add your LinkedIn URL so people can connect with you
           </p>
+          <Image
+            src="/In-Blue-48.png"
+            height={24}
+            width={24}
+            alt="LinkedIn Icon"
+            className="h-6 w-6"
+          />
         </div>
       ) : (
         ''
@@ -110,13 +114,14 @@ export default function ProfileSection() {
             onChange={(e) => setLinkedIn(e.target.value)}
             required
             type="text"
+            placeholder="e.g john-doe-123456789 or johndoe"
           />
         </div>
       </div>
       {/* <input>{userLocal[0]?.linked_in}</input> */}
       {!fullName || !linkedIn ? <p>Enter Name and LinkedIn to Save</p> : ''}
       <button
-        className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/4"
+        className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/2 my-4"
         onClick={() => handleClick(avatar)}
       >
         Save Changes

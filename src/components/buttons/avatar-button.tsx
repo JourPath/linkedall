@@ -70,7 +70,7 @@ export default function AvatarButton({
           <img
             src={url}
             alt="Avatar"
-            className="avatar image rounded-full w-20 h-20"
+            className="avatar image rounded-full w-20 h-20 object-cover"
           />
         ) : (
           <svg

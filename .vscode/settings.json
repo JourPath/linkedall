@@ -1,9 +1,4 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": [
-    "fkey",
-    "nextjs",
-    "signup",
-    "supabase"
-  ]
+  "cSpell.words": ["Dashcard", "fkey", "nextjs", "signup", "supabase"]
 }

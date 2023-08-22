@@ -1,14 +1,32 @@
 'use client';
 
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import { useSupabase } from '@/utils/providers/supabase-provider';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function HostedListButton() {
   const { user } = useAuth();
+  const { supabase } = useSupabase();
+  const [profile, setProfile] = useState(user);
 
-  if (user?.linked_in) {
+  useEffect(() => {
+    if (user) {
+      const getProfile = async () => {
+        const profile = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user?.id)
+          .single();
+        setProfile(profile.data);
+      };
+      getProfile();
+    }
+  }, [user]);
+
+  if (profile?.linked_in) {
     return (
-      <Link className="min-w-[40%] w-auto" href="/lists/create" passHref>
+      <Link className="min-w-[35%] w-auto" href="/lists/create" passHref>
         <button className="bg-[--blue-2] h-12 rounded-tr-lg px-2 w-full whitespace-nowrap flex items-center justify-around">
           <svg
             xmlns="http://www.w3.org/2000/svg"
