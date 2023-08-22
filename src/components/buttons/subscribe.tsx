@@ -6,9 +6,15 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function Subscribe({ planId }: { planId: string }) {
+export default function Subscribe({
+  planId,
+  planName,
+}: {
+  planId: string;
+  planName: string;
+}) {
   const { user } = useAuth();
-  const [planText, setPlanText] = useState<string>('Subscribe');
+  const [planText, setPlanText] = useState<string>(`Start ${planName} plan`);
   const [plan, setPlan] = useState<string | null>(null);
   const router = useRouter();
   const supabase = createClient();
@@ -62,5 +68,12 @@ export default function Subscribe({ planId }: { planId: string }) {
     }
   }
 
-  return <button onClick={() => handleSubscribe(planId)}>{planText}</button>;
+  return (
+    <button
+      className="bg-[--blue-2] rounded-md text-[--white] min-h-12 w-full font-bold text-lg my-4 py-4"
+      onClick={() => handleSubscribe(planId)}
+    >
+      {planText}
+    </button>
+  );
 }
