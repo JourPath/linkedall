@@ -13,7 +13,8 @@ interface ContextI {
   isLoading: boolean;
   mutate: any;
   signOut: () => Promise<void>;
-  signInWithLinkedIn: (plan: string | null) => Promise<void>;
+  signInWithLinkedIn: () => Promise<void>;
+  signUpWithLinkedIn: (plan: string | null) => Promise<void>;
   signUpWithEmail: (
     email: string,
     password: string,
@@ -28,7 +29,8 @@ const Context = createContext<ContextI>({
   isLoading: true,
   mutate: null,
   signOut: async () => {},
-  signInWithLinkedIn: async (plan: string | null) => {},
+  signInWithLinkedIn: async () => {},
+  signUpWithLinkedIn: async (plan: string | null) => {},
   signUpWithEmail: async (
     email: string,
     password: string,
@@ -90,12 +92,22 @@ export default function SupabaseAuthProvider({
     router.push('/login');
   };
 
-  // Sign in with LinkedIn
-  const signInWithLinkedIn = async (plan: string | null) => {
+  // Sign up with LinkedIn
+  const signUpWithLinkedIn = async (plan: string | null) => {
     await supabase.auth.signInWithOAuth({
       provider: 'linkedin',
       options: {
         redirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}`,
+      },
+    });
+  };
+
+  // Sign In with LinkedIn  // Sign in with LinkedIn
+  const signInWithLinkedIn = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'linkedin',
+      options: {
+        redirectTo: `https://www.linkedall.online/auth/callback`,
       },
     });
   };
@@ -168,6 +180,7 @@ export default function SupabaseAuthProvider({
     mutate,
     signOut,
     signInWithLinkedIn,
+    signUpWithLinkedIn,
     signUpWithEmail,
     signInWithEmail,
   };
