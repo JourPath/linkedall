@@ -78,7 +78,7 @@ export default function ProfileSection() {
             Name
           </label>
           <input
-            className="mx-8 w-10/12 bg-[--light-blue-2] font-bold"
+            className="mx-8 w-3/4 bg-[--light-blue-2] font-bold"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -89,15 +89,8 @@ export default function ProfileSection() {
       {!linkedIn ? (
         <div className="flex flex-row items-center ">
           <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-full  text-center ">
-            Add your LinkedIn URL so people can connect with you
+            Add your LinkedIn URL so people can connect with you 🔗
           </p>
-          <Image
-            src="/In-Blue-48.png"
-            height={24}
-            width={24}
-            alt="LinkedIn Icon"
-            className="h-6 w-6"
-          />
         </div>
       ) : (
         ''
@@ -109,12 +102,12 @@ export default function ProfileSection() {
           </label>
           <input
             id="linked_in"
-            className="mx-8 w-10/12 bg-[--light-blue-2] font-bold"
+            className="mx-8 w-3/4 bg-[--light-blue-2] font-bold"
             value={linkedIn}
             onChange={(e) => setLinkedIn(e.target.value)}
             required
             type="text"
-            placeholder="e.g john-doe-123456789 or johndoe"
+            placeholder="e.g john-doe"
           />
         </div>
       </div>
