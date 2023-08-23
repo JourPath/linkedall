@@ -42,7 +42,7 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
         </Switch>
         <p>Year</p>
       </div>
-      <div className="flex flex-col md:flex-row mx-16 justify-center items-center w-full">
+      <div className="flex flex-col lg:flex-row mx-16 justify-center items-center w-full">
         {plans
           .filter((plan) => {
             return (plan.interval === 'year') === yearly;
@@ -50,14 +50,14 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
           .map((plan) => (
             <div
               key={plan?.id}
-              className="text-start bg-[--white] rounded-xl shadow px-8 py-8 my-4 mx-8 md:w-1/4 w-3/4 md:h-full"
+              className="text-start bg-[--white] rounded-xl shadow px-12 py-12 my-4 mx-4 lg:w-1/4 w-3/4 lg:h-full"
             >
               <h2 className="text-xl font-bold mb-4">{plan?.name}</h2>
               <p className="text-6xl font-bold whitespace-nowrap mb-4">
                 {plan.name === 'Basic' ? 'Free' : `£${plan?.price! / 100}`}
               </p>
               <p className="mb-8 h-1/6">{plan.description}</p>
-              <div className="flex flex-row h-8">
+              <div className="flex flex-row h-16">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -75,7 +75,7 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
                   {plan.name === 'Basic' ? 'List' : 'Lists'}
                 </p>
               </div>
-              <div className="flex flex-row h-8">
+              <div className="flex flex-row h-16">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -88,11 +88,11 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
                     clipRule="evenodd"
                   />
                 </svg>
-                <p className="mb-2 ml-2">
+                <p className="mb-2 ml-2 h-16">
                   {plan.metadata.max_people} People Per List
                 </p>
               </div>
-              <div className="flex flex-row h-8">
+              <div className="flex flex-row h-12">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"

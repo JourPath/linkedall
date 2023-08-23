@@ -70,7 +70,7 @@ export default function Subscribe({
 
   return (
     <button
-      className="bg-[--blue-2] rounded-md text-[--white] min-h-12 w-full font-bold text-lg my-4 py-4"
+      className="bg-[--blue-2] rounded-md text-[--white] min-h-12 w-full font-bold text-lg my-8 py-4"
       onClick={() => handleSubscribe(planId)}
     >
       {planText}
