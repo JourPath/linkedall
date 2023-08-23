@@ -95,10 +95,9 @@ export default function SupabaseAuthProvider({
     await supabase.auth.signInWithOAuth({
       provider: 'linkedin',
       options: {
-        redirectTo: 'https://www.linkedall.online/profile',
+        redirectTo: 'https://www.linkedall.online/auth/callback',
       },
     });
-    router.refresh();
   };
 
   // Sign up with Email
