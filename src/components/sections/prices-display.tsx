@@ -50,10 +50,10 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
           .map((plan) => (
             <div
               key={plan?.id}
-              className="text-start bg-[--white] rounded-xl shadow px-12 py-12 my-4 mx-4 lg:w-1/4 w-3/4 lg:h-full"
+              className="text-start bg-[--white] rounded-xl shadow px-12 py-12 my-4 mx-4 lg:w-1/4 w-5/6 lg:h-full"
             >
-              <h2 className="text-xl font-bold mb-4">{plan?.name}</h2>
-              <p className="text-6xl font-bold whitespace-nowrap mb-4">
+              <h2 className="text-xl  font-bold mb-4">{plan?.name}</h2>
+              <p className="text-5xl font-bold whitespace-nowrap mb-4">
                 {plan.name === 'Basic' ? 'Free' : `£${plan?.price! / 100}`}
               </p>
               <p className="mb-8 h-1/6">{plan.description}</p>
