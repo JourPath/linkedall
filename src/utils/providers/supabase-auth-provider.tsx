@@ -13,7 +13,7 @@ interface ContextI {
   isLoading: boolean;
   mutate: any;
   signOut: () => Promise<void>;
-  signInWithLinkedIn: () => Promise<void>;
+  signInWithLinkedIn: (plan: string | null) => Promise<void>;
   signUpWithEmail: (
     email: string,
     password: string,
@@ -28,7 +28,7 @@ const Context = createContext<ContextI>({
   isLoading: true,
   mutate: null,
   signOut: async () => {},
-  signInWithLinkedIn: async () => {},
+  signInWithLinkedIn: async (plan: string | null) => {},
   signUpWithEmail: async (
     email: string,
     password: string,
@@ -91,11 +91,11 @@ export default function SupabaseAuthProvider({
   };
 
   // Sign in with LinkedIn
-  const signInWithLinkedIn = async () => {
+  const signInWithLinkedIn = async (plan: string | null) => {
     await supabase.auth.signInWithOAuth({
       provider: 'linkedin',
       options: {
-        redirectTo: 'https://www.linkedall.online/auth/callback',
+        redirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}`,
       },
     });
   };

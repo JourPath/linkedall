@@ -37,7 +37,7 @@ const SignUpForm = () => {
       <h3 className="font-bold text-2xl pb-4 ">Get Started</h3>
       <button
         className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4 "
-        onClick={signInWithLinkedIn}
+        onClick={() => signInWithLinkedIn(plan)}
       >
         <img src="/In-Blue-48.png" className="w-7 inline pr-2" />
         Sign Up With LinkedIn
