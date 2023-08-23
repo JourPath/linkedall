@@ -22,10 +22,10 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
   const [yearly, setYearly] = useState(false);
 
   return (
-    <section className="text-center flex flex-col justify-center items-center">
+    <section className="text-center flex flex-col justify-center items-center mb-8">
       <h1 className="text-4xl font-bold">Pricing</h1>
       <p className="py-2">Choose the best plan for you and start networking</p>
-      <div className="mt-16 mb-8 flex flex-row items-center">
+      <div className="mb-8 flex flex-row items-center">
         <p>Month</p>
         <Switch
           checked={yearly}
