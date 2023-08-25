@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import { headers } from "next/headers";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import { headers } from 'next/headers';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function CreateListForm() {
-  const [listName, setListName] = useState<string>("");
+  const [listName, setListName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
   const router = useRouter();
@@ -15,17 +15,18 @@ export default function CreateListForm() {
     e.preventDefault();
     setError(null);
     try {
-      const response = await fetch("https://www.linkedall.online/api/lists", {
-        method: "PUT",
+      const response = await fetch('https://www.linkedall.online/api/lists', {
+        method: 'PUT',
         body: JSON.stringify({ user, listName }),
       });
+      console.log(response);
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error('Network response was not ok');
       }
       const { short_id } = await response.json();
       router.push(`/lists/${short_id}`);
     } catch (error) {
-      console.log("Something went wrong!");
+      console.log('Something went wrong!');
     }
   };
 
