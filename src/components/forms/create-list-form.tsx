@@ -23,7 +23,7 @@ export default function CreateListForm() {
     }
     const responseJson = await response.json();
     if (responseJson.error) {
-      throw new Error(responseJson.error);
+      setError(responseJson.error);
     } else {
       const { short_id } = responseJson;
       router.push(`/lists/${short_id}`);
