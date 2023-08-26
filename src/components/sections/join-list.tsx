@@ -40,7 +40,6 @@ export default function JoinList() {
     }
     const data = await response.json();
     if (data.error) {
-      console.log(data.error);
       if (
         data.error.message.includes(
           'new row violates row-level security policy'

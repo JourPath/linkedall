@@ -23,7 +23,6 @@ export default function CreateListForm() {
     }
     const responseJson = await response.json();
     if (responseJson.error) {
-      console.log(responseJson.error);
       if (
         responseJson.error.message.includes(
           'new row violates row-level security policy'
