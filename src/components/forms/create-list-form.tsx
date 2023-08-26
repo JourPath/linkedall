@@ -14,23 +14,19 @@ export default function CreateListForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    try {
-      const response = await fetch('https://www.linkedall.online/api/lists', {
-        method: 'PUT',
-        body: JSON.stringify({ user, listName }),
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const responseJson = await response.json();
-      if (responseJson.error) {
-        throw new Error(responseJson.error);
-      } else {
-        const { short_id } = responseJson;
-        router.push(`/lists/${short_id}`);
-      }
-    } catch (error) {
-      console.log('Something went wrong!');
+    const response = await fetch('https://www.linkedall.online/api/lists', {
+      method: 'PUT',
+      body: JSON.stringify({ user, listName }),
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const responseJson = await response.json();
+    if (responseJson.error) {
+      throw new Error(responseJson.error);
+    } else {
+      const { short_id } = responseJson;
+      router.push(`/lists/${short_id}`);
     }
   };
 
