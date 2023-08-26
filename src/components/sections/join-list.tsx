@@ -31,22 +31,27 @@ export default function JoinList() {
   }, [user]);
 
   const joinList = async () => {
-    try {
-      const response = await fetch('https://www.linkedall.online/api/join', {
-        method: 'PUT',
-        body: JSON.stringify({ shortId }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'An error occurred.');
+    const response = await fetch('https://www.linkedall.online/api/join', {
+      method: 'PUT',
+      body: JSON.stringify({ shortId }),
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    if (data.error) {
+      console.log(data.error);
+      if (
+        data.error.message.includes(
+          'new row violates row-level security policy'
+        )
+      ) {
+        setJoinListError(
+          'You have reached maximum lists for your plan. Please upgrade to create more lists.'
+        );
       }
+    } else {
       return data;
-    } catch (err) {
-      if (err instanceof Error) {
-        setJoinListError(err.message);
-      } else {
-        setJoinListError('An unexpected error occurred.');
-      }
     }
   };
 
