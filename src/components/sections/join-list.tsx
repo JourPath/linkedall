@@ -72,24 +72,26 @@ export default function JoinList() {
   }
 
   return (
-    <div className="bg-[--white] h-12 flex flex-row items-center justify-between rounded-full  mb-2 my-4 lg:mx-0">
-      <input
-        className="h-12 w-3/4 rounded-l-full bg-[--white] text-xl p-2"
-        value={shortId}
-        type="text"
-        placeholder="Enter code here"
-        minLength={6}
-        maxLength={10}
-        onChange={(e) => {
-          return setShortId(e.target.value.toUpperCase());
-        }}
-      />
-      <button
-        onClick={joinList}
-        className="bg-[--blue-2] rounded-r-full text-[--white] h-12 w-1/4"
-      >
-        Join List
-      </button>
+    <div>
+      <div className="bg-[--white] h-12 flex flex-row items-center justify-between rounded-full  mb-2 my-4 lg:mx-0">
+        <input
+          className="h-12 w-3/4 rounded-l-full bg-[--white] text-xl p-2"
+          value={shortId}
+          type="text"
+          placeholder="Enter code here"
+          minLength={6}
+          maxLength={10}
+          onChange={(e) => {
+            return setShortId(e.target.value.toUpperCase());
+          }}
+        />
+        <button
+          onClick={joinList}
+          className="bg-[--blue-2] rounded-r-full text-[--white] h-12 w-1/4"
+        >
+          Join List
+        </button>
+      </div>
       {joinListError && <p>Error: {joinListError}</p>}
     </div>
   );
