@@ -23,7 +23,16 @@ export default function CreateListForm() {
     }
     const responseJson = await response.json();
     if (responseJson.error) {
-      setError(responseJson.error);
+      console.log(responseJson.error);
+      if (
+        responseJson.error.message.includes(
+          'new row violates row-level security policy'
+        )
+      ) {
+        setError(
+          'You have reached maximum lists for your plan. Please upgrade to create more lists.'
+        );
+      }
     } else {
       const { short_id } = responseJson;
       router.push(`/lists/${short_id}`);
