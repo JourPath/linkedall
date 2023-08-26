@@ -22,10 +22,13 @@ export default function CreateListForm() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const allResponse = await response.json();
-      console.log(allResponse);
-      const { short_id } = allResponse;
-      router.push(`/lists/${short_id}`);
+      const responseJson = await response.json();
+      if (responseJson.error) {
+        throw new Error(responseJson.error);
+      } else {
+        const { short_id } = responseJson;
+        router.push(`/lists/${short_id}`);
+      }
     } catch (error) {
       console.log('Something went wrong!');
     }
