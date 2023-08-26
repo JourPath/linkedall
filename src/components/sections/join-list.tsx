@@ -47,7 +47,11 @@ export default function JoinList() {
         )
       ) {
         setJoinListError(
-          'You have reached maximum lists for your plan. Please upgrade to create more lists.'
+          `You have joined the maximum lists for your plan. Please upgrade to join more lists. 
+          
+          or
+          
+          This list has too many participants. Please contact the list creator to upgrade their plan.`
         );
       }
     } else {
