@@ -84,13 +84,13 @@ export default function JoinList() {
           return setShortId(e.target.value.toUpperCase());
         }}
       />
-      {joinListError && <p>Error: {joinListError}</p>}
       <button
         onClick={joinList}
         className="bg-[--blue-2] rounded-r-full text-[--white] h-12 w-1/4"
       >
         Join List
       </button>
+      {joinListError && <p>Error: {joinListError}</p>}
     </div>
   );
 }
