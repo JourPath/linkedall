@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
       case 'customer.subscription.updated':
         const subscriptionObjectUpdated = event.data
           .object as StripeSubscriptionObject;
+        console.log(subscriptionObjectUpdated);
         const product = await stripe.products.retrieve(
           subscriptionObjectUpdated.plan.product
         );

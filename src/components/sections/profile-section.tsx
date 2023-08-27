@@ -72,7 +72,7 @@ export default function ProfileSection() {
       ) : (
         ''
       )}
-      <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 ">
+      <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 flex content-center ">
         <div className="">
           <label htmlFor="linked_in" className="text-xs mx-8 font-bold">
             Name
