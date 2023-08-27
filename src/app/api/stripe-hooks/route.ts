@@ -68,6 +68,12 @@ export async function POST(request: NextRequest) {
           .update({ plan: 'BASIC', interval: null })
           .eq('stripe_customer_id', subscriptionObjectDeleted.customer);
         break;
+      case 'charge.succeeded':
+        const charge = event.data.object as Stripe.Charge;
+        await stripe.customers.update(charge.customer as string, {
+          name: charge.billing_details.name!,
+        });
+        break;
     }
   } catch (err) {
     console.log(err);
