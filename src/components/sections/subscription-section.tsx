@@ -62,10 +62,12 @@ export default function SubscriptionSection({
         </>
       ) : (
         <Link
-          className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/4 my-4"
+          className="h-12 my-4 w-full justify-center flex mb-4"
           href={`/pricing`}
         >
-          Upgrade
+          <button className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/2">
+            Upgrade
+          </button>
         </Link>
       )}
     </section>
