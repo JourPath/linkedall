@@ -1,10 +1,20 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.0
+## Current Version: 0.1.1
 
-MVP is now live
+Confirmation Link
 
 ## New Features
+
+## Recent Fixes
+
+## Current Issues
+
+- Confirmation link expires (no resend)
+- Input field in profile too small
+- Landing page needs content
+
+## Features
 
 - Sign up with email
 - Sign up with LinkedIn
@@ -17,13 +27,3 @@ MVP is now live
 - Join List
   - With code
 - Connect with list users
-
-## Recent Fixes
-
-## Current Issues
-
-- Confirmation link expires (no resend)
-- Input field in profile too small
-- Landing page needs content
-
-## Features
