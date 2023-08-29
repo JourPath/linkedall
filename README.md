@@ -6,6 +6,9 @@ Confirmation Link
 
 ## New Features
 
+- Sign up with email
+  - Now uses confirmation codes
+
 ## Recent Fixes
 
 ## Current Issues
