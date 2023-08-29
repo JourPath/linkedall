@@ -20,6 +20,7 @@ interface ContextI {
     password: string,
     plan: string | null
   ) => Promise<string | null>;
+  verifyOTP: (email: string, token: string) => Promise<string | null>;
   signInWithEmail: (email: string, password: string) => Promise<string | null>;
 }
 
@@ -36,6 +37,7 @@ const Context = createContext<ContextI>({
     password: string,
     plan: string | null
   ) => null,
+  verifyOTP: async (email: string, token: string) => null,
   signInWithEmail: async (email: string, password: string) => null,
 });
 
@@ -133,6 +135,20 @@ export default function SupabaseAuthProvider({
     return null;
   };
 
+  // verify sign up with email
+
+  const verifyOTP = async (email: string, token: string) => {
+    const { error } = await supabase.auth.verifyOtp({
+      email,
+      token,
+      type: 'email',
+    });
+    if (error) {
+      return error.message;
+    }
+    return null;
+  };
+
   // Example
   //   const handleSignUp = async () => {
   //     await supabase.auth.signUp({
@@ -182,6 +198,7 @@ export default function SupabaseAuthProvider({
     signInWithLinkedIn,
     signUpWithLinkedIn,
     signUpWithEmail,
+    verifyOTP,
     signInWithEmail,
   };
 
