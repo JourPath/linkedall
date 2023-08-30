@@ -13,7 +13,6 @@ Confirmation Link
 
 ## Current Issues
 
-- Confirmation link expires (no resend)
 - Input field in profile too small
 - Landing page needs content
 
