@@ -1,8 +1,6 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.1
-
-Confirmation Link
+## Current Version: 0.1.2
 
 ## New Features
 
