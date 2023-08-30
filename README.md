@@ -6,19 +6,19 @@ Confirmation Link
 
 ## New Features
 
-- Sign up with email
-  - Now uses confirmation codes
-
 ## Recent Fixes
+
+- Landing page has content
+- Profile input is wider
 
 ## Current Issues
 
-- Input field in profile too small
-- Landing page needs content
+- Landing page images need optimizing
 
 ## Features
 
 - Sign up with email
+  - Uses confirmation codes
 - Sign up with LinkedIn
 - Create Profile
   - Profile Picture
