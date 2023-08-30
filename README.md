@@ -1,25 +1,22 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.1
-
-Confirmation Link
+## Current Version: 0.1.2
 
 ## New Features
 
-- Sign up with email
-  - Now uses confirmation codes
-
 ## Recent Fixes
+
+- Landing page has content
+- Profile input is wider
 
 ## Current Issues
 
-- Confirmation link expires (no resend)
-- Input field in profile too small
-- Landing page needs content
+- Landing page images need optimizing
 
 ## Features
 
 - Sign up with email
+  - Uses confirmation codes
 - Sign up with LinkedIn
 - Create Profile
   - Profile Picture
