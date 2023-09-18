@@ -1,13 +1,13 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.2
+## Current Version: 0.1.3
 
 ## New Features
 
-## Recent Fixes
+- add robots.txt
+- add sitemap
 
-- Landing page has content
-- Profile input is wider
+## Recent Fixes
 
 ## Current Issues
 
