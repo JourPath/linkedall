@@ -1,0 +1,16 @@
+# Block all crawlers for /api
+User-agent: *
+Disallow: /api/
+Disallow: /auth/
+Disallow: /confirm
+Disallow: /dashboard
+Disallow: /lists
+Disallow: /payment
+Disallow: /profile
+
+User-agent: *
+Allow: /
+Allow: /login
+Allow: /policy/
+Allow: /pricing
+Allow: /signup
