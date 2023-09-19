@@ -1,10 +1,10 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.4
+## Current Version: 0.1.5
 
 ## New Features
 
-- Open Graph Image on link share
+- Open Graph data for twitter
 
 ## Recent Fixes
 
