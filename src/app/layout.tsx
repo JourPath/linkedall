@@ -40,6 +40,16 @@ export const metadata = {
     ],
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LinkedAll',
+    description: 'Helping Professionals Connect',
+    creator: '@linkedallonline',
+    images: {
+      url: './og-card.png',
+      alt: 'LinkedAll Logo of link icon with tagline "Helping Professionals Connect"',
+    },
+  },
 };
 
 export default async function RootLayout({
