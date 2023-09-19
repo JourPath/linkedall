@@ -1,13 +1,12 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.2
+## Current Version: 0.1.4
 
 ## New Features
 
-## Recent Fixes
+- Open Graph Image on link share
 
-- Landing page has content
-- Profile input is wider
+## Recent Fixes
 
 ## Current Issues
 
