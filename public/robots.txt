@@ -14,3 +14,5 @@ Allow: /login
 Allow: /policy/
 Allow: /pricing
 Allow: /signup
+
+Sitemap: https://www.linkedall.online/sitemap.xml

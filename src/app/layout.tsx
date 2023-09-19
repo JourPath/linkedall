@@ -8,6 +8,7 @@ import './globals.css';
 import GAnalytics from '@/lib/google/analytics';
 import NavBar from '@/components/nav/nav-bar';
 import Footer from '@/components/sections/footer';
+import { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,11 +18,6 @@ const josefin = Josefin_Sans({
   subsets: ['latin'],
   variable: '--font-josefin',
 });
-
-export const metadata = {
-  title: 'LinkedAll',
-  description: 'Making sure you connect with everyone',
-};
 
 export default async function RootLayout({
   children,
