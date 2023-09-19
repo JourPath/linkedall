@@ -8,6 +8,7 @@ import './globals.css';
 import GAnalytics from '@/lib/google/analytics';
 import NavBar from '@/components/nav/nav-bar';
 import Footer from '@/components/sections/footer';
+import { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,8 +20,26 @@ const josefin = Josefin_Sans({
 });
 
 export const metadata = {
-  title: 'LinkedAll',
-  description: 'Making sure you connect with everyone',
+  title: {
+    template: '%s | LinkedAll',
+    default: 'LinkedAll - Helping Professionals Connect',
+  },
+  description: 'Helping Professionals Connect',
+  openGraph: {
+    title: 'LinkedAll',
+    description: 'Helping Professionals Connect',
+    url: 'https://www.linkedall.online',
+    siteName: 'LinkedAll',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'LinkedAll Logo of link icon with tagline "Helping Professionals Connect"',
+      },
+    ],
+    type: 'website',
+  },
 };
 
 export default async function RootLayout({

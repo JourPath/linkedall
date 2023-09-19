@@ -1,11 +1,10 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.3
+## Current Version: 0.1.4
 
 ## New Features
 
-- add robots.txt
-- add sitemap
+- Open Graph Image on link share
 
 ## Recent Fixes
 
