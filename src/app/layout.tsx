@@ -20,7 +20,10 @@ const josefin = Josefin_Sans({
 });
 
 export const metadata = {
-  title: 'LinkedAll',
+  title: {
+    template: '%s | LinkedAll',
+    default: 'LinkedAll - Helping Professionals Connect',
+  },
   description: 'Helping Professionals Connect',
   openGraph: {
     title: 'LinkedAll',
