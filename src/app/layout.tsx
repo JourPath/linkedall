@@ -19,6 +19,26 @@ const josefin = Josefin_Sans({
   variable: '--font-josefin',
 });
 
+export const metadata = {
+  title: 'LinkedAll',
+  description: 'Helping Professionals Connect',
+  openGraph: {
+    title: 'LinkedAll',
+    description: 'Helping Professionals Connect',
+    url: 'https://www.linkedall.online',
+    siteName: 'LinkedAll',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'LinkedAll Logo of link icon with tagline "Helping Professionals Connect"',
+      },
+    ],
+    type: 'website',
+  },
+};
+
 export default async function RootLayout({
   children,
 }: {
