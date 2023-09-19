@@ -1,5 +1,10 @@
 import PricesDisplay from '@/components/sections/prices-display';
 import Stripe from 'stripe';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Pricing',
+};
 
 export default async function Pricing() {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

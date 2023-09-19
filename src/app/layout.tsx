@@ -8,6 +8,7 @@ import './globals.css';
 import GAnalytics from '@/lib/google/analytics';
 import NavBar from '@/components/nav/nav-bar';
 import Footer from '@/components/sections/footer';
+import { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,7 +20,10 @@ const josefin = Josefin_Sans({
 });
 
 export const metadata = {
-  title: 'LinkedAll',
+  title: {
+    template: '%s | LinkedAll',
+    default: 'LinkedAll - Helping Professionals Connect',
+  },
   description: 'Helping Professionals Connect',
   openGraph: {
     title: 'LinkedAll',
