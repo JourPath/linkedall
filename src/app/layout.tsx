@@ -32,7 +32,7 @@ export const metadata = {
     siteName: 'LinkedAll',
     images: [
       {
-        url: '/og-card.png',
+        url: '/og-card-linked.png',
         width: 1200,
         height: 630,
         alt: 'LinkedAll Logo of link icon with tagline "Helping Professionals Connect"',
@@ -46,7 +46,7 @@ export const metadata = {
     description: 'Helping Professionals Connect',
     creator: '@linkedallonline',
     images: {
-      url: './og-card.png',
+      url: './og-card-linked.png',
       alt: 'LinkedAll Logo of link icon with tagline "Helping Professionals Connect"',
     },
   },
