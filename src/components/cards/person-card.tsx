@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { createClient } from "@/lib/supabase/supabase-browser";
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import Link from "next/link";
-import { useState } from "react";
+import { createClient } from '@/lib/supabase/supabase-browser';
+import { useAuth } from '@/utils/providers/supabase-auth-provider';
+import Link from 'next/link';
+import { useState } from 'react';
 
 type Person = {
   list_id: string;
@@ -41,11 +41,11 @@ export default function PersonCard({
 
   const getConnection = async (person: Person, list_id: string) => {
     const { data, error } = await supabase
-      .from("connections")
-      .select("*")
-      .eq("profile_id", user?.id)
-      .eq("list_id", list_id)
-      .eq("connection_id", person.participant_id);
+      .from('connections')
+      .select('*')
+      .eq('profile_id', user?.id)
+      .eq('list_id', list_id)
+      .eq('connection_id', person.participant_id);
     if (error) {
       console.log(error);
     } else {
@@ -80,16 +80,16 @@ export default function PersonCard({
 
   const addConnection = async (connection_id: string, list_id: string) => {
     setChecked(true);
-    await fetch("https://www.linkedall.online/api/connections", {
-      method: "POST",
+    await fetch('https://www.linkedall.online/api/connections', {
+      method: 'POST',
       body: JSON.stringify({ connection_id, list_id }),
     });
   };
 
   const removedConnection = async (connection_id: string, list_id: string) => {
     setChecked(false);
-    await fetch("https://www.linkedall.online/api/connections", {
-      method: "PUT",
+    await fetch('https://www.linkedall.online/api/connections', {
+      method: 'PUT',
       body: JSON.stringify({ connection_id, list_id }),
     });
   };
@@ -99,8 +99,8 @@ export default function PersonCard({
       <div
         className={` rounded-full m-2 flex flex-row justify-between h-16 items-center px-4 border-2 ${
           checked
-            ? "border-[--grey] bg-[--light-blue-1]"
-            : "border-[--light-blue-3] bg-[--light-blue-2]"
+            ? 'border-[--grey] bg-[--light-blue-1]'
+            : 'border-[--light-blue-3] bg-[--light-blue-2]'
         }`}
       >
         <div
@@ -109,7 +109,7 @@ export default function PersonCard({
           {person.avatar_url ? (
             <img
               className={` ${
-                checked ? "grayscale" : ""
+                checked ? 'grayscale' : ''
               } rounded-full w-12 h-12 shrink-0`}
               src={person.avatar_url}
             />
@@ -128,14 +128,14 @@ export default function PersonCard({
             </svg>
           )}
         </div>
-        <p className="text-lg whitespace-nowrap ml-2">{person.full_name}</p>
+        <p className="text-md w-1/3 line-clamp-2 ml-2 ">{person.full_name}</p>
         <Link
           href={`https://linkedin.com/in/${person.linked_in}`}
           target="blank"
-          className="w-2/3 h-12 justify-center flex"
+          className="h-12 justify-center flex"
         >
           <button
-            className="text-lg font-medium text-[--dark-blue-3]"
+            className="text-lg mr-2 font-medium text-[--dark-blue-3]"
             onClick={() => handleClick(person.participant_id, list_id)}
           >
             Connect
@@ -147,7 +147,7 @@ export default function PersonCard({
               type="checkbox"
               checked={checked}
               onChange={() => handleChange(person.participant_id, list_id)}
-              className="rounded-full w-12 h-12 text-[--grey] bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="rounded-full w-8 h-8 text-[--grey] bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
           </label>
         </div>

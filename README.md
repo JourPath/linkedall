@@ -1,12 +1,13 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.5
+## Current Version: 0.1.6
 
 ## New Features
 
-- Open Graph data for twitter
-
 ## Recent Fixes
+
+- Fix issue with buttons not displaying on list
+- Improve user sign up flow highlighting linkedin username
 
 ## Current Issues
 
@@ -26,3 +27,4 @@
 - Join List
   - With code
 - Connect with list users
+- Open Graph data for twitter

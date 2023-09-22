@@ -89,7 +89,7 @@ export default function ProfileSection() {
       {!linkedIn ? (
         <div className="flex flex-row items-center ">
           <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-full  text-center ">
-            Add your LinkedIn URL so people can connect with you 🔗
+            Add your LinkedIn Username so people can connect with you 🔗
           </p>
         </div>
       ) : (
@@ -98,17 +98,20 @@ export default function ProfileSection() {
       <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 ">
         <div className="">
           <label htmlFor="linked_in" className="text-xs mx-8 font-bold">
-            LinkedIn URL: https://www.linkedin.com/in/
+            LinkedIn Username:
           </label>
-          <input
-            id="linked_in"
-            className="mx-8 w-3/4 bg-[--light-blue-2] font-bold"
-            value={linkedIn}
-            onChange={(e) => setLinkedIn(e.target.value)}
-            required
-            type="text"
-            placeholder="e.g john-doe"
-          />
+          <div className="flex flex-col md:flex-row md:items-center">
+            <p className="font-bold ml-8">https://www.linkedin.com/in/</p>
+            <input
+              id="linked_in"
+              className="inline md:mr-8 ml-8 md:ml-0 w-3/4 bg-[--light-blue-2] font-bold"
+              value={linkedIn}
+              onChange={(e) => setLinkedIn(e.target.value)}
+              required
+              type="text"
+              placeholder="john-doe"
+            />
+          </div>
         </div>
       </div>
       {/* <input>{userLocal[0]?.linked_in}</input> */}
