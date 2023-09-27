@@ -43,6 +43,17 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(url);
     }
 
+    if (!session && pathname.includes('/lists')) {
+      const listId = pathname.split('/').pop();
+      console.log(listId);
+      const url = new URL(req.url);
+      url.pathname = '/login';
+      if (listId && listId !== 'lists') {
+        url.searchParams.append('listid', listId);
+      }
+      return NextResponse.redirect(url);
+    }
+
     return res;
   } catch (err) {
     console.error(err);

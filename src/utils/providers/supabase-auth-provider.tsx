@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect } from 'react';
 import useSWR from 'swr';
 import { useSupabase } from './supabase-provider';
+import { get_list_from_short_id } from '@/utils/types/collections.types';
 
 interface ContextI {
   user: Profile | null | undefined;
@@ -21,7 +22,11 @@ interface ContextI {
     plan: string | null
   ) => Promise<string | null>;
   verifyOTP: (email: string, token: string) => Promise<string | null>;
-  signInWithEmail: (email: string, password: string) => Promise<string | null>;
+  signInWithEmail: (
+    email: string,
+    password: string,
+    listId: string
+  ) => Promise<string | null>;
 }
 
 const Context = createContext<ContextI>({
@@ -161,8 +166,30 @@ export default function SupabaseAuthProvider({
   //     router.refresh();
   //   };
 
+  const processListId = async (user: any, listId: string) => {
+    const result = await supabase.rpc('get_list_from_short_id', {
+      shortid: listId,
+    });
+    if (result.error) {
+      console.log(result.error);
+      return;
+    }
+    const list = result.data as get_list_from_short_id['Returns'];
+    const { id } = list[0];
+    const { error } = await supabase
+      .from('list_participants')
+      .insert({ list_id: id, participant_id: user?.user?.id });
+    if (error) {
+      console.error('Error processing listId:', error);
+    }
+  };
+
   // Sign-In with Email
-  const signInWithEmail = async (email: string, password: string) => {
+  const signInWithEmail = async (
+    email: string,
+    password: string,
+    listId: string
+  ) => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -170,6 +197,10 @@ export default function SupabaseAuthProvider({
 
     if (error) {
       return error.message;
+    }
+
+    if (user && listId) {
+      await processListId(user, listId);
     }
 
     return null;

@@ -4,7 +4,7 @@ import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const LoginForm = () => {
+const LoginForm = ({ listId }: { listId: string }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -14,7 +14,7 @@ const LoginForm = () => {
     e.preventDefault();
     setError(null);
     try {
-      const error = await signInWithEmail(email, password);
+      const error = await signInWithEmail(email, password, listId);
       if (error) {
         setError(error);
         setPassword('');
@@ -85,6 +85,9 @@ const LoginForm = () => {
             Privacy Policy
           </Link>
           .
+        </p>
+        <p>
+          Not signed up yet?<Link href={'/signup'}>Sign Up</Link>
         </p>
       </form>
     </div>
