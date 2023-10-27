@@ -22,6 +22,18 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(url);
     }
 
+    // used to bmove user to new list from code
+    if (
+      session &&
+      pathname === '/dashboard' &&
+      req.nextUrl.searchParams.has('listid')
+    ) {
+      const url = new URL(req.url);
+      const listid = req.nextUrl.searchParams.get('listid');
+      url.pathname = `/lists/${listid}`;
+      return NextResponse.redirect(url);
+    }
+
     // used to block login if logged in
     if (session && pathname === '/login') {
       const url = new URL(req.url);
