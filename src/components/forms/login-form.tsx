@@ -3,6 +3,7 @@
 import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const LoginForm = () => {
   const [email, setEmail] = useState<string>('');
@@ -10,11 +11,15 @@ const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
   const { signInWithEmail, signInWithLinkedIn } = useAuth();
 
+  const searchParams = useSearchParams();
+  const listId = searchParams.get('listid');
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(listId);
     e.preventDefault();
     setError(null);
     try {
-      const error = await signInWithEmail(email, password);
+      const error = await signInWithEmail(email, password, listId);
       if (error) {
         setError(error);
         setPassword('');
@@ -30,7 +35,7 @@ const LoginForm = () => {
       <h3 className="font-bold text-2xl pb-4 ">Log In</h3>
       <button
         className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4"
-        onClick={signInWithLinkedIn}
+        onClick={() => signInWithLinkedIn(listId)}
       >
         <img src="/In-Blue-48.png" className="w-7 inline pr-2" />
         Log In With LinkedIn
@@ -85,6 +90,9 @@ const LoginForm = () => {
             Privacy Policy
           </Link>
           .
+        </p>
+        <p>
+          Not signed up yet?<Link href={'/signup'}>Sign Up</Link>
         </p>
       </form>
     </div>

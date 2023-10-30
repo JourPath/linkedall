@@ -3,7 +3,7 @@ import { useAuth } from '@/utils/providers/supabase-auth-provider';
 import { useSupabase } from '@/utils/providers/supabase-provider';
 import { useEffect, useState } from 'react';
 import AvatarButton from '../buttons/avatar-button';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
 export default function ProfileSection() {
@@ -15,6 +15,9 @@ export default function ProfileSection() {
   const { supabase } = useSupabase();
   const router = useRouter();
 
+  const searchParams = useSearchParams();
+  const listId = searchParams.get('listid');
+
   useEffect(() => {
     if (user) {
       setFullName(user.full_name || '');
@@ -23,6 +26,8 @@ export default function ProfileSection() {
       }
       if (user.avatar_url) {
         setAvatar(user?.avatar_url);
+      }
+      if (listId) {
       }
     }
   }, [user]);

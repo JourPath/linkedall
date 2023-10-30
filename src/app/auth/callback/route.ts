@@ -12,15 +12,20 @@ export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
   const plan = requestUrl.searchParams.get('plan');
+  const listId = requestUrl.searchParams.get('listid');
 
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies });
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  if (plan) {
+  if (plan && listId) {
     return NextResponse.redirect(
-      `https://www.linkedall.online/profile?plan=${plan}`
+      `https://www.linkedall.online/profile?plan=${plan}&&listid=${listId}`
+    );
+  } else if (listId) {
+    return NextResponse.redirect(
+      `https://www.linkedall.online/profile?listid=${listId}`
     );
   } else {
     return NextResponse.redirect('https://www.linkedall.online/profile');

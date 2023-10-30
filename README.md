@@ -1,13 +1,14 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.1.6
+## Current Version: 0.2.0
 
 ## New Features
 
+- Shareable links
+
 ## Recent Fixes
 
-- Fix issue with buttons not displaying on list
-- Improve user sign up flow highlighting linkedin username
+- Fix missing list id in sign up form
 
 ## Current Issues
 
