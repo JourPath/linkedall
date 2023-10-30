@@ -16,12 +16,13 @@ const SignUpForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan');
+  const listId = searchParams.get('listid');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     try {
-      const error = await signUpWithEmail(email, password, plan);
+      const error = await signUpWithEmail(email, password, plan, listId);
       if (error) {
         setError(error);
       } else {
@@ -73,7 +74,7 @@ const SignUpForm = () => {
         <>
           <button
             className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4 "
-            onClick={() => signUpWithLinkedIn(plan)}
+            onClick={() => signUpWithLinkedIn(plan, listId)}
           >
             <img src="/In-Blue-48.png" className="w-7 inline pr-2" />
             Sign Up With LinkedIn

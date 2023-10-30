@@ -44,7 +44,8 @@ const Context = createContext<ContextI>({
   signUpWithEmail: async (
     email: string,
     password: string,
-    plan: string | null
+    plan: string | null,
+    listId: string | null
   ) => null,
   verifyOTP: async (email: string, token: string) => null,
   signInWithEmail: async (email: string, password: string) => null,
