@@ -30,15 +30,6 @@ export async function middleware(req: NextRequest) {
     ) {
       const url = new URL(req.url);
       const listid = req.nextUrl.searchParams.get('listid');
-
-      const response = await fetch('https://www.linkedall.online/api/join', {
-        method: 'PUT',
-        body: JSON.stringify({ shortId: listid }),
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
       url.pathname = `/lists/${listid}`;
       return NextResponse.redirect(url);
     }
