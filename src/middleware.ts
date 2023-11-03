@@ -31,6 +31,7 @@ export async function middleware(req: NextRequest) {
       const url = new URL(req.url);
       const listid = req.nextUrl.searchParams.get('listid');
       url.pathname = `/lists/${listid}`;
+      url.searchParams.append('new', 'true');
       return NextResponse.redirect(url);
     }
 
