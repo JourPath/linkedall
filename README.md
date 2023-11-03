@@ -1,6 +1,6 @@
 # Welcome to LinkedAll
 
-## Current Version: 0.2.0
+## Current Version: 0.2.1
 
 ## New Features
 
@@ -9,6 +9,7 @@
 ## Recent Fixes
 
 - Fix missing list id in sign up form
+- Fix not adding email user to new list from share link
 
 ## Current Issues
 
