@@ -114,7 +114,7 @@ export default function SupabaseAuthProvider({
     await supabase.auth.signInWithOAuth({
       provider: 'linkedin',
       options: {
-        redirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}&&listid=${listId}`,
+        redirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}&&listid=${listId}&&signup=true`,
       },
     });
   };
@@ -140,7 +140,7 @@ export default function SupabaseAuthProvider({
       email,
       password,
       options: {
-        emailRedirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}&&listid=${listId}`,
+        emailRedirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}&&listid=${listId}&&signup=true`,
       },
     });
 

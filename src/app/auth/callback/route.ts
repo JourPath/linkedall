@@ -13,21 +13,28 @@ export async function GET(request: NextRequest) {
   const code = requestUrl.searchParams.get('code');
   const plan = requestUrl.searchParams.get('plan');
   const listId = requestUrl.searchParams.get('listid');
+  const signUp = requestUrl.searchParams.get('signup');
 
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies });
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  if (plan && listId) {
+  if (plan) {
     return NextResponse.redirect(
-      `https://www.linkedall.online/profile?plan=${plan}&&listid=${listId}`
+      `https://www.linkedall.online/profile?plan=${plan}`
     );
-  } else if (listId) {
+  } else if (listId && signUp) {
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?listid=${listId}`
     );
-  } else {
+  } else if (listId) {
+    return NextResponse.redirect(
+      `https://www.linkedall.online/dashboard?listid=${listId}`
+    );
+  } else if (signUp) {
     return NextResponse.redirect('https://www.linkedall.online/profile');
+  } else {
+    return NextResponse.redirect('https://www.linkedall.online/dashboard');
   }
 }
