@@ -31,6 +31,7 @@ interface ContextI {
     password: string,
     listId: string | null
   ) => Promise<string | null>;
+  processListId: (user: Profile, listId: string) => Promise<string | null>;
 }
 
 const Context = createContext<ContextI>({
@@ -49,6 +50,7 @@ const Context = createContext<ContextI>({
   ) => null,
   verifyOTP: async (email: string, token: string) => null,
   signInWithEmail: async (email: string, password: string) => null,
+  processListId: async (user: Profile, listId: string) => null,
 });
 
 export default function SupabaseAuthProvider({
@@ -66,7 +68,7 @@ export default function SupabaseAuthProvider({
     const { data: user, error } = await supabase
       .from('profiles')
       .select('*')
-      .eq('id', serverSession?.user?.id)
+      .eq('id', serverSession?.user?.id!)
       .single();
     if (error) {
       console.log(error);
@@ -176,13 +178,12 @@ export default function SupabaseAuthProvider({
   //   };
 
   const processListId = async (user: any, listId: string) => {
-    console.log(user);
     const result = await supabase.rpc('get_list_from_short_id', {
       shortid: listId,
     });
     if (result.error) {
       console.log(result.error);
-      return;
+      return result.error.message;
     }
     const list = result.data as get_list_from_short_id['Returns'];
     const { id } = list[0];
@@ -192,6 +193,7 @@ export default function SupabaseAuthProvider({
     if (error) {
       console.error('Error processing listId:', error);
     }
+    return null;
   };
 
   // Sign-In with Email
@@ -242,6 +244,7 @@ export default function SupabaseAuthProvider({
     signUpWithEmail,
     verifyOTP,
     signInWithEmail,
+    processListId,
   };
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>;

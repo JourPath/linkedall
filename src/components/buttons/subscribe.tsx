@@ -24,7 +24,7 @@ export default function Subscribe({
       const planRes = await supabase
         .from('customers')
         .select('plan')
-        .eq('id', user?.id)
+        .eq('id', user?.id!)
         .single();
       const plan = planRes.data?.plan;
       setPlan(plan!);

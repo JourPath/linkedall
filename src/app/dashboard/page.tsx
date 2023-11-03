@@ -13,12 +13,12 @@ export default async function Dashboard() {
   const lists = await supabase
     .from('list_participants')
     .select('list_id, lists(list_name, short_id)')
-    .eq('participant_id', user?.id);
+    .eq('participant_id', user?.id!);
 
   const hostedLists = await supabase
     .from('lists')
     .select('*')
-    .eq('host_id', user?.id);
+    .eq('host_id', user?.id!);
 
   if (!lists.data || !hostedLists.data) {
     return <div>Error fetching data</div>;

@@ -14,7 +14,7 @@ export default function ProfileSection() {
 
   const { supabase } = useSupabase();
   const router = useRouter();
-
+  const { processListId } = useAuth();
   const searchParams = useSearchParams();
   const listId = searchParams.get('listid');
 
@@ -28,6 +28,7 @@ export default function ProfileSection() {
         setAvatar(user?.avatar_url);
       }
       if (listId) {
+        processListId(user, listId);
       }
     }
   }, [user]);
@@ -37,7 +38,7 @@ export default function ProfileSection() {
       await supabase
         .from('profiles')
         .update({ full_name: fullName, linked_in: linkedIn, avatar_url: url })
-        .eq('id', user?.id);
+        .eq('id', user?.id!);
       setAvatar(avatar);
       router.push('/dashboard');
     }

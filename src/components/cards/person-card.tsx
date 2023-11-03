@@ -43,7 +43,7 @@ export default function PersonCard({
     const { data, error } = await supabase
       .from('connections')
       .select('*')
-      .eq('profile_id', user?.id)
+      .eq('profile_id', user?.id!)
       .eq('list_id', list_id)
       .eq('connection_id', person.participant_id);
     if (error) {

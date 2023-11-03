@@ -11,7 +11,7 @@ export default async function Profile() {
   const customer = await supabase
     .from('customers')
     .select('*')
-    .eq('id', user?.id)
+    .eq('id', user?.id!)
     .single();
 
   if (!customer.data) {
