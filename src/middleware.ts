@@ -58,7 +58,6 @@ export async function middleware(req: NextRequest) {
 
     if (!session && pathname.includes('/lists')) {
       const listId = pathname.split('/').pop();
-      console.log(listId);
       const url = new URL(req.url);
       url.pathname = '/login';
       if (listId && listId !== 'lists') {

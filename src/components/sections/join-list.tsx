@@ -5,10 +5,10 @@ import { useSupabase } from '@/utils/providers/supabase-provider';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function JoinList() {
+export default function JoinList({ listId }: { listId: string }) {
   const { user, isLoading } = useAuth();
   const { supabase } = useSupabase();
-  const [shortId, setShortId] = useState('');
+  const [shortId, setShortId] = useState<string | undefined>(listId);
   const [joinListError, setJoinListError] = useState<string | null>(null);
   const [profile, setProfile] = useState(user);
   const [profileLoading, setProfileLoading] = useState(true);

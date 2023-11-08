@@ -1,5 +1,6 @@
 import ClipboardCopy from '@/components/buttons/clipboard-copy';
 import ListShareButtons from '@/components/buttons/list-share-buttons';
+import JoinList from '@/components/sections/join-list';
 import ListParticipants from '@/components/sections/list-participants';
 import { createClient } from '@/lib/supabase/supabase-server';
 import {
@@ -52,7 +53,11 @@ export default async function ListPage({ params }: { params: { id: string } }) {
           <ListShareButtons listName={list_name} />
         </div>
         {/* <p className="text-end m-2">People to add: {count - 1}</p> */}
-        <ListParticipants data={data} listId={params.id} />
+        {data.length == 0 ? (
+          <JoinList listId={params.id} />
+        ) : (
+          <ListParticipants data={data} listId={params.id} />
+        )}
       </div>
       <div className="mt-28 text-[--white] font-bold font-josefin">
         <p className="bg-[--blue-1] rounded p-2 my-2">
