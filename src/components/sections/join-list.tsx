@@ -5,7 +5,11 @@ import { useSupabase } from '@/utils/providers/supabase-provider';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function JoinList({ listId }: { listId: string }) {
+interface Props {
+  listId?: string;
+}
+
+export default function JoinList({ listId = '' }: Props) {
   const { user, isLoading } = useAuth();
   const { supabase } = useSupabase();
   const [shortId, setShortId] = useState<string | undefined>(listId);

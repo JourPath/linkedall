@@ -54,7 +54,7 @@ export default async function ListPage({ params }: { params: { id: string } }) {
         </div>
         {/* <p className="text-end m-2">People to add: {count - 1}</p> */}
         {data.length == 0 ? (
-          <JoinList listId={params.id} />
+          <JoinList />
         ) : (
           <ListParticipants data={data} listId={params.id} />
         )}
