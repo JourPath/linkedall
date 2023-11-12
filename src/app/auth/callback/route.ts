@@ -20,19 +20,19 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  if (plan) {
+  if (plan !== 'null') {
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?plan=${plan}`
     );
-  } else if (listId && signUp) {
+  } else if (listId !== 'null' && signUp === 'true') {
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?listid=${listId}`
     );
-  } else if (listId) {
+  } else if (listId !== 'null') {
     return NextResponse.redirect(
       `https://www.linkedall.online/dashboard?listid=${listId}`
     );
-  } else if (signUp) {
+  } else if (signUp === 'true') {
     return NextResponse.redirect('https://www.linkedall.online/profile');
   } else {
     return NextResponse.redirect('https://www.linkedall.online/dashboard');
