@@ -62,7 +62,7 @@ export async function middleware(req: NextRequest) {
     if (!session && pathname.includes('/lists')) {
       const listId = pathname.split('/').pop();
       const url = new URL(req.url);
-      url.pathname = '/login';
+      url.pathname = '/signup';
       if (listId && listId !== 'lists') {
         url.searchParams.append('listid', listId);
       }

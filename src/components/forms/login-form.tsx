@@ -15,7 +15,6 @@ const LoginForm = () => {
   const listId = searchParams.get('listid');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(listId);
     e.preventDefault();
     setError(null);
     try {

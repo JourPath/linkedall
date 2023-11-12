@@ -21,18 +21,22 @@ export async function GET(request: NextRequest) {
   }
 
   if (plan !== 'null') {
+    console.log(plan);
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?plan=${plan}`
     );
   } else if (listId !== 'null' && signUp === 'true') {
+    console.log(listId, signUp);
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?listid=${listId}`
     );
   } else if (listId !== 'null') {
+    console.log(listId);
     return NextResponse.redirect(
       `https://www.linkedall.online/dashboard?listid=${listId}`
     );
   } else if (signUp === 'true') {
+    console.log(signUp);
     return NextResponse.redirect('https://www.linkedall.online/profile');
   } else {
     return NextResponse.redirect('https://www.linkedall.online/dashboard');
