@@ -132,6 +132,17 @@ const SignUpForm = () => {
               </Link>
               .
             </p>
+            <p>
+              Already signed up?
+              <Link
+                href={{
+                  pathname: '/login',
+                  query: { listid: listId },
+                }}
+              >
+                Log in
+              </Link>
+            </p>
           </form>
         </>
       )}
