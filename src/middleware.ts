@@ -28,13 +28,16 @@ export async function middleware(req: NextRequest) {
       pathname === '/dashboard' &&
       req.nextUrl.searchParams.has('listid')
     ) {
-      const url = new URL(req.url);
       const listid = req.nextUrl.searchParams.get('listid');
-      url.pathname = `/lists/${listid}`;
-      url.searchParams.append('new', 'true');
-      return NextResponse.redirect(url);
-    }
 
+      // Check if listid is not null and not an empty string
+      if (listid) {
+        const url = new URL(req.url);
+        url.pathname = `/lists/${listid}`;
+        url.searchParams.append('new', 'true');
+        return NextResponse.redirect(url);
+      }
+    }
     // used to block login if logged in
     if (session && pathname === '/login') {
       const url = new URL(req.url);
