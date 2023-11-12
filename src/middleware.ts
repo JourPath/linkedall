@@ -31,7 +31,7 @@ export async function middleware(req: NextRequest) {
       const listid = req.nextUrl.searchParams.get('listid');
 
       // Check if listid is not null and not an empty string
-      if (listid) {
+      if (listid !== 'null') {
         const url = new URL(req.url);
         url.pathname = `/lists/${listid}`;
         url.searchParams.append('new', 'true');
