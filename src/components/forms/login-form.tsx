@@ -92,7 +92,15 @@ const LoginForm = () => {
           .
         </p>
         <p>
-          Not signed up yet?<Link href={'/signup'}>Sign Up</Link>
+          Not signed up yet?
+          <Link
+            href={{
+              pathname: '/signup',
+              query: { listid: listId },
+            }}
+          >
+            Sign Up
+          </Link>
         </p>
       </form>
     </div>
