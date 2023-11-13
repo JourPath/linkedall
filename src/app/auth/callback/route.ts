@@ -24,25 +24,34 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  if (plan != 'null') {
+  // Check if plan is not null and not an empty string
+  if (plan && plan !== 'null' && plan !== '') {
     console.log('plan');
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?plan=${plan}`
     );
-  } else if (listId != 'null' && signUp == 'true') {
-    console.log(~'list id & sign up');
+  }
+  // Check if listId is not null, not an empty string, and signUp is true
+  else if (listId && listId !== 'null' && listId !== '' && signUp === 'true') {
+    console.log('list id & sign up');
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?listid=${listId}`
     );
-  } else if (listId != 'null') {
+  }
+  // Check if listId is not null and not an empty string
+  else if (listId && listId !== 'null' && listId !== '') {
     console.log('list id');
     return NextResponse.redirect(
       `https://www.linkedall.online/dashboard?listid=${listId}`
     );
-  } else if (signUp == 'true') {
+  }
+  // Check if signUp is true
+  else if (signUp === 'true') {
     console.log('sign up');
     return NextResponse.redirect('https://www.linkedall.online/profile');
-  } else {
+  }
+  // Default case
+  else {
     console.log('normal');
     return NextResponse.redirect('https://www.linkedall.online/dashboard');
   }

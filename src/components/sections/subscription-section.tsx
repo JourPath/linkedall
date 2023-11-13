@@ -18,7 +18,7 @@ export default function SubscriptionSection({
 
   useEffect(() => {
     async function handleStripeCheckout() {
-      if ((plan && plan !== 'basic') || plan != 'null') {
+      if (plan && plan !== 'basic' && plan !== 'null' && plan !== '') {
         const response = await fetch(
           `https://www.linkedall.online/api/stripe/subscription/${plan}`,
           {
