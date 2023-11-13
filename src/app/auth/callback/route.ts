@@ -15,9 +15,9 @@ export async function GET(request: NextRequest) {
   const listId = requestUrl.searchParams.get('listid');
   const signUp = requestUrl.searchParams.get('signup');
 
-  console.log(plan, ' :plan');
-  console.log(listId, ' :listId');
-  console.log(signUp, ' :signUp');
+  console.log(plan, ` :plan ${typeof plan}`);
+  console.log(listId, ` :listid ${typeof listId}`);
+  console.log(signUp, ` :signup ${typeof signUp}`);
 
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies });
