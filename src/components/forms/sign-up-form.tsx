@@ -22,7 +22,7 @@ const SignUpForm = () => {
     e.preventDefault();
     setError(null);
     try {
-      const error = await signUpWithEmail(email, password, plan, listId);
+      const error = await signUpWithEmail(email, password);
       if (error) {
         setError(error);
       } else {
