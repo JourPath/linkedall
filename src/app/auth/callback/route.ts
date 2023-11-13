@@ -24,17 +24,17 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  if (plan) {
+  if (plan != 'null') {
     console.log('plan');
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?plan=${plan}`
     );
-  } else if (listId && signUp == 'true') {
+  } else if (listId != 'null' && signUp == 'true') {
     console.log(~'list id & sign up');
     return NextResponse.redirect(
       `https://www.linkedall.online/profile?listid=${listId}`
     );
-  } else if (listId) {
+  } else if (listId != 'null') {
     console.log('list id');
     return NextResponse.redirect(
       `https://www.linkedall.online/dashboard?listid=${listId}`
