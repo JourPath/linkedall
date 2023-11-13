@@ -40,7 +40,9 @@ const SignUpForm = () => {
       if (error) {
         setError(error);
       } else {
-        router.push(`profile?plan=${plan}`);
+        router.push(
+          `auth/callback?plan=${plan}&&listid=${listId}&&signup=true`
+        );
       }
     } catch (error) {
       console.log('Something went wrong!');

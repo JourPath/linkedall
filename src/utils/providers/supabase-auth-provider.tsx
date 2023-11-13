@@ -19,12 +19,7 @@ interface ContextI {
     plan: string | null,
     listId: string | null
   ) => Promise<void>;
-  signUpWithEmail: (
-    email: string,
-    password: string,
-    plan: string | null,
-    listId: string | null
-  ) => Promise<string | null>;
+  signUpWithEmail: (email: string, password: string) => Promise<string | null>;
   verifyOTP: (email: string, token: string) => Promise<string | null>;
   signInWithEmail: (
     email: string,
@@ -42,12 +37,7 @@ const Context = createContext<ContextI>({
   signOut: async () => {},
   signInWithLinkedIn: async (listId: string | null) => {},
   signUpWithLinkedIn: async (plan: string | null, listId: string | null) => {},
-  signUpWithEmail: async (
-    email: string,
-    password: string,
-    plan: string | null,
-    listId: string | null
-  ) => null,
+  signUpWithEmail: async (email: string, password: string) => null,
   verifyOTP: async (email: string, token: string) => null,
   signInWithEmail: async (email: string, password: string) => null,
   processListId: async (user: Profile, listId: string) => null,
@@ -130,18 +120,10 @@ export default function SupabaseAuthProvider({
   };
 
   // Sign up with Email
-  const signUpWithEmail = async (
-    email: string,
-    password: string,
-    plan: string | null,
-    listId: string | null
-  ) => {
+  const signUpWithEmail = async (email: string, password: string) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        emailRedirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}&&listid=${listId}&&signup=true`,
-      },
     });
 
     if (error) {
