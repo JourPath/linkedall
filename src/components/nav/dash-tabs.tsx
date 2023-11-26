@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Tab } from '@headlessui/react';
-import HostedLists from '../sections/hosted-lists';
-import Lists from '../sections/lists';
-import JoinList from '../sections/join-list';
-import { List } from '@/utils/types/collections.types';
+import { Tab } from "@headlessui/react";
+import HostedLists from "../sections/hosted-lists";
+import Lists from "../sections/lists";
+import JoinList from "../sections/join-list";
+import { List } from "@/utils/types/collections.types";
 
 function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 type Lists = {
@@ -25,7 +25,7 @@ export default function DashTabs({
   lists: Lists;
   hostedLists: List[];
 }) {
-  const tabs = ['Create', 'View', 'Join'];
+  const tabs = ["Create", "View", "Join"];
 
   return (
     <div className="w-full px-2 py-2 sm:px-0 md:hidden">
@@ -36,11 +36,11 @@ export default function DashTabs({
               key={category}
               className={({ selected }) =>
                 classNames(
-                  'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
-                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                  "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
+                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                   selected
-                    ? 'bg-[--white] shadow'
-                    : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                    ? "bg-[--white] shadow"
+                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
                 )
               }
             >

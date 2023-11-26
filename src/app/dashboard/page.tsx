@@ -1,8 +1,8 @@
-import HostedLists from '@/components/sections/hosted-lists';
-import Lists from '@/components/sections/lists';
-import JoinList from '@/components/sections/join-list';
-import DashTabs from '@/components/nav/dash-tabs';
-import { createClient } from '@/lib/supabase/supabase-server';
+import HostedLists from "@/components/sections/hosted-lists";
+import Lists from "@/components/sections/lists";
+import JoinList from "@/components/sections/join-list";
+import DashTabs from "@/components/nav/dash-tabs";
+import { createClient } from "@/lib/supabase/supabase-server";
 
 export default async function Dashboard() {
   const supabase = createClient();
@@ -11,14 +11,14 @@ export default async function Dashboard() {
   } = await supabase.auth.getUser();
 
   const lists = await supabase
-    .from('list_participants')
-    .select('list_id, lists(list_name, short_id)')
-    .eq('participant_id', user?.id!);
+    .from("list_participants")
+    .select("list_id, lists(list_name, short_id)")
+    .eq("participant_id", user?.id!);
 
   const hostedLists = await supabase
-    .from('lists')
-    .select('*')
-    .eq('host_id', user?.id!);
+    .from("lists")
+    .select("*")
+    .eq("host_id", user?.id!);
 
   if (!lists.data || !hostedLists.data) {
     return <div>Error fetching data</div>;

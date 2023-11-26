@@ -1,26 +1,25 @@
-'use client';
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import { useSupabase } from '@/utils/providers/supabase-provider';
-import { useEffect, useState } from 'react';
-import AvatarButton from '../buttons/avatar-button';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Image from 'next/image';
+"use client";
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { useSupabase } from "@/utils/providers/supabase-provider";
+import { useEffect, useState } from "react";
+import AvatarButton from "../buttons/avatar-button";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ProfileSection() {
   const { user, isLoading } = useAuth();
-  const [fullName, setFullName] = useState('');
-  const [linkedIn, setLinkedIn] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
+  const [avatar, setAvatar] = useState("");
 
   const { supabase } = useSupabase();
   const router = useRouter();
   const { processListId } = useAuth();
   const searchParams = useSearchParams();
-  const listId = searchParams.get('listid');
+  const listId = searchParams.get("listid");
 
   useEffect(() => {
     if (user) {
-      setFullName(user.full_name || '');
+      setFullName(user.full_name || "");
       if (user.linked_in) {
         setLinkedIn(user?.linked_in);
       }
@@ -31,16 +30,17 @@ export default function ProfileSection() {
         processListId(user, listId);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleClick = async (url: string) => {
     if (fullName && linkedIn) {
       await supabase
-        .from('profiles')
+        .from("profiles")
         .update({ full_name: fullName, linked_in: linkedIn, avatar_url: url })
-        .eq('id', user?.id!);
+        .eq("id", user?.id!);
       setAvatar(avatar);
-      router.push('/dashboard');
+      router.push("/dashboard");
     }
   };
 
@@ -58,7 +58,7 @@ export default function ProfileSection() {
           Add Profile Picture so people can see who you are 😊
         </p>
       ) : (
-        ''
+        ""
       )}
       <div className="w-11/12 mb-4 pb-2 ">
         <div className="text-center flex flex-col items-center">
@@ -73,10 +73,10 @@ export default function ProfileSection() {
       </div>
       {!fullName ? (
         <p className="text-[--dark-blue-1] font-bold m-2 p-2 w-full  text-center ">
-          Don't forget your name 📛
+          Don&apos;t forget your name 📛
         </p>
       ) : (
-        ''
+        ""
       )}
       <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2">
         <div className="">
@@ -99,7 +99,7 @@ export default function ProfileSection() {
           </p>
         </div>
       ) : (
-        ''
+        ""
       )}
       <div className="bg-[--light-blue-2] rounded-full w-11/12 mb-4 pb-2 ">
         <div className="">
@@ -121,7 +121,7 @@ export default function ProfileSection() {
         </div>
       </div>
       {/* <input>{userLocal[0]?.linked_in}</input> */}
-      {!fullName || !linkedIn ? <p>Enter Name and LinkedIn to Save</p> : ''}
+      {!fullName || !linkedIn ? <p>Enter Name and LinkedIn to Save</p> : ""}
       <button
         className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/2 my-4"
         onClick={() => handleClick(avatar)}

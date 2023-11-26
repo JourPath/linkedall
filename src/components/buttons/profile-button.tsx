@@ -1,4 +1,4 @@
-import { Disclosure } from '@headlessui/react';
+import { Disclosure } from "@headlessui/react";
 
 export default function ProfileButton({
   open,
@@ -26,7 +26,11 @@ export default function ProfileButton({
           />
         </svg>
       ) : avatarUrl ? (
-        <img className="w-12 h-12 rounded-full" src={avatarUrl} />
+        <img
+          className="w-12 h-12 rounded-full"
+          src={avatarUrl}
+          alt="User avatar"
+        />
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"

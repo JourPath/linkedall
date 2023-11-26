@@ -1,7 +1,7 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
+  title: "Privacy Policy",
 };
 
 export default async function Privacy() {

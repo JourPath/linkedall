@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import { useSupabase } from '@/utils/providers/supabase-provider';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { useSupabase } from "@/utils/providers/supabase-provider";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface Props {
   listId?: string;
 }
 
-export default function JoinList({ listId = '' }: Props) {
+export default function JoinList({ listId = "" }: Props) {
   const { user, isLoading } = useAuth();
   const { supabase } = useSupabase();
   const [shortId, setShortId] = useState<string | undefined>(listId);
@@ -21,9 +21,9 @@ export default function JoinList({ listId = '' }: Props) {
     if (user && !user.linked_in) {
       const getProfile = async () => {
         const profile = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user?.id)
+          .from("profiles")
+          .select("*")
+          .eq("id", user?.id)
           .single();
         setProfile(profile.data);
       };
@@ -32,21 +32,21 @@ export default function JoinList({ listId = '' }: Props) {
     if (user) {
       setProfileLoading(false);
     }
-  }, [user]);
+  }, [user, supabase]);
 
   const joinList = async () => {
-    const response = await fetch('https://www.linkedall.online/api/join', {
-      method: 'PUT',
+    const response = await fetch("https://www.linkedall.online/api/join", {
+      method: "PUT",
       body: JSON.stringify({ shortId }),
     });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const data = await response.json();
     if (data.error) {
       if (
         data.error.message.includes(
-          'new row violates row-level security policy'
+          "new row violates row-level security policy"
         )
       ) {
         setJoinListError(

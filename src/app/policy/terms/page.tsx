@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
+import Link from "next/link";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Terms and Conditions',
+  title: "Terms and Conditions",
 };
 
 export default async function Terms() {
@@ -15,23 +15,26 @@ export default async function Terms() {
           Last updated July 15, 2023<br></br>
           <br></br>
           AGREEMENT TO OUR LEGAL TERMS<br></br>
-          We are Jourpath Ltd., doing business as LinkedAll ('Company', 'we',
-          'us', or 'our'), a company registered in the United Kingdom at Suite
+          We are Jourpath Ltd., doing business as LinkedAll
+          (&apos;Company&apos;, &apos;we&apos;, &apos;us&apos;, or
+          &apos;our&apos;), a company registered in the United Kingdom at Suite
           A, 82 James Carter Road, Mildenhall, Suffolk IP28 7DE.<br></br>
-          We operate the website www.linkedall.online (the 'Site'), as well as
-          any other related products and services that refer or link to these
-          legal terms (the 'Legal Terms') (collectively, the 'Services').
+          We operate the website www.linkedall.online (the &apos;Site&apos;), as
+          well as any other related products and services that refer or link to
+          these legal terms (the &apos;Legal Terms&apos;) (collectively, the
+          &apos;Services&apos;).
           <br></br>
           You can contact us by email at support@linkedall.online or by mail to
           Suite A, 82 James Carter Road, Mildenhall, Suffolk IP28 7DE, United
           Kingdom.<br></br>
           These Legal Terms constitute a legally binding agreement made between
-          you, whether personally or on behalf of an entity ('you'), and
-          Jourpath Ltd., concerning your access to and use of the Services. You
-          agree that by accessing the Services, you have read, understood, and
-          agreed to be bound by all of these Legal Terms. IF YOU DO NOT AGREE
-          WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM
-          USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.<br></br>
+          you, whether personally or on behalf of an entity (&apos;you&apos;),
+          and Jourpath Ltd., concerning your access to and use of the Services.
+          You agree that by accessing the Services, you have read, understood,
+          and agreed to be bound by all of these Legal Terms. IF YOU DO NOT
+          AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED
+          FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+          <br></br>
           We will provide you with prior notice of any scheduled changes to the
           Services you are using. The modified Legal Terms will become effective
           upon posting or notifying you by support@linkedall.online, as stated
@@ -101,18 +104,19 @@ export default async function Terms() {
             in our Services, including all source code, databases,
             functionality, software, website designs, audio, video, text,
             photographs, and graphics in the Services (collectively, the
-            'Content'), as well as the trademarks, service marks, and logos
-            contained therein (the 'Marks').<br></br>
+            &apos;Content&apos;), as well as the trademarks, service marks, and
+            logos contained therein (the &apos;Marks&apos;).<br></br>
             Our Content and Marks are protected by copyright and trademark laws
             (and various other intellectual property rights and unfair
             competition laws) in the United Kingdom and around the world.
             <br></br>
-            The Content and Marks are provided in or through the Services 'AS
-            IS' for your personal, non-commercial use or internal business
-            purpose only.<br></br>
+            The Content and Marks are provided in or through the Services
+            &apos;AS IS&apos; for your personal, non-commercial use or internal
+            business purpose only.<br></br>
             Your use of our Services Subject to your compliance with these Legal
-            Terms, including the 'PROHIBITED ACTIVITIES' section below, we grant
-            you a non-exclusive, non-transferable, revocable licence to:
+            Terms, including the &apos;PROHIBITED ACTIVITIES&apos; section
+            below, we grant you a non-exclusive, non-transferable, revocable
+            licence to:
             <br></br>
             <ul className="list-disc ml-8">
               <li>access the Services; and</li>
@@ -144,17 +148,17 @@ export default async function Terms() {
             Services will terminate immediately.<br></br>
             <br></br>
             Your submissions and contributions<br></br>
-            Please review this section and the 'PROHIBITED ACTIVITIES' section
-            carefully prior to using our Services to understand the (a) rights
-            you give us and (b) obligations you have when you post or upload any
-            content through the Services.<br></br>
+            Please review this section and the &apos;PROHIBITED ACTIVITIES&apos;
+            section carefully prior to using our Services to understand the (a)
+            rights you give us and (b) obligations you have when you post or
+            upload any content through the Services.<br></br>
             Submissions: By directly sending us any question, comment,
             suggestion, idea, feedback, or other information about the Services
-            ('Submissions'), you agree to assign to us all intellectual property
-            rights in such Submission. You agree that we shall own this
-            Submission and be entitled to its unrestricted use and dissemination
-            for any lawful purpose, commercial or otherwise, without
-            acknowledgment or compensation to you.<br></br>
+            (&apos;Submissions&apos;), you agree to assign to us all
+            intellectual property rights in such Submission. You agree that we
+            shall own this Submission and be entitled to its unrestricted use
+            and dissemination for any lawful purpose, commercial or otherwise,
+            without acknowledgment or compensation to you.<br></br>
             Contributions: The Services may invite you to chat, contribute to,
             or participate in blogs, message boards, online forums, and other
             functionality during which you may create, submit, post, display,
@@ -162,8 +166,8 @@ export default async function Terms() {
             us or through the Services, including but not limited to text,
             writings, video, audio, photographs, music, graphics, comments,
             reviews, rating suggestions, personal information, or other material
-            ('Contributions'). Any Submission that is publicly posted shall also
-            be treated as a Contribution.<br></br>
+            (&apos;Contributions&apos;). Any Submission that is publicly posted
+            shall also be treated as a Contribution.<br></br>
             You understand that Contributions may be viewable by other users of
             the Services and possibly through third-party websites.<br></br>
             When you post Contributions, you grant us a licence (including use
@@ -191,8 +195,8 @@ export default async function Terms() {
             networking accounts, you:<br></br>
             <ul className="list-disc ml-8">
               <li>
-                confirm that you have read and agree with our 'PROHIBITED
-                ACTIVITIES' and will not post, send, publish, upload, or
+                confirm that you have read and agree with our &apos;PROHIBITED
+                ACTIVITIES&apos; and will not post, send, publish, upload, or
                 transmit through the Services any Submission nor post any
                 Contribution that is illegal, harassing, hateful, harmful,
                 defamatory, obscene, bullying, abusive, discriminatory,
@@ -218,7 +222,8 @@ export default async function Terms() {
             You are solely responsible for your Submissions and/or Contributions
             and you expressly agree to reimburse us for any and all losses that
             we may suffer because of your breach of (a) this section, (b) any
-            third party's intellectual property rights, or (c) applicable law.
+            third party&apos;s intellectual property rights, or (c) applicable
+            law.
             <br></br>
             We may remove or edit your Content: Although we have no obligation
             to monitor any Contributions, we shall have the right to remove or
@@ -232,7 +237,8 @@ export default async function Terms() {
             We respect the intellectual property rights of others. If you
             believe that any material available on or through the Services
             infringes upon any copyright you own or control, please immediately
-            refer to the 'COPYRIGHT INFRINGEMENTS' section below.<br></br>
+            refer to the &apos;COPYRIGHT INFRINGEMENTS&apos; section below.
+            <br></br>
           </li>
           <br></br>
           <li>
@@ -357,9 +363,9 @@ export default async function Terms() {
                 Upload or transmit (or attempt to upload or to transmit)
                 viruses, Trojan horses, or other material, including excessive
                 use of capital letters and spamming (continuous posting of
-                repetitive text), that interferes with any party's uninterrupted
-                use and enjoyment of the Services or modifies, impairs,
-                disrupts, alters, or interferes with the use, features,
+                repetitive text), that interferes with any party&apos;s
+                uninterrupted use and enjoyment of the Services or modifies,
+                impairs, disrupts, alters, or interferes with the use, features,
                 functions, operation, or maintenance of the Services.
               </li>
               <li>
@@ -379,9 +385,10 @@ export default async function Terms() {
                 Upload or transmit (or attempt to upload or to transmit) any
                 material that acts as a passive or active information collection
                 or transmission mechanism, including without limitation, clear
-                graphics interchange formats ('gifs'), 1x1 pixels, web bugs,
-                cookies, or other similar devices (sometimes referred to as
-                'spyware' or 'passive collection mechanisms' or 'pcms').
+                graphics interchange formats (&apos;gifs&apos;), 1x1 pixels, web
+                bugs, cookies, or other similar devices (sometimes referred to
+                as &apos;spyware&apos; or &apos;passive collection
+                mechanisms&apos; or &apos;pcms&apos;).
               </li>
               <li>
                 Interfere with, disrupt, or create an undue burden on the
@@ -397,8 +404,8 @@ export default async function Terms() {
                 the Services.
               </li>
               <li>
-                Copy or adapt the Services' software, including but not limited
-                to Flash, PHP, HTML, JavaScript, or other code.
+                Copy or adapt the Services&apos; software, including but not
+                limited to Flash, PHP, HTML, JavaScript, or other code.
               </li>
               <li>
                 Except as permitted by applicable law, decipher, decompile,
@@ -446,9 +453,9 @@ export default async function Terms() {
             content and materials to us or on the Services, including but not
             limited to text, writings, video, audio, photographs, graphics,
             comments, suggestions, or personal information or other material
-            (collectively, 'Contributions'). Contributions may be viewable by
-            other users of the Services and through third-party websites. As
-            such, any Contributions you transmit may be treated as
+            (collectively, &apos;Contributions&apos;). Contributions may be
+            viewable by other users of the Services and through third-party
+            websites. As such, any Contributions you transmit may be treated as
             non-confidential and non-proprietary. When you create or make
             available any Contributions, you thereby represent and warrant that:
             <br></br>
@@ -602,13 +609,13 @@ export default async function Terms() {
             SOCIAL MEDIA<br></br>
             As part of the functionality of the Services, you may link your
             account with online accounts you have with third-party service
-            providers (each such account, a 'Third-Party Account') by either:
-            (1) providing your Third-Party Account login information through the
-            Services; or (2) allowing us to access your Third-Party Account, as
-            is permitted under the applicable terms and conditions that govern
-            your use of each Third-Party Account. You represent and warrant that
-            you are entitled to disclose your Third-Party Account login
-            information to us and/or grant us access to your Third-Party
+            providers (each such account, a &apos;Third-Party Account&apos;) by
+            either: (1) providing your Third-Party Account login information
+            through the Services; or (2) allowing us to access your Third-Party
+            Account, as is permitted under the applicable terms and conditions
+            that govern your use of each Third-Party Account. You represent and
+            warrant that you are entitled to disclose your Third-Party Account
+            login information to us and/or grant us access to your Third-Party
             Account, without breach by you of any of the terms and conditions
             that govern your use of the applicable Third-Party Account, and
             without obligating us to pay any fees or making us subject to any
@@ -616,76 +623,77 @@ export default async function Terms() {
             Third-Party Account. By granting us access to any Third-Party
             Accounts, you understand that (1) we may access, make available, and
             store (if applicable) any content that you have provided to and
-            stored in your Third-Party Account (the 'Social Network Content') so
-            that it is available on and through the Services via your account,
-            including without limitation any friend lists and (2) we may submit
-            to and receive from your Third-Party Account additional information
-            to the extent you are notified when you link your account with the
-            Third-Party Account. Depending on the Third-Party Accounts you
-            choose and subject to the privacy settings that you have set in such
-            Third-Party Accounts, personally identifiable information that you
-            post to your Third-Party Accounts may be available on and through
-            your account on the Services. Please note that if a Third-Party
-            Account or associated service becomes unavailable or our access to
-            such Third-Party Account is terminated by the third-party service
-            provider, then Social Network Content may no longer be available on
-            and through the Services. You will have the ability to disable the
-            connection between your account on the Services and your Third-Party
-            Accounts at any time. PLEASE NOTE THAT YOUR RELATIONSHIP WITH THE
-            THIRD-PARTY SERVICE PROVIDERS ASSOCIATED WITH YOUR THIRD-PARTY
-            ACCOUNTS IS GOVERNED SOLELY BY YOUR AGREEMENT(S) WITH SUCH
-            THIRD-PARTY SERVICE PROVIDERS. We make no effort to review any
-            Social Network Content for any purpose, including but not limited
-            to, for accuracy, legality, or non-infringement, and we are not
-            responsible for any Social Network Content. You acknowledge and
-            agree that we may access your email address book associated with a
-            Third-Party Account and your contacts list stored on your mobile
-            device or tablet computer solely for purposes of identifying and
-            informing you of those contacts who have also registered to use the
-            Services. You can deactivate the connection between the Services and
-            your Third-Party Account by contacting us using the contact
-            information below or through your account settings (if applicable).
-            We will attempt to delete any information stored on our servers that
-            was obtained through such Third-Party Account, except the username
-            and profile picture that become associated with your account.
+            stored in your Third-Party Account (the &apos;Social Network
+            Content&apos;) so that it is available on and through the Services
+            via your account, including without limitation any friend lists and
+            (2) we may submit to and receive from your Third-Party Account
+            additional information to the extent you are notified when you link
+            your account with the Third-Party Account. Depending on the
+            Third-Party Accounts you choose and subject to the privacy settings
+            that you have set in such Third-Party Accounts, personally
+            identifiable information that you post to your Third-Party Accounts
+            may be available on and through your account on the Services. Please
+            note that if a Third-Party Account or associated service becomes
+            unavailable or our access to such Third-Party Account is terminated
+            by the third-party service provider, then Social Network Content may
+            no longer be available on and through the Services. You will have
+            the ability to disable the connection between your account on the
+            Services and your Third-Party Accounts at any time. PLEASE NOTE THAT
+            YOUR RELATIONSHIP WITH THE THIRD-PARTY SERVICE PROVIDERS ASSOCIATED
+            WITH YOUR THIRD-PARTY ACCOUNTS IS GOVERNED SOLELY BY YOUR
+            AGREEMENT(S) WITH SUCH THIRD-PARTY SERVICE PROVIDERS. We make no
+            effort to review any Social Network Content for any purpose,
+            including but not limited to, for accuracy, legality, or
+            non-infringement, and we are not responsible for any Social Network
+            Content. You acknowledge and agree that we may access your email
+            address book associated with a Third-Party Account and your contacts
+            list stored on your mobile device or tablet computer solely for
+            purposes of identifying and informing you of those contacts who have
+            also registered to use the Services. You can deactivate the
+            connection between the Services and your Third-Party Account by
+            contacting us using the contact information below or through your
+            account settings (if applicable). We will attempt to delete any
+            information stored on our servers that was obtained through such
+            Third-Party Account, except the username and profile picture that
+            become associated with your account.
             <br></br>
           </li>
           <br></br>
           <li>
             THIRD-PARTY WEBSITES AND CONTENT<br></br>
             The Services may contain (or you may be sent via the Site) links to
-            other websites ('Third-Party Websites') as well as articles,
-            photographs, text, graphics, pictures, designs, music, sound, video,
-            information, applications, software, and other content or items
-            belonging to or originating from third parties ('Third-Party
-            Content'). Such Third-Party Websites and Third-Party Content are not
-            investigated, monitored, or checked for accuracy, appropriateness,
-            or completeness by us, and we are not responsible for any
-            Third-Party Websites accessed through the Services or any
-            Third-Party Content posted on, available through, or installed from
-            the Services, including the content, accuracy, offensiveness,
-            opinions, reliability, privacy practices, or other policies of or
-            contained in the Third-Party Websites or the Third-Party Content.
-            Inclusion of, linking to, or permitting the use or installation of
-            any Third-Party Websites or any Third-Party Content does not imply
-            approval or endorsement thereof by us. If you decide to leave the
-            Services and access the Third-Party Websites or to use or install
-            any Third-Party Content, you do so at your own risk, and you should
-            be aware these Legal Terms no longer govern. You should review the
-            applicable terms and policies, including privacy and data gathering
-            practices, of any website to which you navigate from the Services or
-            relating to any applications you use or install from the Services.
-            Any purchases you make through Third-Party Websites will be through
-            other websites and from other companies, and we take no
-            responsibility whatsoever in relation to such purchases which are
-            exclusively between you and the applicable third party. You agree
-            and acknowledge that we do not endorse the products or services
-            offered on Third-Party Websites and you shall hold us blameless from
-            any harm caused by your purchase of such products or services.
-            Additionally, you shall hold us blameless from any losses sustained
-            by you or harm caused to you relating to or resulting in any way
-            from any Third-Party Content or any contact with Third-Party
-            Websites.<br></br>
+            other websites (&apos;Third-Party Websites&apos;) as well as
+            articles, photographs, text, graphics, pictures, designs, music,
+            sound, video, information, applications, software, and other content
+            or items belonging to or originating from third parties
+            (&apos;Third-Party Content&apos;). Such Third-Party Websites and
+            Third-Party Content are not investigated, monitored, or checked for
+            accuracy, appropriateness, or completeness by us, and we are not
+            responsible for any Third-Party Websites accessed through the
+            Services or any Third-Party Content posted on, available through, or
+            installed from the Services, including the content, accuracy,
+            offensiveness, opinions, reliability, privacy practices, or other
+            policies of or contained in the Third-Party Websites or the
+            Third-Party Content. Inclusion of, linking to, or permitting the use
+            or installation of any Third-Party Websites or any Third-Party
+            Content does not imply approval or endorsement thereof by us. If you
+            decide to leave the Services and access the Third-Party Websites or
+            to use or install any Third-Party Content, you do so at your own
+            risk, and you should be aware these Legal Terms no longer govern.
+            You should review the applicable terms and policies, including
+            privacy and data gathering practices, of any website to which you
+            navigate from the Services or relating to any applications you use
+            or install from the Services. Any purchases you make through
+            Third-Party Websites will be through other websites and from other
+            companies, and we take no responsibility whatsoever in relation to
+            such purchases which are exclusively between you and the applicable
+            third party. You agree and acknowledge that we do not endorse the
+            products or services offered on Third-Party Websites and you shall
+            hold us blameless from any harm caused by your purchase of such
+            products or services. Additionally, you shall hold us blameless from
+            any losses sustained by you or harm caused to you relating to or
+            resulting in any way from any Third-Party Content or any contact
+            with Third-Party Websites.<br></br>
           </li>
           <br></br>
           <li>
@@ -718,7 +726,7 @@ export default async function Terms() {
           <li>
             PRIVACY POLICY<br></br>
             We prioritise data privacy and security. Please review our Privacy
-            Policy:{' '}
+            Policy: <br></br>
             <Link href="www.linkedall.online/policy/privacy">
               www.linkedall.online/policy/privacy
             </Link>
@@ -733,12 +741,12 @@ export default async function Terms() {
             consent to have your data transferred to and processed in the United
             Kingdom. We do not knowingly accept, request, or solicit information
             from children or knowingly market to children. Therefore, in
-            accordance with the UK's Data Protection Act 2018, which implements
-            the General Data Protection Regulation (GDPR), if we receive actual
-            knowledge that anyone under the age of 13 has provided personal
-            information to us without the appropriate consent, we will delete
-            that information from the Services as quickly as is reasonably
-            practical.<br></br>
+            accordance with the UK&apos;s Data Protection Act 2018, which
+            implements the General Data Protection Regulation (GDPR), if we
+            receive actual knowledge that anyone under the age of 13 has
+            provided personal information to us without the appropriate consent,
+            we will delete that information from the Services as quickly as is
+            reasonably practical.<br></br>
             <br></br>
           </li>
           <br></br>
@@ -748,8 +756,8 @@ export default async function Terms() {
             believe that any material available on or through the Services
             infringes upon any copyright you own or control, please immediately
             notify us using the contact information provided below (a
-            'Notification'). A copy of your Notification will be sent to the
-            person who posted or stored the material addressed in the
+            &apos;Notification&apos;). A copy of your Notification will be sent
+            to the person who posted or stored the material addressed in the
             Notification. Please be advised that pursuant to applicable law you
             may be held liable for damages if you make material
             misrepresentations in a Notification. Thus, if you are not sure that
@@ -820,14 +828,14 @@ export default async function Terms() {
             DISPUTE RESOLUTION<br></br>
             Informal Negotiations<br></br>
             To expedite resolution and control the cost of any dispute,
-            controversy, or claim related to these Legal Terms (each a 'Dispute'
-            and collectively, the 'Disputes') brought by either you or us
-            (individually, a 'Party' and collectively, the 'Parties'), the
-            Parties agree to first attempt to negotiate any Dispute (except
-            those Disputes expressly provided below) informally for at least
-            thirty (30) days before initiating arbitration. Such informal
-            negotiations commence upon written notice from one Party to the
-            other Party.<br></br>
+            controversy, or claim related to these Legal Terms (each a
+            &apos;Dispute&apos; and collectively, the &apos;Disputes&apos;)
+            brought by either you or us (individually, a &apos;Party&apos; and
+            collectively, the &apos;Parties&apos;), the Parties agree to first
+            attempt to negotiate any Dispute (except those Disputes expressly
+            provided below) informally for at least thirty (30) days before
+            initiating arbitration. Such informal negotiations commence upon
+            written notice from one Party to the other Party.<br></br>
             Binding Arbitration<br></br>
             Any dispute arising from the relationships between the Parties to
             these Legal Terms shall be determined by one arbitrator who will be
@@ -883,25 +891,25 @@ export default async function Terms() {
             THEREOF, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
             MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
             NON-INFRINGEMENT. WE MAKE NO WARRANTIES OR REPRESENTATIONS ABOUT THE
-            ACCURACY OR COMPLETENESS OF THE SERVICES' CONTENT OR THE CONTENT OF
-            ANY WEBSITES OR MOBILE APPLICATIONS LINKED TO THE SERVICES AND WE
-            WILL ASSUME NO LIABILITY OR RESPONSIBILITY FOR ANY (1) ERRORS,
-            MISTAKES, OR INACCURACIES OF CONTENT AND MATERIALS, (2) PERSONAL
-            INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM
-            YOUR ACCESS TO AND USE OF THE SERVICES, (3) ANY UNAUTHORISED ACCESS
-            TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL
-            INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (4) ANY
-            INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SERVICES,
-            (5) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE
-            TRANSMITTED TO OR THROUGH THE SERVICES BY ANY THIRD PARTY, AND/OR
-            (6) ANY ERRORS OR OMISSIONS IN ANY CONTENT AND MATERIALS OR FOR ANY
-            LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY
-            CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE
-            SERVICES. WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME
-            RESPONSIBILITY FOR ANY PRODUCT OR SERVICE ADVERTISED OR OFFERED BY A
-            THIRD PARTY THROUGH THE SERVICES, ANY HYPERLINKED WEBSITE, OR ANY
-            WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER OR OTHER
-            ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE
+            ACCURACY OR COMPLETENESS OF THE SERVICES&apos; CONTENT OR THE
+            CONTENT OF ANY WEBSITES OR MOBILE APPLICATIONS LINKED TO THE
+            SERVICES AND WE WILL ASSUME NO LIABILITY OR RESPONSIBILITY FOR ANY
+            (1) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT AND MATERIALS, (2)
+            PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER,
+            RESULTING FROM YOUR ACCESS TO AND USE OF THE SERVICES, (3) ANY
+            UNAUTHORISED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND
+            ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED
+            THEREIN, (4) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR
+            FROM THE SERVICES, (5) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE
+            WHICH MAY BE TRANSMITTED TO OR THROUGH THE SERVICES BY ANY THIRD
+            PARTY, AND/OR (6) ANY ERRORS OR OMISSIONS IN ANY CONTENT AND
+            MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT
+            OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE
+            AVAILABLE VIA THE SERVICES. WE DO NOT WARRANT, ENDORSE, GUARANTEE,
+            OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR SERVICE ADVERTISED OR
+            OFFERED BY A THIRD PARTY THROUGH THE SERVICES, ANY HYPERLINKED
+            WEBSITE, OR ANY WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER
+            OR OTHER ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE
             RESPONSIBLE FOR MONITORING ANY TRANSACTION BETWEEN YOU AND ANY
             THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE PURCHASE
             OF A PRODUCT OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT,

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useSupabase } from '@/utils/providers/supabase-provider';
-import { useRef, useState } from 'react';
+import { useSupabase } from "@/utils/providers/supabase-provider";
+import { useRef, useState } from "react";
 
 export default function AvatarButton({
   url,
@@ -20,16 +20,16 @@ export default function AvatarButton({
       setUploading(true);
 
       if (!event.target.files || event.target.files.length === 0) {
-        throw new Error('You must select an image to upload.');
+        throw new Error("You must select an image to upload.");
       }
 
       const file = event.target.files[0];
-      const fileExt = file.name.split('.').pop();
+      const fileExt = file.name.split(".").pop();
       const fileName = `${Math.random()}.${fileExt}`;
       const filePath = `${fileName}`;
 
       let { error: uploadError } = await supabase.storage
-        .from('avatars')
+        .from("avatars")
         .upload(filePath, file);
 
       if (uploadError) {
@@ -37,7 +37,7 @@ export default function AvatarButton({
       }
       const {
         data: { publicUrl },
-      } = supabase.storage.from('avatars').getPublicUrl(filePath);
+      } = supabase.storage.from("avatars").getPublicUrl(filePath);
       onUpload(publicUrl);
     } catch (error) {
       if (error instanceof Error) {

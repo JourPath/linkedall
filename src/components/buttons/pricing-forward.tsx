@@ -1,14 +1,14 @@
-'use client';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function PricingForward() {
   const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push('/profile');
+      router.push("/profile");
     }, 3000);
     return () => clearTimeout(timer);
   });

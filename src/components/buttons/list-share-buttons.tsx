@@ -1,5 +1,5 @@
-'use client';
-import { usePathname } from 'next/navigation';
+"use client";
+import { usePathname } from "next/navigation";
 import {
   LinkedinShareButton,
   LinkedinIcon,
@@ -7,7 +7,7 @@ import {
   TwitterIcon,
   EmailShareButton,
   EmailIcon,
-} from 'next-share';
+} from "next-share";
 
 export default function ListShareButtons({ listName }: { listName: string }) {
   const pathname = usePathname();

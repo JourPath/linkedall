@@ -1,4 +1,4 @@
-import CreateListForm from '@/components/forms/create-list-form';
+import CreateListForm from "@/components/forms/create-list-form";
 
 export default function CreateList() {
   return (

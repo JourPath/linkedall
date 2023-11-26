@@ -1,4 +1,4 @@
-import { Disclosure } from '@headlessui/react';
+import { Disclosure } from "@headlessui/react";
 
 export default function NavButton({ open }: { open: Boolean }) {
   return (

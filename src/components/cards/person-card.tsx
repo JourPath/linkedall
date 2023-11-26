@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { createClient } from '@/lib/supabase/supabase-browser';
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import Link from 'next/link';
-import { useState } from 'react';
+import { createClient } from "@/lib/supabase/supabase-browser";
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import Link from "next/link";
+import { useState } from "react";
 
 type Person = {
   list_id: string;
@@ -41,11 +41,11 @@ export default function PersonCard({
 
   const getConnection = async (person: Person, list_id: string) => {
     const { data, error } = await supabase
-      .from('connections')
-      .select('*')
-      .eq('profile_id', user?.id!)
-      .eq('list_id', list_id)
-      .eq('connection_id', person.participant_id);
+      .from("connections")
+      .select("*")
+      .eq("profile_id", user?.id!)
+      .eq("list_id", list_id)
+      .eq("connection_id", person.participant_id);
     if (error) {
       console.log(error);
     } else {
@@ -80,16 +80,16 @@ export default function PersonCard({
 
   const addConnection = async (connection_id: string, list_id: string) => {
     setChecked(true);
-    await fetch('https://www.linkedall.online/api/connections', {
-      method: 'POST',
+    await fetch("https://www.linkedall.online/api/connections", {
+      method: "POST",
       body: JSON.stringify({ connection_id, list_id }),
     });
   };
 
   const removedConnection = async (connection_id: string, list_id: string) => {
     setChecked(false);
-    await fetch('https://www.linkedall.online/api/connections', {
-      method: 'PUT',
+    await fetch("https://www.linkedall.online/api/connections", {
+      method: "PUT",
       body: JSON.stringify({ connection_id, list_id }),
     });
   };
@@ -99,8 +99,8 @@ export default function PersonCard({
       <div
         className={` rounded-full m-2 flex flex-row justify-between h-16 items-center px-4 border-2 ${
           checked
-            ? 'border-[--grey] bg-[--light-blue-1]'
-            : 'border-[--light-blue-3] bg-[--light-blue-2]'
+            ? "border-[--grey] bg-[--light-blue-1]"
+            : "border-[--light-blue-3] bg-[--light-blue-2]"
         }`}
       >
         <div
@@ -109,9 +109,10 @@ export default function PersonCard({
           {person.avatar_url ? (
             <img
               className={` ${
-                checked ? 'grayscale' : ''
+                checked ? "grayscale" : ""
               } rounded-full w-12 h-12 shrink-0`}
               src={person.avatar_url}
+              alt={`${person.full_name}'s avatar`}
             />
           ) : (
             <svg

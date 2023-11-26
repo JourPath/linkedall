@@ -1,34 +1,34 @@
-'use client';
+"use client";
 
-import { Disclosure } from '@headlessui/react';
+import { Disclosure } from "@headlessui/react";
 
-import { usePathname } from 'next/navigation';
-import NavButton from '../buttons/nav-button';
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import ProfileButton from '../buttons/profile-button';
-import Link from 'next/link';
-import Image from 'next/image';
+import { usePathname } from "next/navigation";
+import NavButton from "../buttons/nav-button";
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import ProfileButton from "../buttons/profile-button";
+import Link from "next/link";
+import Image from "next/image";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function NavBar() {
-  const { user, signOut, isLoading } = useAuth();
+  const { user, signOut } = useAuth();
   const pathname = usePathname();
   let navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'Login', href: '/login' },
-    { name: 'Sign Up', href: '/signup' },
+    { name: "Home", href: "/" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Login", href: "/login" },
+    { name: "Sign Up", href: "/signup" },
   ];
 
   if (user) {
     navigation = [
-      { name: 'Home', href: '/' },
-      { name: 'Dashboard', href: '/dashboard' },
-      { name: 'Profile', href: '/profile' },
-      { name: 'Upgrade', href: '/pricing' },
+      { name: "Home", href: "/" },
+      { name: "Dashboard", href: "/dashboard" },
+      { name: "Profile", href: "/profile" },
+      { name: "Upgrade", href: "/pricing" },
     ];
   }
 
@@ -64,12 +64,12 @@ export default function NavBar() {
                         href={item.href}
                         className={classNames(
                           item.href === pathname
-                            ? 'bg-[--blue-1] text-white'
-                            : 'text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white]',
-                          'rounded-md px-3 py-2 text-sm font-medium'
+                            ? "bg-[--blue-1] text-white"
+                            : "text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white]",
+                          "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={
-                          item.href === pathname ? 'page' : undefined
+                          item.href === pathname ? "page" : undefined
                         }
                       >
                         {item.name}
@@ -83,7 +83,7 @@ export default function NavBar() {
                         Sign Out
                       </a>
                     ) : (
-                      ''
+                      ""
                     )}
                   </div>
                 </div>
@@ -100,7 +100,7 @@ export default function NavBar() {
           </div>
           <Disclosure.Panel className="">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {user ? <p className="text-center">{user.full_name}</p> : ''}
+              {user ? <p className="text-center">{user.full_name}</p> : ""}
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -108,11 +108,11 @@ export default function NavBar() {
                   href={item.href}
                   className={classNames(
                     item.href === pathname
-                      ? 'bg-[--blue-1] text-[--white]'
-                      : 'text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white]',
-                    'block rounded-md px-3 py-2 text-base font-medium'
+                      ? "bg-[--blue-1] text-[--white]"
+                      : "text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white]",
+                    "block rounded-md px-3 py-2 text-base font-medium"
                   )}
-                  aria-current={item.href === pathname ? 'page' : undefined}
+                  aria-current={item.href === pathname ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
@@ -125,7 +125,7 @@ export default function NavBar() {
                   Sign Out
                 </Disclosure.Button>
               ) : (
-                ''
+                ""
               )}
             </div>
           </Disclosure.Panel>
