@@ -35,10 +35,13 @@ export default function JoinList({ listId = "" }: Props) {
   }, [user, supabase]);
 
   const joinList = async () => {
-    const response = await fetch("https://www.linkedall.online/api/join", {
-      method: "PUT",
-      body: JSON.stringify({ shortId }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/join`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ shortId }),
+      }
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

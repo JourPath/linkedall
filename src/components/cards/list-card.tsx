@@ -12,7 +12,7 @@ type IncomingList = {
 export default function ListCard({ list }: { list: IncomingList }) {
   const leaveList = async (list_id: string) => {
     const response = await fetch(
-      "https://www.linkedall.online/api/participants",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/participants`,
       {
         method: "PATCH",
         body: JSON.stringify({ list_id }),

@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -41,7 +41,7 @@ export async function POST() {
 
   const session = await stripe.billingPortal.sessions.create({
     customer: stripe_customer_id,
-    return_url: `https://www.linkedall.online/profile`,
+    return_url: `${process.env.NEXT_PUBLIC_API_URL}/profile`,
   });
 
   return NextResponse.json({ url: session.url });

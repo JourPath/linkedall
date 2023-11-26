@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 "use client";
 
-import { Profile } from "@/utils/types/collections.types";
+import {
+  Profile,
+  get_list_from_short_id,
+} from "@/utils/types/collections.types";
 import { Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect } from "react";
 import useSWR from "swr";
 import { useSupabase } from "./supabase-provider";
-import { get_list_from_short_id } from "@/utils/types/collections.types";
 
 interface ContextI {
   user: Profile | null | undefined;
@@ -105,7 +107,7 @@ export default function SupabaseAuthProvider({
     await supabase.auth.signInWithOAuth({
       provider: "linkedin",
       options: {
-        redirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}&&listid=${listId}&&signup=true`,
+        redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback?plan=${plan}&&listid=${listId}&&signup=true`,
       },
     });
   };
@@ -115,7 +117,7 @@ export default function SupabaseAuthProvider({
     await supabase.auth.signInWithOAuth({
       provider: "linkedin",
       options: {
-        redirectTo: `https://www.linkedall.online/auth/callback?listid=${listId}`,
+        redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback?listid=${listId}`,
       },
     });
   };

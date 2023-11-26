@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import PersonCard from "../cards/person-card";
 import { useAuth } from "@/utils/providers/supabase-auth-provider";
 import { get_list_participants } from "@/utils/types/collections.types";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import PersonCard from "../cards/person-card";
 
 export default function ListParticipants({
   data,
@@ -21,10 +21,13 @@ export default function ListParticipants({
 
   useEffect(() => {
     const joinList = async () => {
-      const response = await fetch("https://www.linkedall.online/api/join", {
-        method: "PUT",
-        body: JSON.stringify({ shortId: listId }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/join`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ shortId: listId }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

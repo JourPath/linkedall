@@ -1,13 +1,13 @@
 // import './globals.css';
-import { Inter, Josefin_Sans } from "next/font/google";
-import SupabaseProvider from "@/utils/providers/supabase-provider";
-import SupabaseAuthProvider from "@/utils/providers/supabase-auth-provider";
-import { createClient } from "@/lib/supabase/supabase-server";
-import { Analytics } from "@vercel/analytics/react";
-import "./globals.css";
-import GAnalytics from "@/lib/google/analytics";
 import NavBar from "@/components/nav/nav-bar";
 import Footer from "@/components/sections/footer";
+import GAnalytics from "@/lib/google/analytics";
+import { createClient } from "@/lib/supabase/supabase-server";
+import SupabaseAuthProvider from "@/utils/providers/supabase-auth-provider";
+import SupabaseProvider from "@/utils/providers/supabase-provider";
+import { Analytics } from "@vercel/analytics/react";
+import { Inter, Josefin_Sans } from "next/font/google";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,7 +27,7 @@ export const metadata = {
   openGraph: {
     title: "LinkedAll",
     description: "Helping Professionals Connect",
-    url: "https://www.linkedall.online",
+    url: `${process.env.NEXT_PUBLIC_API_URL}`,
     siteName: "LinkedAll",
     images: [
       {

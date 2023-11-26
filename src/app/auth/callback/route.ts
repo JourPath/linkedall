@@ -5,8 +5,8 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import type { NextRequest } from "next/server";
 import type { Database } from "@/utils/types/database.types";
+import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
@@ -28,31 +28,33 @@ export async function GET(request: NextRequest) {
   if (plan && plan !== "null" && plan !== "") {
     console.log("plan");
     return NextResponse.redirect(
-      `https://www.linkedall.online/profile?plan=${plan}`
+      `${process.env.NEXT_PUBLIC_API_URL}/profile?plan=${plan}`
     );
   }
   // Check if listId is not null, not an empty string, and signUp is true
   else if (listId && listId !== "null" && listId !== "" && signUp === "true") {
     console.log("list id & sign up");
     return NextResponse.redirect(
-      `https://www.linkedall.online/profile?listid=${listId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/profile?listid=${listId}`
     );
   }
   // Check if listId is not null and not an empty string
   else if (listId && listId !== "null" && listId !== "") {
     console.log("list id");
     return NextResponse.redirect(
-      `https://www.linkedall.online/dashboard?listid=${listId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/dashboard?listid=${listId}`
     );
   }
   // Check if signUp is true
   else if (signUp === "true") {
     console.log("sign up");
-    return NextResponse.redirect("https://www.linkedall.online/profile");
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_API_URL}/profile`);
   }
   // Default case
   else {
     console.log("normal");
-    return NextResponse.redirect("https://www.linkedall.online/dashboard");
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_API_URL}/dashboard`
+    );
   }
 }

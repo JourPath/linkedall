@@ -45,7 +45,7 @@ export default function Subscribe({
     } else {
       if (plan !== "BASIC") {
         const response = await fetch(
-          "https://www.linkedall.online/api/stripe/portal",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/portal`,
           {
             method: "POST",
             //   body: JSON.stringify({ shortId }),
@@ -55,7 +55,7 @@ export default function Subscribe({
         router.push(data.url);
       } else {
         const response = await fetch(
-          `https://www.linkedall.online/api/stripe/subscription/${id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/subscription/${id}`,
           {
             method: "POST",
           }

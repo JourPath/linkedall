@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
     mode: "subscription",
     payment_method_types: ["card"],
     line_items: lineItems,
-    success_url: `https://www.linkedall.online/payment/success`,
-    cancel_url: `https://www.linkedall.online/payment/cancelled`,
+    success_url: `${process.env.NEXT_PUBLIC_API_URL}/payment/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_API_URL}/payment/cancelled`,
   });
 
   return NextResponse.json({ id: session.id });

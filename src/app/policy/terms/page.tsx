@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
@@ -727,7 +727,7 @@ export default async function Terms() {
             PRIVACY POLICY<br></br>
             We prioritise data privacy and security. Please review our Privacy
             Policy: <br></br>
-            <Link href="www.linkedall.online/policy/privacy">
+            <Link href={`${process.env.NEXT_PUBLIC_API_URL}/policy/privacy`}>
               www.linkedall.online/policy/privacy
             </Link>
             . By using the Services, you agree to be bound by our Privacy

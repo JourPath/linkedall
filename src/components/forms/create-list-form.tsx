@@ -13,10 +13,13 @@ export default function CreateListForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    const response = await fetch("https://www.linkedall.online/api/lists", {
-      method: "PUT",
-      body: JSON.stringify({ user, listName }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/lists`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ user, listName }),
+      }
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

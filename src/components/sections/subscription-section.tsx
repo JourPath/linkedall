@@ -1,10 +1,10 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { loadStripe } from "@stripe/stripe-js";
-import { useEffect } from "react";
 import { Customer } from "@/utils/types/collections.types";
+import { loadStripe } from "@stripe/stripe-js";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SubscriptionSection({
   customer,
@@ -20,7 +20,7 @@ export default function SubscriptionSection({
     async function handleStripeCheckout() {
       if (plan && plan !== "basic" && plan !== "null" && plan !== "") {
         const response = await fetch(
-          `https://www.linkedall.online/api/stripe/subscription/${plan}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/subscription/${plan}`,
           {
             method: "POST",
           }
@@ -35,7 +35,7 @@ export default function SubscriptionSection({
 
   async function loadPortal() {
     const response = await fetch(
-      "https://www.linkedall.online/api/stripe/portal",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/portal`,
       {
         method: "POST",
       }

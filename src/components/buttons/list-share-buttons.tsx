@@ -1,17 +1,17 @@
 "use client";
-import { usePathname } from "next/navigation";
 import {
-  LinkedinShareButton,
-  LinkedinIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  EmailShareButton,
   EmailIcon,
+  EmailShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
 } from "next-share";
+import { usePathname } from "next/navigation";
 
 export default function ListShareButtons({ listName }: { listName: string }) {
   const pathname = usePathname();
-  const url = `https://www.linkedall.online${pathname}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}${pathname}`;
 
   return (
     <div className="flex flex-row items-center justify-evenly gap-2 my-2">

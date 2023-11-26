@@ -80,7 +80,7 @@ export default function PersonCard({
 
   const addConnection = async (connection_id: string, list_id: string) => {
     setChecked(true);
-    await fetch("https://www.linkedall.online/api/connections", {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/connections`, {
       method: "POST",
       body: JSON.stringify({ connection_id, list_id }),
     });
@@ -88,7 +88,7 @@ export default function PersonCard({
 
   const removedConnection = async (connection_id: string, list_id: string) => {
     setChecked(false);
-    await fetch("https://www.linkedall.online/api/connections", {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/connections`, {
       method: "PUT",
       body: JSON.stringify({ connection_id, list_id }),
     });
