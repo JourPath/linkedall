@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import { headers } from 'next/headers';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function CreateListForm() {
-  const [listName, setListName] = useState<string>('');
+  const [listName, setListName] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
   const router = useRouter();
@@ -14,22 +13,22 @@ export default function CreateListForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    const response = await fetch('https://www.linkedall.online/api/lists', {
-      method: 'PUT',
+    const response = await fetch("https://www.linkedall.online/api/lists", {
+      method: "PUT",
       body: JSON.stringify({ user, listName }),
     });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const responseJson = await response.json();
     if (responseJson.error) {
       if (
         responseJson.error.message.includes(
-          'new row violates row-level security policy'
+          "new row violates row-level security policy"
         )
       ) {
         setError(
-          'You have reached maximum lists for your plan. Please upgrade to create more lists.'
+          "You have reached maximum lists for your plan. Please upgrade to create more lists."
         );
       }
     } else {

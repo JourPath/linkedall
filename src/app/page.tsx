@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import GetStarted from '@/components/sections/get-started';
-import Image from 'next/image';
+import Link from "next/link";
+import GetStarted from "@/components/sections/get-started";
+import Image from "next/image";
 
 export default async function Home() {
   return (
@@ -86,7 +86,7 @@ export default async function Home() {
           </h2>
           <p className="text-left text-2xl my-12">
             LinkedAll will keep help you manage who you have connected with and
-            who you haven't
+            who you haven&apos;t
           </p>
           <Link className="flex-1" href="#get-started" passHref>
             <button className="bg-[--blue-2] rounded-full text-[--white] py-4 w-11/12 ">

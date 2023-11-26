@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import VerificationInput from 'react-verification-input';
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import VerificationInput from "react-verification-input";
 
 const SignUpForm = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<boolean>(false);
-  const [token, setToken] = useState<string>('');
+  const [token, setToken] = useState<string>("");
   const { signUpWithEmail, signUpWithLinkedIn, verifyOTP } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const plan = searchParams.get('plan');
-  const listId = searchParams.get('listid');
+  const plan = searchParams.get("plan");
+  const listId = searchParams.get("listid");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const SignUpForm = () => {
         setConfirm(true);
       }
     } catch (error) {
-      console.log('Something went wrong!');
+      console.log("Something went wrong!");
     }
   };
 
@@ -45,7 +45,7 @@ const SignUpForm = () => {
         );
       }
     } catch (error) {
-      console.log('Something went wrong!');
+      console.log("Something went wrong!");
     }
   };
 
@@ -53,7 +53,7 @@ const SignUpForm = () => {
     <div className="text-center rounded-xl bg-[--light-blue-1]">
       <img src="/LinkedAll_blue_logo.svg" className="w-16 inline py-4" />
       <h3 className="font-bold text-2xl pb-4 ">
-        {confirm ? 'Confirm' : 'Get Started'}
+        {confirm ? "Confirm" : "Get Started"}
       </h3>
       {confirm ? (
         <div className="flex flex-col justify-center items-center">
@@ -66,8 +66,8 @@ const SignUpForm = () => {
             onChange={setToken}
             onComplete={(token) => handleConfirm(token)}
             classNames={{
-              character: 'VIcharacter',
-              container: 'VIcontainer',
+              character: "VIcharacter",
+              container: "VIcontainer",
             }}
           />
           {error && <div>{error}</div>}
@@ -124,11 +124,11 @@ const SignUpForm = () => {
               Sign Up
             </button>
             <p className="text-[--light-blue-3] text-xs">
-              By clicking "Sign Up" I agree to LinkedAll's{' '}
+              By clicking &quot;Sign Up&quot; I agree to LinkedAll&apos;s <br />
               <Link href="/policy/terms" target="_blank">
                 Terms
-              </Link>{' '}
-              and{' '}
+              </Link>{" "}
+              and{" "}
               <Link href="/policy/privacy" target="_blank">
                 Privacy Policy
               </Link>
@@ -138,7 +138,7 @@ const SignUpForm = () => {
               Already signed up?
               <Link
                 href={{
-                  pathname: '/login',
+                  pathname: "/login",
                   query: { listid: listId },
                 }}
               >

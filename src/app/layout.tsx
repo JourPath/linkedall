@@ -1,52 +1,51 @@
 // import './globals.css';
-import { Inter, Josefin_Sans } from 'next/font/google';
-import SupabaseProvider from '@/utils/providers/supabase-provider';
-import SupabaseAuthProvider from '@/utils/providers/supabase-auth-provider';
-import { createClient } from '@/lib/supabase/supabase-server';
-import { Analytics } from '@vercel/analytics/react';
-import './globals.css';
-import GAnalytics from '@/lib/google/analytics';
-import NavBar from '@/components/nav/nav-bar';
-import Footer from '@/components/sections/footer';
-import { Metadata } from 'next';
+import { Inter, Josefin_Sans } from "next/font/google";
+import SupabaseProvider from "@/utils/providers/supabase-provider";
+import SupabaseAuthProvider from "@/utils/providers/supabase-auth-provider";
+import { createClient } from "@/lib/supabase/supabase-server";
+import { Analytics } from "@vercel/analytics/react";
+import "./globals.css";
+import GAnalytics from "@/lib/google/analytics";
+import NavBar from "@/components/nav/nav-bar";
+import Footer from "@/components/sections/footer";
 
 const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 const josefin = Josefin_Sans({
-  subsets: ['latin'],
-  variable: '--font-josefin',
+  subsets: ["latin"],
+  variable: "--font-josefin",
 });
 
 export const metadata = {
   title: {
-    template: '%s | LinkedAll',
-    default: 'LinkedAll - Helping Professionals Connect',
+    template: "%s | LinkedAll",
+    default: "LinkedAll - Helping Professionals Connect",
   },
-  description: 'Helping Professionals Connect',
+  description: "Helping Professionals Connect",
   openGraph: {
-    title: 'LinkedAll',
-    description: 'Helping Professionals Connect',
-    url: 'https://www.linkedall.online',
-    siteName: 'LinkedAll',
+    title: "LinkedAll",
+    description: "Helping Professionals Connect",
+    url: "https://www.linkedall.online",
+    siteName: "LinkedAll",
     images: [
       {
-        url: '/og-card-linked.png',
+        url: "/og-card-linked.png",
         width: 1200,
         height: 630,
         alt: 'LinkedAll Logo of link icon with tagline "Helping Professionals Connect"',
       },
     ],
-    type: 'website',
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'LinkedAll',
-    description: 'Helping Professionals Connect',
-    creator: '@linkedallonline',
+    card: "summary_large_image",
+    title: "LinkedAll",
+    description: "Helping Professionals Connect",
+    creator: "@linkedallonline",
     images: {
-      url: './og-card-linked.png',
+      url: "./og-card-linked.png",
       alt: 'LinkedAll Logo of link icon with tagline "Helping Professionals Connect"',
     },
   },

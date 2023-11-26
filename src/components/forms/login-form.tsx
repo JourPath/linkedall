@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import Link from "next/link";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const { signInWithEmail, signInWithLinkedIn } = useAuth();
 
   const searchParams = useSearchParams();
-  const listId = searchParams.get('listid');
+  const listId = searchParams.get("listid");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,16 +21,20 @@ const LoginForm = () => {
       const error = await signInWithEmail(email, password, listId);
       if (error) {
         setError(error);
-        setPassword('');
+        setPassword("");
       }
     } catch (error) {
-      console.log('Something went wrong!');
+      console.log("Something went wrong!");
     }
   };
 
   return (
     <div className="text-center rounded-xl bg-[--light-blue-1]">
-      <img src="/LinkedAll_blue_logo.svg" className="w-16 inline py-4" />
+      <img
+        src="/LinkedAll_blue_logo.svg"
+        className="w-16 inline py-4"
+        alt="LinkedAll Logo"
+      />
       <h3 className="font-bold text-2xl pb-4 ">Log In</h3>
       <button
         className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4"
@@ -80,11 +84,11 @@ const LoginForm = () => {
           Log In
         </button>
         <p className="text-[--light-blue-3] text-xs">
-          By clicking "Sign Up" I agree to LinkedAll's{' '}
+          By clicking &quot;Sign Up&quot; I agree to LinkedAll&apos;s <br />
           <Link href="/policy/terms" target="_blank">
             Terms
-          </Link>{' '}
-          and{' '}
+          </Link>{" "}
+          and{" "}
           <Link href="/policy/privacy" target="_blank">
             Privacy Policy
           </Link>
@@ -94,7 +98,7 @@ const LoginForm = () => {
           Not signed up yet?
           <Link
             href={{
-              pathname: '/signup',
+              pathname: "/signup",
               query: { listid: listId },
             }}
           >

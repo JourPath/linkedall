@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { loadStripe } from '@stripe/stripe-js';
-import { useEffect } from 'react';
-import { Customer } from '@/utils/types/collections.types';
-import Link from 'next/link';
+import { useRouter, useSearchParams } from "next/navigation";
+import { loadStripe } from "@stripe/stripe-js";
+import { useEffect } from "react";
+import { Customer } from "@/utils/types/collections.types";
+import Link from "next/link";
 
 export default function SubscriptionSection({
   customer,
@@ -14,15 +14,15 @@ export default function SubscriptionSection({
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const plan = searchParams.get('plan');
+  const plan = searchParams.get("plan");
 
   useEffect(() => {
     async function handleStripeCheckout() {
-      if (plan && plan !== 'basic' && plan !== 'null' && plan !== '') {
+      if (plan && plan !== "basic" && plan !== "null" && plan !== "") {
         const response = await fetch(
           `https://www.linkedall.online/api/stripe/subscription/${plan}`,
           {
-            method: 'POST',
+            method: "POST",
           }
         );
         const data = await response.json();
@@ -33,11 +33,11 @@ export default function SubscriptionSection({
     handleStripeCheckout();
   }, [plan]);
 
-  async function loadPortal(planToManage: string) {
+  async function loadPortal() {
     const response = await fetch(
-      'https://www.linkedall.online/api/stripe/portal',
+      "https://www.linkedall.online/api/stripe/portal",
       {
-        method: 'POST',
+        method: "POST",
       }
     );
     const data = await response.json();
@@ -50,12 +50,12 @@ export default function SubscriptionSection({
         Account
       </h3>
       <p className="my-4 ">Plan: {customer?.plan}</p>
-      {customer?.plan !== 'BASIC' ? (
+      {customer?.plan !== "BASIC" ? (
         <>
           <p>Interval: {customer?.interval?.toUpperCase()}</p>
           <button
             className="bg-[--blue-2] rounded-full text-[--white] h-12 w-1/2 my-4 px-2"
-            onClick={() => loadPortal(customer?.plan!)}
+            onClick={loadPortal}
           >
             Manage Subscription
           </button>

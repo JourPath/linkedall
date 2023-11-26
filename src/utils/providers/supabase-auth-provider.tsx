@@ -1,12 +1,13 @@
-'use client';
+/* eslint-disable no-unused-vars */
+"use client";
 
-import { Profile } from '@/utils/types/collections.types';
-import { Session } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
-import { createContext, useContext, useEffect } from 'react';
-import useSWR from 'swr';
-import { useSupabase } from './supabase-provider';
-import { get_list_from_short_id } from '@/utils/types/collections.types';
+import { Profile } from "@/utils/types/collections.types";
+import { Session } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+import { createContext, useContext, useEffect } from "react";
+import useSWR from "swr";
+import { useSupabase } from "./supabase-provider";
+import { get_list_from_short_id } from "@/utils/types/collections.types";
 
 interface ContextI {
   user: Profile | null | undefined;
@@ -56,9 +57,9 @@ export default function SupabaseAuthProvider({
   // Get USER
   const getUser = async () => {
     const { data: user, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', serverSession?.user?.id!)
+      .from("profiles")
+      .select("*")
+      .eq("id", serverSession?.user?.id!)
       .single();
     if (error) {
       console.log(error);
@@ -88,12 +89,12 @@ export default function SupabaseAuthProvider({
     error,
     isLoading,
     mutate,
-  } = useSWR(serverSession ? 'profile-context' : null, getUser);
+  } = useSWR(serverSession ? "profile-context" : null, getUser);
 
   // Sign Out
   const signOut = async () => {
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push("/login");
   };
 
   // Sign up with LinkedIn
@@ -102,7 +103,7 @@ export default function SupabaseAuthProvider({
     listId: string | null
   ) => {
     await supabase.auth.signInWithOAuth({
-      provider: 'linkedin',
+      provider: "linkedin",
       options: {
         redirectTo: `https://www.linkedall.online/auth/callback?plan=${plan}&&listid=${listId}&&signup=true`,
       },
@@ -112,7 +113,7 @@ export default function SupabaseAuthProvider({
   // Sign In with LinkedIn  // Sign in with LinkedIn
   const signInWithLinkedIn = async (listId: string | null) => {
     await supabase.auth.signInWithOAuth({
-      provider: 'linkedin',
+      provider: "linkedin",
       options: {
         redirectTo: `https://www.linkedall.online/auth/callback?listid=${listId}`,
       },
@@ -139,7 +140,7 @@ export default function SupabaseAuthProvider({
     const { error } = await supabase.auth.verifyOtp({
       email,
       token,
-      type: 'email',
+      type: "email",
     });
     if (error) {
       return error.message;
@@ -160,20 +161,20 @@ export default function SupabaseAuthProvider({
   //   };
 
   const processListId = async (user: any, listId: string) => {
-    const result = await supabase.rpc('get_list_from_short_id', {
+    const result = await supabase.rpc("get_list_from_short_id", {
       shortid: listId,
     });
     if (result.error) {
       console.log(result.error);
       return result.error.message;
     }
-    const list = result.data as get_list_from_short_id['Returns'];
+    const list = result.data as get_list_from_short_id["Returns"];
     const { id } = list[0];
     const { error } = await supabase
-      .from('list_participants')
+      .from("list_participants")
       .insert({ list_id: id, participant_id: user?.id });
     if (error) {
-      console.error('Error processing listId:', error);
+      console.error("Error processing listId:", error);
     }
     return null;
   };
@@ -194,7 +195,7 @@ export default function SupabaseAuthProvider({
     }
 
     if (data.user && listId) {
-      console.log('trigger');
+      console.log("trigger");
       await processListId(data.user, listId);
     }
 
@@ -235,7 +236,7 @@ export default function SupabaseAuthProvider({
 export const useAuth = () => {
   const context = useContext(Context);
   if (context === undefined) {
-    throw new Error('useAuth must be inside SupabaseAuthProvider');
+    throw new Error("useAuth must be inside SupabaseAuthProvider");
   } else {
     return context;
   }

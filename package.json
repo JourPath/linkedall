@@ -2,6 +2,11 @@
   "name": "linkedall",
   "version": "0.2.1",
   "private": true,
+  "engines": {
+    "node": ">=21.0.0",
+    "yarn": "please use npm",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,12 +22,11 @@
     "@supabase/auth-helpers-nextjs": "^0.7.2",
     "@supabase/auth-helpers-react": "^0.4.0",
     "@supabase/supabase-js": "^2.25.0",
-    "@types/node": "20.2.5",
-    "@types/react": "18.2.7",
-    "@types/react-dom": "18.2.4",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.17",
     "@vercel/analytics": "^1.0.1",
-    "eslint-config-next": "^13.4.19",
-    "next": "^13.4.19",
+    "next": "^14.0.3",
     "next-share": "^0.25.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -36,7 +40,10 @@
     "@types/node-fetch": "^2.6.4",
     "autoprefixer": "^10.4.14",
     "cypress": "^13.6.0",
+    "eslint": "8.54.0",
+    "eslint-config-next": "^14.0.3",
     "postcss": "^8.4.24",
+    "prettier": "^3.1.0",
     "supabase": "^1.113.3",
     "tailwindcss": "^3.3.2"
   }

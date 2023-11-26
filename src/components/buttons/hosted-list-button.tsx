@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import { useSupabase } from '@/utils/providers/supabase-provider';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { useSupabase } from "@/utils/providers/supabase-provider";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function HostedListButton() {
   const { user } = useAuth();
@@ -15,9 +15,9 @@ export default function HostedListButton() {
     if (user && !user.linked_in) {
       const getProfile = async () => {
         const profile = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user?.id)
+          .from("profiles")
+          .select("*")
+          .eq("id", user?.id)
           .single();
         setProfile(profile.data);
       };
@@ -26,7 +26,7 @@ export default function HostedListButton() {
     if (user) {
       setProfileLoading(false);
     }
-  }, [user]);
+  }, [user, supabase]);
 
   if (profileLoading) return <></>;
 
