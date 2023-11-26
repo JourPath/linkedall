@@ -105,7 +105,7 @@ export default function SupabaseAuthProvider({
     listId: string | null
   ) => {
     await supabase.auth.signInWithOAuth({
-      provider: "linkedin",
+      provider: "linkedin_oidc",
       options: {
         redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback?plan=${plan}&&listid=${listId}&&signup=true`,
       },
@@ -115,7 +115,7 @@ export default function SupabaseAuthProvider({
   // Sign In with LinkedIn  // Sign in with LinkedIn
   const signInWithLinkedIn = async (listId: string | null) => {
     await supabase.auth.signInWithOAuth({
-      provider: "linkedin",
+      provider: "linkedin_oidc",
       options: {
         redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback?listid=${listId}`,
       },
