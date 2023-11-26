@@ -1,4 +1,17 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["Dashcard", "fkey", "nextjs", "signup", "supabase"]
+  "cSpell.words": [
+    "Dashcard",
+    "fkey",
+    "nextjs",
+    "signup",
+    "supabase"
+  ],
+  "prettier.endOfLine": "crlf",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  }
 }
