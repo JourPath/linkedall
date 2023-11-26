@@ -1,4 +1,4 @@
-import ListCard from '../cards/list-card';
+import ListCard from "../cards/list-card";
 
 type Lists = {
   list_id: string;

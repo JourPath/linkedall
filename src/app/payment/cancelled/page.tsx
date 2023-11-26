@@ -1,4 +1,4 @@
-import Forward from '@/components/buttons/forward';
+import Forward from "@/components/buttons/forward";
 
 export default function Cancelled() {
   return (
@@ -6,7 +6,7 @@ export default function Cancelled() {
       <div className="rounded shadow px-6 py-8">
         <h2>Payment Cancelled</h2>
         <p>You have not been charged</p>
-        <Forward time={3000} path={'pricing'} />
+        <Forward time={3000} path={"pricing"} />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
-import { NextResponse } from 'next/server';
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import { NextResponse } from "next/server";
 
-import type { NextRequest } from 'next/server';
-import type { Database } from '@/utils/types/database.types';
+import type { NextRequest } from "next/server";
+import type { Database } from "@/utils/types/database.types";
 
 export async function middleware(req: NextRequest) {
   try {
@@ -16,55 +16,55 @@ export async function middleware(req: NextRequest) {
     } = await supabase.auth.getSession();
 
     // used to block dashboard for those not logged in
-    if (!session && pathname === '/dashboard') {
+    if (!session && pathname === "/dashboard") {
       const url = new URL(req.url);
-      url.pathname = '/login';
+      url.pathname = "/login";
       return NextResponse.redirect(url);
     }
 
     // used to bmove user to new list from code
     if (
       session &&
-      pathname === '/dashboard' &&
-      req.nextUrl.searchParams.has('listid')
+      pathname === "/dashboard" &&
+      req.nextUrl.searchParams.has("listid")
     ) {
-      const listid = req.nextUrl.searchParams.get('listid');
+      const listid = req.nextUrl.searchParams.get("listid");
 
       // Check if listid is not null and not an empty string
-      if (listid !== 'null') {
+      if (listid !== "null") {
         const url = new URL(req.url);
         url.pathname = `/lists/${listid}`;
-        url.searchParams.append('new', 'true');
+        url.searchParams.append("new", "true");
         return NextResponse.redirect(url);
       }
     }
     // used to block login if logged in
-    if (session && pathname === '/login') {
+    if (session && pathname === "/login") {
       const url = new URL(req.url);
-      url.pathname = '/dashboard';
+      url.pathname = "/dashboard";
       return NextResponse.redirect(url);
     }
 
     // used to block confirm if logged in
-    if (session && pathname === '/confirm') {
+    if (session && pathname === "/confirm") {
       const url = new URL(req.url);
-      url.pathname = '/login';
+      url.pathname = "/login";
       return NextResponse.redirect(url);
     }
 
     // used to block confirm if logged in
-    if (!session && pathname === '/profile') {
+    if (!session && pathname === "/profile") {
       const url = new URL(req.url);
-      url.pathname = '/login';
+      url.pathname = "/login";
       return NextResponse.redirect(url);
     }
 
-    if (!session && pathname.includes('/lists')) {
-      const listId = pathname.split('/').pop();
+    if (!session && pathname.includes("/lists")) {
+      const listId = pathname.split("/").pop();
       const url = new URL(req.url);
-      url.pathname = '/signup';
-      if (listId && listId !== 'lists') {
-        url.searchParams.append('listid', listId);
+      url.pathname = "/signup";
+      if (listId && listId !== "lists") {
+        url.searchParams.append("listid", listId);
       }
       return NextResponse.redirect(url);
     }

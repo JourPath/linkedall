@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Subscribe from '../buttons/subscribe';
-import { Switch } from '@headlessui/react';
+import { useState } from "react";
+import Subscribe from "../buttons/subscribe";
+import { Switch } from "@headlessui/react";
 
 type plan = {
   id: string;
@@ -30,13 +30,13 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
         <Switch
           checked={yearly}
           onChange={setYearly}
-          className={`${yearly ? 'bg-[--blue-3]' : 'bg-[--blue-1]'}
+          className={`${yearly ? "bg-[--blue-3]" : "bg-[--blue-1]"}
           relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 mx-8`}
         >
           <span className="sr-only">Month / Year</span>
           <span
             aria-hidden="true"
-            className={`${yearly ? 'translate-x-9' : 'translate-x-0'}
+            className={`${yearly ? "translate-x-9" : "translate-x-0"}
             pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
           />
         </Switch>
@@ -45,7 +45,7 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
       <div className="flex flex-col lg:flex-row mx-16 justify-center items-center w-full">
         {plans
           .filter((plan) => {
-            return (plan.interval === 'year') === yearly;
+            return (plan.interval === "year") === yearly;
           })
           .map((plan) => (
             <div
@@ -54,7 +54,7 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
             >
               <h2 className="text-xl  font-bold mb-4">{plan?.name}</h2>
               <p className="text-5xl font-bold whitespace-nowrap mb-4">
-                {plan.name === 'Basic' ? 'Free' : `£${plan?.price! / 100}`}
+                {plan.name === "Basic" ? "Free" : `£${plan?.price! / 100}`}
               </p>
               <p className="mb-8 h-1/6">{plan.description}</p>
               <div className="flex flex-row h-16">
@@ -71,8 +71,8 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
                   />
                 </svg>
                 <p className="mb-2 ml-2">
-                  Host {plan.metadata.max_host}{' '}
-                  {plan.name === 'Basic' ? 'List' : 'Lists'}
+                  Host {plan.metadata.max_host}{" "}
+                  {plan.name === "Basic" ? "List" : "Lists"}
                 </p>
               </div>
               <div className="flex flex-row h-16">
@@ -106,10 +106,10 @@ export default function PricesDisplay({ plans }: { plans: plan[] }) {
                   />
                 </svg>
                 <p className="mb-8 ml-2">
-                  Join{' '}
-                  {plan.metadata.max_join === 'null'
-                    ? 'Unlimited'
-                    : `Up To ${plan.metadata.max_join}`}{' '}
+                  Join{" "}
+                  {plan.metadata.max_join === "null"
+                    ? "Unlimited"
+                    : `Up To ${plan.metadata.max_join}`}{" "}
                   lists
                 </p>
               </div>

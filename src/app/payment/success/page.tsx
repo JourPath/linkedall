@@ -1,4 +1,4 @@
-import Forward from '@/components/buttons/forward';
+import Forward from "@/components/buttons/forward";
 
 export default function Success() {
   return (
@@ -6,7 +6,7 @@ export default function Success() {
       <div className="rounded shadow px-6 py-8">
         <h2>Success</h2>
         <p>Thank you for subscribing!</p>
-        <Forward time={3000} path={'profile'} />
+        <Forward time={3000} path={"profile"} />
       </div>
     </div>
   );

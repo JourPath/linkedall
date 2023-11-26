@@ -1,6 +1,6 @@
-import ProfileSection from '@/components/sections/profile-section';
-import SubscriptionSection from '@/components/sections/subscription-section';
-import { createClient } from '@/lib/supabase/supabase-server';
+import ProfileSection from "@/components/sections/profile-section";
+import SubscriptionSection from "@/components/sections/subscription-section";
+import { createClient } from "@/lib/supabase/supabase-server";
 
 export default async function Profile() {
   const supabase = createClient();
@@ -9,9 +9,9 @@ export default async function Profile() {
   } = await supabase.auth.getUser();
 
   const customer = await supabase
-    .from('customers')
-    .select('*')
-    .eq('id', user?.id!)
+    .from("customers")
+    .select("*")
+    .eq("id", user?.id!)
     .single();
 
   if (!customer.data) {

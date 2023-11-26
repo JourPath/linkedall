@@ -1,14 +1,14 @@
-import PricesDisplay from '@/components/sections/prices-display';
-import Stripe from 'stripe';
-import { Metadata } from 'next';
+import PricesDisplay from "@/components/sections/prices-display";
+import Stripe from "stripe";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: "Pricing",
 };
 
 export default async function Pricing() {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2022-11-15',
+    apiVersion: "2022-11-15",
   });
 
   const { data: prices } = await stripe.prices.list();
@@ -36,22 +36,22 @@ export default async function Pricing() {
 
   plans.push(
     {
-      id: 'basic',
-      name: 'Basic',
+      id: "basic",
+      name: "Basic",
       price: 0.0,
-      interval: 'month',
-      currency: 'gbp',
+      interval: "month",
+      currency: "gbp",
       metadata: { max_host: 1, max_people: 50, max_join: 3 },
-      description: 'Get started for free with our basic plan.',
+      description: "Get started for free with our basic plan.",
     },
     {
-      id: 'basic',
-      name: 'Basic',
+      id: "basic",
+      name: "Basic",
       price: 0.0,
-      interval: 'year',
-      currency: 'gbp',
+      interval: "year",
+      currency: "gbp",
       metadata: { max_host: 1, max_people: 50, max_join: 3 },
-      description: 'Get started for free with our basic plan.',
+      description: "Get started for free with our basic plan.",
     }
   );
 

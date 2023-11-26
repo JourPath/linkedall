@@ -1,38 +1,38 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import PersonCard from '../cards/person-card';
-import { useAuth } from '@/utils/providers/supabase-auth-provider';
-import { get_list_participants } from '@/utils/types/collections.types';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from "react";
+import PersonCard from "../cards/person-card";
+import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { get_list_participants } from "@/utils/types/collections.types";
+import { useSearchParams } from "next/navigation";
 
 export default function ListParticipants({
   data,
   listId,
 }: {
-  data: get_list_participants['Returns'];
+  data: get_list_participants["Returns"];
   listId: string;
 }) {
   const [lp, setlp] = useState(data);
   const [joinListError, setJoinListError] = useState<string | null>(null);
   const { user } = useAuth();
   const searchParams = useSearchParams();
-  const newTrue = searchParams.get('new');
+  const newTrue = searchParams.get("new");
 
   useEffect(() => {
     const joinList = async () => {
-      const response = await fetch('https://www.linkedall.online/api/join', {
-        method: 'PUT',
+      const response = await fetch("https://www.linkedall.online/api/join", {
+        method: "PUT",
         body: JSON.stringify({ shortId: listId }),
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       if (data.error) {
         if (
           data.error.message.includes(
-            'new row violates row-level security policy'
+            "new row violates row-level security policy"
           )
         ) {
           setJoinListError(

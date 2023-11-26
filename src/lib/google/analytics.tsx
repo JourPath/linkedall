@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { GTM_ID, pageview } from 'lib/google/gtm';
-import { usePathname, useSearchParams } from 'next/navigation';
-import Script from 'next/script';
-import { useEffect } from 'react';
+import { GTM_ID, pageview } from "lib/google/gtm";
+import { usePathname, useSearchParams } from "next/navigation";
+import Script from "next/script";
+import { useEffect } from "react";
 
 export default function GAnalytics() {
   const pathname = usePathname();
@@ -22,7 +22,7 @@ export default function GAnalytics() {
           src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
           height="0"
           width="0"
-          style={{ display: 'none', visibility: 'hidden' }}
+          style={{ display: "none", visibility: "hidden" }}
         />
       </noscript>
       <Script
