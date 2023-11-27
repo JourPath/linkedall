@@ -1,10 +1,11 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/lib/supabase/supabase-route";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
-  const supabase = createRouteHandlerClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -29,13 +30,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!data) {
+  if (!data || !data.stripe_customer_id) {
     return NextResponse.json(
       { message: "Customer not found or stripe_customer_id is missing" },
       { status: 404 }
     );
   }
-
   const stripe_customer_id = data.stripe_customer_id;
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

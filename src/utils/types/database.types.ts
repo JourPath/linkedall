@@ -124,7 +124,7 @@ export interface Database {
           id?: string;
           list_name?: string | null;
           list_num?: number;
-          short_id: string;
+          short_id?: string;
         };
         Update: {
           created_at?: string;

@@ -64,7 +64,7 @@ const SignUpForm = () => {
             length={6}
             validChars="0-9"
             onChange={setToken}
-            onComplete={(token) => handleConfirm(token)}
+            onComplete={() => handleConfirm(token)}
             classNames={{
               character: "VIcharacter",
               container: "VIcontainer",

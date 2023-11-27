@@ -1,15 +1,60 @@
-import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
-import { NextResponse } from "next/server";
-
-import type { NextRequest } from "next/server";
 import type { Database } from "@/utils/types/database.types";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   try {
-    const res = NextResponse.next();
+    let res = NextResponse.next({
+      request: {
+        headers: req.headers,
+      },
+    });
     const pathname = req.nextUrl.pathname;
-
-    const supabase = createMiddlewareClient<Database>({ req, res });
+    const supabase = createServerClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return req.cookies.get(name)?.value;
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            req.cookies.set({
+              name,
+              value,
+              ...options,
+            });
+            res = NextResponse.next({
+              request: {
+                headers: req.headers,
+              },
+            });
+            res.cookies.set({
+              name,
+              value,
+              ...options,
+            });
+          },
+          remove(name: string, options: CookieOptions) {
+            req.cookies.set({
+              name,
+              value: "",
+              ...options,
+            });
+            res = NextResponse.next({
+              request: {
+                headers: req.headers,
+              },
+            });
+            res.cookies.set({
+              name,
+              value: "",
+              ...options,
+            });
+          },
+        },
+      }
+    );
 
     const {
       data: { session },

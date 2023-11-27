@@ -1,14 +1,8 @@
-// used to handle email sign up, see supabase docs
-// https://supabase.com/docs/guides/auth/auth-helpers/nextjs
-
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import type { Database } from "@/utils/types/database.types";
-import type { NextRequest } from "next/server";
-
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
   const plan = requestUrl.searchParams.get("plan");
@@ -20,8 +14,30 @@ export async function GET(request: NextRequest) {
   console.log(signUp, ` :signup ${typeof signUp}`);
 
   if (code) {
-    const supabase = createRouteHandlerClient<Database>({ cookies });
-    await supabase.auth.exchangeCodeForSession(code);
+    const cookieStore = cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value;
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            cookieStore.set({ name, value, ...options });
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete({ name, ...options });
+          },
+        },
+      }
+    );
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) {
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_API_URL}/login?error=${error.message}`
+      );
+    }
   }
 
   // Check if plan is not null and not an empty string
