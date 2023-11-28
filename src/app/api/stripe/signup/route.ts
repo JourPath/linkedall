@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

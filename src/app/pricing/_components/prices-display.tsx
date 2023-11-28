@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import Subscribe from "../buttons/subscribe";
 import { Switch } from "@headlessui/react";
+import { useState } from "react";
+import Subscribe from "./subscribe";
 
 type plan = {
   id: string;

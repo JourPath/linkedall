@@ -1,21 +1,24 @@
 "use client";
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import { useSupabase } from "@/utils/providers/supabase-provider";
+import { createClient } from "@/lib/supabase/supabase-browser";
+import { Profile } from "@/utils/types/collections.types";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import AvatarButton from "../buttons/avatar-button";
-import { useRouter, useSearchParams } from "next/navigation";
+import AvatarButton from "../../../components/buttons/avatar-button";
 
-export default function ProfileSection() {
-  const { user, isLoading } = useAuth();
+export default function ProfileSection({
+  profile,
+}: {
+  profile: Profile | null;
+}) {
   const [fullName, setFullName] = useState("");
   const [linkedIn, setLinkedIn] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [user, setUser] = useState(profile);
+  const supabase = createClient();
 
-  const { supabase } = useSupabase();
   const router = useRouter();
-  const { processListId } = useAuth();
-  const searchParams = useSearchParams();
-  const listId = searchParams.get("listid");
+  // const searchParams = useSearchParams();
+  // const listId = searchParams.get("listid");
 
   useEffect(() => {
     if (user) {
@@ -26,9 +29,9 @@ export default function ProfileSection() {
       if (user.avatar_url) {
         setAvatar(user?.avatar_url);
       }
-      if (listId) {
-        processListId(user, listId);
-      }
+      // if (listId) {
+      //   processListId(user, listId);
+      // }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -44,9 +47,9 @@ export default function ProfileSection() {
     }
   };
 
-  if (isLoading) {
-    return <p>Loading Profile...</p>;
-  }
+  // if (isLoading) {
+  //   return <p>Loading Profile...</p>;
+  // }
 
   return (
     <section className="flex flex-col justify-around content-center items-center mt-4 mx-8 rounded-3xl bg-[--white] w-10/12">

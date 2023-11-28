@@ -1,7 +1,5 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/supabase-browser";
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -29,32 +27,32 @@ export default function PersonCard({
   person,
   setlp,
   lp,
+  userId,
 }: {
   person: Person;
   setlp: Function;
   lp: LP;
+  userId: string;
 }) {
   const [checked, setChecked] = useState(person.connection);
-  const { user } = useAuth();
-  const supabase = createClient();
   const list_id = person.list_id;
 
-  const getConnection = async (person: Person, list_id: string) => {
-    const { data, error } = await supabase
-      .from("connections")
-      .select("*")
-      .eq("profile_id", user?.id!)
-      .eq("list_id", list_id)
-      .eq("connection_id", person.participant_id);
-    if (error) {
-      console.log(error);
-    } else {
-      return data;
-    }
-  };
+  // const getConnection = async (person: Person, list_id: string) => {
+  //   const { data, error } = await supabase
+  //     .from("connections")
+  //     .select("*")
+  //     .eq("profile_id", user?.id!)
+  //     .eq("list_id", list_id)
+  //     .eq("connection_id", person.participant_id);
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     return data;
+  //   }
+  // };
 
   const handleChange = async (connection_id: string, list_id: string) => {
-    if (connection_id != user?.id) {
+    if (connection_id != userId) {
       checked
         ? await removedConnection(connection_id, list_id)
         : await addConnection(connection_id, list_id);

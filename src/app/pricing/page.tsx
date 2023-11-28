@@ -1,6 +1,6 @@
-import PricesDisplay from "@/components/sections/prices-display";
-import Stripe from "stripe";
+import PricesDisplay from "@/app/pricing/_components/prices-display";
 import { Metadata } from "next";
+import Stripe from "stripe";
 
 export const metadata: Metadata = {
   title: "Pricing",

@@ -5,10 +5,12 @@ export default function ClipboardCopy({ copyText }: { copyText: string }) {
   const [isCopied, setIsCopied] = useState(false);
 
   async function copyTextToClipboard(text: string) {
-    if ("clipboard" in navigator) {
-      return await navigator.clipboard.writeText(text);
-    } else {
-      return document.execCommand("copy", true, text);
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+      return false;
     }
   }
   const handleCopyClick = () => {

@@ -3,7 +3,7 @@ import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adap
 import { Database } from '../../utils/types/database.types';
 
 
-export const createClient = (cookieStore:ReadonlyRequestCookies) => {
+export const createClient = async (cookieStore:ReadonlyRequestCookies) => {
 return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

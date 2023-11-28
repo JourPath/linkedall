@@ -1,14 +1,16 @@
-import DashTabs from "@/components/nav/dash-tabs";
-import HostedLists from "@/components/sections/hosted-lists";
+import DashTabs from "@/app/dashboard/_components/dash-tabs";
+import HostedLists from "@/app/dashboard/_components/hosted-lists";
+import Lists from "@/app/dashboard/_components/lists";
 import JoinList from "@/components/sections/join-list";
-import Lists from "@/components/sections/lists";
 import { createClient } from "@/lib/supabase/supabase-server";
 
 export default async function Dashboard() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
+
   if (!user) {
     return <div>Error fetching user</div>;
   }
@@ -21,6 +23,12 @@ export default async function Dashboard() {
     .from("lists")
     .select("*")
     .eq("host_id", user.id);
+
+  const profile = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user?.id)
+    .single();
 
   if (!lists.data || !hostedLists.data) {
     return <div>Error fetching data</div>;
@@ -53,7 +61,7 @@ export default async function Dashboard() {
 their list code"
             className="w-full rounded text-[--white]"
           />
-          <JoinList />
+          <JoinList profile={profile.data} />
         </div>
       </div>
     </main>

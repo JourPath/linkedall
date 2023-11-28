@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function PUT(req: NextRequest) {
   const cookieStore = cookies();
   const { shortId } = await req.json();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { data: user } = await supabase.auth.getUser();
   const result = await supabase.rpc("get_list_from_short_id", {
     shortid: shortId,

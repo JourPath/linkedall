@@ -1,6 +1,5 @@
 "use client";
-
-import { useSupabase } from "@/utils/providers/supabase-provider";
+import { createClient } from "@/lib/supabase/supabase-browser";
 import { useRef, useState } from "react";
 
 export default function AvatarButton({
@@ -13,8 +12,7 @@ export default function AvatarButton({
   const [uploading, setUploading] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const { supabase } = useSupabase();
-
+  const supabase = createClient();
   async function uploadAvatar(event: React.ChangeEvent<HTMLInputElement>) {
     try {
       setUploading(true);

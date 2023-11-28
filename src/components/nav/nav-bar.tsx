@@ -1,20 +1,46 @@
 "use client";
-
+import { signOut } from "@/app/auth/_actions";
+import { createClient } from "@/lib/supabase/supabase-browser";
+import { Profile } from "@/utils/types/collections.types";
 import { Disclosure } from "@headlessui/react";
-
-import { usePathname } from "next/navigation";
-import NavButton from "../buttons/nav-button";
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import ProfileButton from "../buttons/profile-button";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import NavButton from "../buttons/nav-button";
+import ProfileButton from "../buttons/profile-button";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function NavBar() {
-  const { user, signOut } = useAuth();
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  async function getProfile() {
+    const supabase = await createClient();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
+    if (!user) {
+      return null;
+    }
+    const data = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+    return data.data;
+  }
+
+  useEffect(() => {
+    getProfile().then((profileData) => {
+      setProfile(profileData); // Update the state with the fetched profile data
+    });
+  }, []);
+
   const pathname = usePathname();
   let navigation = [
     { name: "Home", href: "/" },
@@ -23,7 +49,7 @@ export default function NavBar() {
     { name: "Sign Up", href: "/signup" },
   ];
 
-  if (user) {
+  if (profile) {
     navigation = [
       { name: "Home", href: "/" },
       { name: "Dashboard", href: "/dashboard" },
@@ -75,7 +101,7 @@ export default function NavBar() {
                         {item.name}
                       </Link>
                     ))}
-                    {user ? (
+                    {profile ? (
                       <a
                         onClick={signOut}
                         className="text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white] rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
@@ -90,8 +116,8 @@ export default function NavBar() {
               </div>
               {/* Button on Right */}
               <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
-                {user ? (
-                  <ProfileButton open={open} avatarUrl={user.avatar_url} />
+                {profile ? (
+                  <ProfileButton open={open} avatarUrl={profile?.avatar_url} />
                 ) : (
                   <NavButton open={open} />
                 )}
@@ -100,7 +126,11 @@ export default function NavBar() {
           </div>
           <Disclosure.Panel className="">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {user ? <p className="text-center">{user.full_name}</p> : ""}
+              {profile ? (
+                <p className="text-center">{profile?.full_name}</p>
+              ) : (
+                ""
+              )}
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -117,7 +147,7 @@ export default function NavBar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
-              {user ? (
+              {profile ? (
                 <Disclosure.Button
                   onClick={signOut}
                   className="text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white] rounded-md px-3 py-2 text-base font-medium"

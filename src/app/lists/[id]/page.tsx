@@ -1,7 +1,7 @@
-import ClipboardCopy from "@/components/buttons/clipboard-copy";
-import ListShareButtons from "@/components/buttons/list-share-buttons";
+import ClipboardCopy from "@/app/lists/_components/clipboard-copy";
+import ListParticipants from "@/app/lists/_components/list-participants";
+import ListShareButtons from "@/app/lists/_components/list-share-buttons";
 import JoinList from "@/components/sections/join-list";
-import ListParticipants from "@/components/sections/list-participants";
 import { createClient } from "@/lib/supabase/supabase-server";
 import {
   get_list_from_short_id,
@@ -9,7 +9,7 @@ import {
 } from "@/utils/types/collections.types";
 
 export default async function ListPage({ params }: { params: { id: string } }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const result = await supabase.rpc("get_list_from_short_id", {
     shortid: params.id,
   });
@@ -42,6 +42,12 @@ export default async function ListPage({ params }: { params: { id: string } }) {
 
   const data = participantsResult.data as get_list_participants["Returns"];
 
+  const profile = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user?.id)
+    .single();
+
   return (
     <section className="lg:grid lg:grid-cols-2 lg:mx-8 lg:gap-4 ">
       <div>
@@ -54,9 +60,9 @@ export default async function ListPage({ params }: { params: { id: string } }) {
         </div>
         {/* <p className="text-end m-2">People to add: {count - 1}</p> */}
         {data.length == 0 ? (
-          <JoinList />
+          <JoinList profile={profile.data} />
         ) : (
-          <ListParticipants data={data} listId={params.id} />
+          <ListParticipants data={data} listId={params.id} userId={user.id} />
         )}
       </div>
       <div className="mt-28 text-[--white] font-bold font-josefin">

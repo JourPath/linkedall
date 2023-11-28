@@ -1,38 +1,17 @@
 "use client";
 
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
-import { useSupabase } from "@/utils/providers/supabase-provider";
+import { Profile } from "@/utils/types/collections.types";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   listId?: string;
+  profile: Profile | null;
 }
 
-export default function JoinList({ listId = "" }: Props) {
-  const { user, isLoading } = useAuth();
-  const { supabase } = useSupabase();
+export default function JoinList({ profile, listId = "" }: Props) {
   const [shortId, setShortId] = useState<string | undefined>(listId);
   const [joinListError, setJoinListError] = useState<string | null>(null);
-  const [profile, setProfile] = useState(user);
-  const [profileLoading, setProfileLoading] = useState(true);
-
-  useEffect(() => {
-    if (user && !user.linked_in) {
-      const getProfile = async () => {
-        const profile = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user?.id)
-          .single();
-        setProfile(profile.data);
-      };
-      getProfile();
-    }
-    if (user) {
-      setProfileLoading(false);
-    }
-  }, [user, supabase]);
 
   const joinList = async () => {
     const response = await fetch(
@@ -65,13 +44,7 @@ export default function JoinList({ listId = "" }: Props) {
     }
   };
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (profileLoading) return <></>;
-
-  if (!profile?.linked_in && !user?.linked_in) {
+  if (!profile?.linked_in) {
     return (
       <Link href="/profile">
         <p className="bg-amber-300 py-4 text-center w-full">

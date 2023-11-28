@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 // PUT - create connections
 export async function POST(req: NextRequest) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { connection_id, list_id } = await req.json();
   const { data: user } = await supabase.auth.getUser();
   if (user && user.user && user.user.id && connection_id && list_id) {
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 // DELETE - remove connection
 export async function PUT(req: NextRequest) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { connection_id, list_id } = await req.json();
   const { data: user } = await supabase.auth.getUser();
   if (user && user.user && user.user.id && connection_id && list_id) {

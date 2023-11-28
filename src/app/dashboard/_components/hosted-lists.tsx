@@ -1,6 +1,6 @@
-import HostedListCard from "../cards/hosted-list-card";
-import HostedListButton from "../buttons/hosted-list-button";
 import { List } from "@/utils/types/collections.types";
+import HostedListButton from "./hosted-list-button";
+import HostedListCard from "./hosted-list-card";
 
 export default function HostedLists({ hostedLists }: { hostedLists: List[] }) {
   return (

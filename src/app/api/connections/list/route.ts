@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 // GET - show connections
 export async function PUT(req: NextRequest) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { list_id } = await req.json();
   const { data: user } = await supabase.auth.getUser();
   if (user && user.user && user.user.id && list_id) {

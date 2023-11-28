@@ -1,24 +1,33 @@
 "use client";
 
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { createClient } from "@/lib/supabase/supabase-browser";
 import Link from "next/link";
-import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { signInWithEmail } from "../_actions";
 
 const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const { signInWithEmail, signInWithLinkedIn } = useAuth();
-
   const searchParams = useSearchParams();
   const listId = searchParams.get("listid");
+
+  const signInWithLinkedIn = () => {
+    const supabase = createClient();
+    supabase.auth.signInWithOAuth({
+      provider: "linkedin_oidc",
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback`,
+      },
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     try {
-      const error = await signInWithEmail(email, password, listId);
+      const error = await signInWithEmail(email, password);
       if (error) {
         setError(error);
         setPassword("");
@@ -33,14 +42,18 @@ const LoginForm = () => {
       <img
         src="/LinkedAll_blue_logo.svg"
         className="w-16 inline py-4"
-        alt="LinkedAll Logo"
+        alt="LinkedAll Blue Text Logo"
       />
       <h3 className="font-bold text-2xl pb-4 ">Log In</h3>
       <button
         className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4"
-        onClick={() => signInWithLinkedIn(listId)}
+        onClick={signInWithLinkedIn}
       >
-        <img src="/In-Blue-48.png" className="w-7 inline pr-2" />
+        <img
+          src="/In-Blue-48.png"
+          className="w-7 inline pr-2"
+          alt="LinkedIn Logo"
+        />
         Log In With LinkedIn
       </button>
       <div className="flex flex-row items-center">

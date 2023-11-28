@@ -1,10 +1,10 @@
-import LoginForm from "@/components/forms/login-form";
-
+import LoginForm from "@/app/auth/_components/login-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Login",
 };
+
 export default async function Login() {
   return (
     <>

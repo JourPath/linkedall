@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { list_id } = await request.json();
   const { data: user } = await supabase.auth.getUser();
   if (user && user.user && user.user.id && list_id) {

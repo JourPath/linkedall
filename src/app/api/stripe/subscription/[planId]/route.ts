@@ -5,7 +5,7 @@ import Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const {
     data: { user },
   } = await supabase.auth.getUser();

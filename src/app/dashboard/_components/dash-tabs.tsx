@@ -1,10 +1,9 @@
-"use client";
-
-import { Tab } from "@headlessui/react";
-import HostedLists from "../sections/hosted-lists";
-import Lists from "../sections/lists";
-import JoinList from "../sections/join-list";
+import { createClient } from "@/lib/supabase/supabase-server";
 import { List } from "@/utils/types/collections.types";
+import { Tab } from "@headlessui/react";
+import JoinList from "../../../components/sections/join-list";
+import HostedLists from "./hosted-lists";
+import Lists from "./lists";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -18,7 +17,7 @@ type Lists = {
   } | null;
 }[];
 
-export default function DashTabs({
+export default async function DashTabs({
   lists,
   hostedLists,
 }: {
@@ -26,6 +25,21 @@ export default function DashTabs({
   hostedLists: List[];
 }) {
   const tabs = ["Create", "View", "Join"];
+
+  const supabase = await createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
+  if (!user) {
+    return <div>Error fetching user</div>;
+  }
+
+  const profile = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
 
   return (
     <div className="w-full px-2 py-2 sm:px-0 md:hidden">
@@ -72,7 +86,7 @@ export default function DashTabs({
 their list code"
               className="w-full rounded text-[--white]"
             />
-            <JoinList />
+            <JoinList profile={profile.data} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

@@ -1,21 +1,21 @@
 "use client";
 
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
 import { get_list_participants } from "@/utils/types/collections.types";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import PersonCard from "../cards/person-card";
+import PersonCard from "../../../components/cards/person-card";
 
 export default function ListParticipants({
   data,
   listId,
+  userId,
 }: {
   data: get_list_participants["Returns"];
   listId: string;
+  userId: string;
 }) {
   const [lp, setlp] = useState(data);
   const [joinListError, setJoinListError] = useState<string | null>(null);
-  const { user } = useAuth();
   const searchParams = useSearchParams();
   const newTrue = searchParams.get("new");
 
@@ -54,7 +54,7 @@ export default function ListParticipants({
     if (newTrue) {
       joinList();
     }
-  }, [newTrue]);
+  }, [newTrue, listId]);
 
   return (
     <section>
@@ -62,10 +62,11 @@ export default function ListParticipants({
       {lp
         ?.sort((a, b) => Number(a.connection) - Number(b.connection))
         .map((person) => {
-          if (person.participant_id !== user?.id) {
+          if (person.participant_id !== userId) {
             return (
               <PersonCard
                 person={person}
+                userId={userId}
                 key={person.participant_id}
                 setlp={setlp}
                 lp={lp}

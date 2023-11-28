@@ -1,10 +1,11 @@
 "use client";
 
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { createClient } from "@/lib/supabase/supabase-browser";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import VerificationInput from "react-verification-input";
+import { signUpWithEmail, verifyOTP } from "../_actions";
 
 const SignUpForm = () => {
   const [email, setEmail] = useState<string>("");
@@ -12,11 +13,20 @@ const SignUpForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<boolean>(false);
   const [token, setToken] = useState<string>("");
-  const { signUpWithEmail, signUpWithLinkedIn, verifyOTP } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
   const listId = searchParams.get("listid");
+
+  const signUpWithLinkedIn = async () => {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: "linkedin_oidc",
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback`,
+      },
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,9 +46,9 @@ const SignUpForm = () => {
   const handleConfirm = async (token: string) => {
     setError(null);
     try {
-      const error = await verifyOTP(email, token);
+      const { error } = await verifyOTP(email, token);
       if (error) {
-        setError(error);
+        throw error;
       } else {
         router.push(
           `auth/callback?plan=${plan}&&listid=${listId}&&signup=true`
@@ -51,7 +61,11 @@ const SignUpForm = () => {
 
   return (
     <div className="text-center rounded-xl bg-[--light-blue-1]">
-      <img src="/LinkedAll_blue_logo.svg" className="w-16 inline py-4" />
+      <img
+        src="/LinkedAll_blue_logo.svg"
+        className="w-16 inline py-4"
+        alt="Blue LinkedAll Text Logo"
+      />
       <h3 className="font-bold text-2xl pb-4 ">
         {confirm ? "Confirm" : "Get Started"}
       </h3>
@@ -76,9 +90,13 @@ const SignUpForm = () => {
         <>
           <button
             className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4 "
-            onClick={() => signUpWithLinkedIn(plan, listId)}
+            onClick={signUpWithLinkedIn}
           >
-            <img src="/In-Blue-48.png" className="w-7 inline pr-2" />
+            <img
+              src="/In-Blue-48.png"
+              className="w-7 inline pr-2"
+              alt="LinkedIn Logo"
+            />
             Sign Up With LinkedIn
           </button>
           <div className="flex flex-row items-center">

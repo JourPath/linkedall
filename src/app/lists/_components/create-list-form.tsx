@@ -1,25 +1,21 @@
 "use client";
 
-import { useAuth } from "@/utils/providers/supabase-auth-provider";
+import { Profile } from "@/utils/types/collections.types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CreateListForm() {
+export default function CreateListForm({ user }: { user: Profile | null }) {
   const [listName, setListName] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const { user } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/lists`,
-      {
-        method: "PUT",
-        body: JSON.stringify({ user, listName }),
-      }
-    );
+    const response = await fetch("https://www.linkedall.online/api/lists", {
+      method: "PUT",
+      body: JSON.stringify({ user, listName }),
+    });
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

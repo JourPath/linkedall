@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 // GET - show lists where participant
 export async function GET() {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { data: user } = await supabase.auth.getUser();
   if (user && user.user && user.user.id) {
     const { data, error } = await supabase
@@ -23,7 +23,7 @@ export async function GET() {
 // PUT - create new list
 export async function PUT(request: Request) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { user, listName } = await request.json();
   if (user && user.id && listName) {
     const { error } = await supabase
@@ -45,7 +45,7 @@ export async function PUT(request: Request) {
 
 export async function PATCH(request: Request) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient(cookieStore);
   const { list_id } = await request.json();
   const { error } = await supabase.from("lists").delete().eq("id", list_id);
   if (error) {
