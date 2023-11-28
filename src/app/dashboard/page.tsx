@@ -12,7 +12,7 @@ export default async function Dashboard() {
   const user = session?.user;
 
   if (!user) {
-    return <div>Error fetching user</div>;
+    return <div>Error fetching user 4</div>;
   }
   const lists = await supabase
     .from("list_participants")
@@ -44,7 +44,7 @@ export default async function Dashboard() {
             alt="Create a new list for people to join"
             className="w-full rounded text-[--white]"
           />
-          <HostedLists hostedLists={hostedLists.data} />
+          <HostedLists hostedLists={hostedLists.data} profile={profile.data} />
         </div>
         <div>
           <img

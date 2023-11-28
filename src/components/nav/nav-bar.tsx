@@ -18,7 +18,7 @@ export default function NavBar() {
   const [profile, setProfile] = useState<Profile | null>(null);
 
   async function getProfile() {
-    const supabase = await createClient();
+    const supabase = createClient();
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -37,7 +37,8 @@ export default function NavBar() {
 
   useEffect(() => {
     getProfile().then((profileData) => {
-      setProfile(profileData); // Update the state with the fetched profile data
+      setProfile(profileData);
+      console.log(profile, "<< profile"); // Update the state with the fetched profile data
     });
   }, []);
 

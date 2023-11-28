@@ -10,7 +10,7 @@ export default async function Profile() {
   const user = session?.user;
 
   if (!user || !session) {
-    return <div>Error fetching user</div>;
+    return <div>Error fetching user 1</div>;
   }
 
   const customer = await supabase

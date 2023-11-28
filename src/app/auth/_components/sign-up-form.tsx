@@ -23,7 +23,7 @@ const SignUpForm = () => {
     await supabase.auth.signInWithOAuth({
       provider: "linkedin_oidc",
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
   };

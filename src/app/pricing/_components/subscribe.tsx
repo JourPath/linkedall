@@ -1,36 +1,46 @@
-import { readUserSession } from "@/lib/supabase/actions";
-import { createClient } from "@/lib/supabase/supabase-server";
-import { loadStripe } from "@stripe/stripe-js";
-import { redirect } from "next/navigation";
+"use client";
 
-export default async function Subscribe({
+import { createClient } from "@/lib/supabase/supabase-browser";
+import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+export default function Subscribe({
   planId,
   planName,
 }: {
   planId: string;
   planName: string;
 }) {
-  const supabase = await createClient();
-  const {
-    data: { session },
-  } = await readUserSession();
+  const [userId, setUserId] = useState("");
+  const [plan, setPlan] = useState("");
+  const router = useRouter();
 
-  const getPlan = async () => {
-    if (session?.user) {
-      const planRes = await supabase
-        .from("customers")
-        .select("plan")
-        .eq("id", session.user.id)
-        .single();
-      const plan = planRes.data?.plan;
-      return plan;
-    } else return null;
-  };
+  useEffect(() => {
+    const fetchSessionAndPlan = async () => {
+      const supabase = createClient();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-  const plan = await getPlan();
+      if (session?.user) {
+        setUserId(session.user.id);
+        const planRes = await supabase
+          .from("customers")
+          .select("plan")
+          .eq("id", session.user.id)
+          .single();
+        if (planRes.data?.plan) {
+          setPlan(planRes.data?.plan);
+        }
+      }
+    };
+
+    fetchSessionAndPlan();
+  }, []);
 
   async function handleSubscribe(id: string) {
-    if (!session?.user) redirect(`/signup?plan=${planId}`);
+    if (!userId) router.push(`/signup?plan=${planId}`);
     if (plan !== "BASIC") {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/portal`,
@@ -40,7 +50,7 @@ export default async function Subscribe({
         }
       );
       const data = await response.json();
-      redirect(data.url);
+      router.push(data.url);
     } else {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/subscription/${id}`,
@@ -60,7 +70,7 @@ export default async function Subscribe({
       className="bg-[--blue-2] rounded-md text-[--white] min-h-12 w-full font-bold text-lg my-8 py-4"
       onClick={() => handleSubscribe(planId)}
     >
-      {!session
+      {!userId
         ? `Start ${planName} plan`
         : plan === "BASIC"
           ? "Upgrade Subscription"

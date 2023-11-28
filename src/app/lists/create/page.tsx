@@ -8,7 +8,7 @@ export default async function CreateList() {
   } = await supabase.auth.getSession();
   const user = session?.user;
   if (!user || !session) {
-    return <div>Error fetching user</div>;
+    return <div>Error fetching user 2</div>;
   }
   const profile = await supabase
     .from("profiles")

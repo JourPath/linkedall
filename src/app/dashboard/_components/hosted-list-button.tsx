@@ -1,21 +1,13 @@
-import { readUserSession } from "@/lib/supabase/actions";
-import { createClient } from "@/lib/supabase/supabase-server";
+"use client";
+import { Profile } from "@/utils/types/collections.types";
 import Link from "next/link";
 
-export default async function HostedListButton() {
-  const supabase = await createClient();
-  const {
-    data: { session },
-  } = await readUserSession();
-  if (!session) return <></>;
-
-  const { data } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", session.user?.id)
-    .single();
-
-  if (data?.linked_in) {
+export default async function HostedListButton({
+  profile,
+}: {
+  profile: Profile | null;
+}) {
+  if (profile?.linked_in) {
     return (
       <Link className="min-w-[35%] w-auto" href="/lists/create" passHref>
         <button className="bg-[--blue-2] h-12 rounded-tr-lg px-2 w-full whitespace-nowrap flex items-center justify-around">

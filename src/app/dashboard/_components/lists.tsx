@@ -1,3 +1,4 @@
+"use client";
 import ListCard from "./list-card";
 
 type Lists = {

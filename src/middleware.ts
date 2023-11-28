@@ -60,6 +60,7 @@ export async function middleware(req: NextRequest) {
       data: { session },
     } = await supabase.auth.getSession();
 
+    console.log(session?.user, " < sesion user");
     // used to block dashboard for those not logged in
     if (!session && pathname === "/dashboard") {
       const url = new URL(req.url);
