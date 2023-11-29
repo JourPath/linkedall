@@ -6,12 +6,11 @@ import { redirect } from "next/navigation";
 // Email and Password
 export const signUpWithEmail = async (email: string, password: string) => {
   const supabase = await createClient();
-  const result = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
   });
-
-  return JSON.stringify(result);
+  if (error) return error.message;
 };
 
 export const signInWithEmail = async (email: string, password: string) => {
