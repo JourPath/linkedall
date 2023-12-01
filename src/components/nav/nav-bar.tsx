@@ -38,7 +38,6 @@ export default function NavBar() {
   useEffect(() => {
     getProfile().then((profileData) => {
       setProfile(profileData);
-      console.log(profile, "<< profile"); // Update the state with the fetched profile data
     });
   }, []);
 

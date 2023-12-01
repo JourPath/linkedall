@@ -14,7 +14,7 @@ type Lists = {
     short_id: string;
   } | null;
 }[];
-export default async function DashboardTabs({
+export default function DashboardTabs({
   lists,
   hostedLists,
   profile,
@@ -24,7 +24,6 @@ export default async function DashboardTabs({
   profile: Profile | null;
 }) {
   const tabs = ["Create", "View", "Join"];
-  console.log(profile, "<< profile"); // Update the state with the fetched profile data
   if (!profile) {
     return <div>Error fetching user 5</div>;
   }

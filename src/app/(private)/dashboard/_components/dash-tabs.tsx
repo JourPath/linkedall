@@ -23,7 +23,6 @@ export default async function DashTabs({
     data: { session },
   } = await supabase.auth.getSession();
   const user = session?.user;
-  console.log(user, "<< user 2");
   if (!user) {
     return <div>Error fetching user 3</div>;
   }
@@ -34,7 +33,6 @@ export default async function DashTabs({
     .eq("id", user.id)
     .single();
 
-  console.log(profile, "<< profile 2");
   return (
     <DashboardTabs
       profile={profile.data}

@@ -13,10 +13,6 @@ export async function GET(request: Request) {
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get("next") ?? "/";
 
-  console.log(plan, ` :plan ${typeof plan}`);
-  console.log(listId, ` :listid ${typeof listId}`);
-  console.log(signUp, ` :signup ${typeof signUp}`);
-
   if (code) {
     const cookieStore = cookies();
     const supabase = createServerClient(
@@ -46,33 +42,28 @@ export async function GET(request: Request) {
 
   // Check if plan is not null and not an empty string
   if (plan && plan !== "null" && plan !== "") {
-    console.log("plan");
     return NextResponse.redirect(`${requestUrl.origin}/profile?plan=${plan}`);
   }
   // Check if listId is not null, not an empty string, and signUp is true
   else if (listId && listId !== "null" && listId !== "" && signUp === "true") {
-    console.log("list id & sign up");
     return NextResponse.redirect(
       `${requestUrl.origin}/profile?listid=${listId}`
     );
   }
   // Check if listId is not null and not an empty string
   else if (listId && listId !== "null" && listId !== "") {
-    console.log("list id");
     return NextResponse.redirect(
       `${requestUrl.origin}/dashboard?listid=${listId}`
     );
   }
   // Check if signUp is true
   else if (signUp === "true") {
-    console.log("sign up");
     return NextResponse.redirect(`${requestUrl.origin}/profile`);
   } else if (next) {
     return NextResponse.redirect(`${requestUrl.origin}${next}`);
   }
   // Default case
   else {
-    console.log("normal");
     return NextResponse.redirect(`${requestUrl.origin}/dashboard`);
   }
 }

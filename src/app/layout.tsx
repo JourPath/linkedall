@@ -1,7 +1,6 @@
 // import './globals.css';
-import NavBar from "@/components/nav/nav-bar";
-import Footer from "@/components/sections/footer";
 import GAnalytics from "@/lib/google/analytics";
+import { ThemeProvider } from "@/lib/shadcn/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter, Josefin_Sans } from "next/font/google";
 import "./globals.css";
@@ -61,9 +60,14 @@ export default async function RootLayout({
       <body className={`flex flex-col h-screen justify-between`}>
         <GAnalytics />
         <Analytics />
-        <NavBar />
-        {children}
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
