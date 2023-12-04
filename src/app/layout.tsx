@@ -1,18 +1,9 @@
 // import './globals.css';
+import { Toaster } from "@/components/ui/toaster";
 import GAnalytics from "@/lib/google/analytics";
 import { ThemeProvider } from "@/lib/shadcn/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
-import { Inter, Josefin_Sans } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-const josefin = Josefin_Sans({
-  subsets: ["latin"],
-  variable: "--font-josefin",
-});
 
 export const metadata = {
   title: {
@@ -53,10 +44,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${josefin.variable}  text-[--dark-blue-3] bg-[--light-blue-1]`}
-    >
+    <html lang="en">
       <body className={`flex flex-col h-screen justify-between`}>
         <GAnalytics />
         <Analytics />
@@ -67,6 +55,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

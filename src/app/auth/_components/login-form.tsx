@@ -1,41 +1,56 @@
 "use client";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { createClient } from "@/lib/supabase/supabase-browser";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+import { Separator } from "@/components/ui/separator";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
-import { signInWithEmail } from "../_actions";
+import { logInWithEmail, logInWithLinkedIn } from "../_actions";
+import { signInSchema } from "../_actions/schema";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
-  const listId = searchParams.get("listid");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const signInWithLinkedIn = () => {
-    const supabase = createClient();
-    supabase.auth.signInWithOAuth({
-      provider: "linkedin_oidc",
-      options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth/callback`,
-      },
-    });
-  };
+  const { toast } = useToast();
+  const form = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      emailAddress: "",
+      password: "",
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+  async function onSubmit(formData: z.infer<typeof signInSchema>) {
+    setIsLoading(true);
     try {
-      const error = await signInWithEmail(email, password);
-      if (error) {
-        setError(error);
-        setPassword("");
+      const response = await logInWithEmail(formData);
+      if (response?.error) {
+        toast({
+          title: "Error",
+          description: response.error,
+          variant: "destructive",
+        });
       }
+      setIsLoading(false);
     } catch (error) {
-      console.log("Something went wrong!");
+      console.error(error);
+      setIsLoading(false);
     }
-  };
+  }
 
   return (
     <div className="text-center rounded-xl bg-[--light-blue-1]">
@@ -45,80 +60,74 @@ const LoginForm = () => {
         alt="LinkedAll Blue Text Logo"
       />
       <h3 className="font-bold text-2xl pb-4 ">Log In</h3>
-      <button
-        className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4"
-        onClick={signInWithLinkedIn}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="emailAddress"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    disabled={isLoading}
+                    autoCapitalize="none"
+                    autoComplete="email"
+                    autoCorrect="off"
+                    placeholder="name@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>Enter email address here.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={isLoading}
+                    autoCorrect="off"
+                    autoCapitalize="none"
+                    type="password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>Enter password here.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button disabled={isLoading} type="submit">
+            {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+            Log In
+          </Button>
+        </form>
+      </Form>
+      <Separator /> or continue with <Separator />
+      <Button
+        variant="outline"
+        type="button"
+        disabled={isLoading}
+        onClick={logInWithLinkedIn}
       >
-        <img
-          src="/In-Blue-48.png"
-          className="w-7 inline pr-2"
-          alt="LinkedIn Logo"
-        />
-        Log In With LinkedIn
-      </button>
-      <div className="flex flex-row items-center">
-        <div className="flex-1 h-1 bg-[--light-blue-2] ml-4" />
-        <div>
-          <p className="flex-1 align-self-center px-4">or</p>
-        </div>
-        <div className="flex-1 h-1 bg-[--light-blue-2] mr-4" />
-      </div>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center my-4
-        "
-        id="loginForm"
-      >
-        <label className="self-start px-4 font-medium">Email Address</label>
-        <input
-          className="rounded-full py-4 px-4 w-11/12"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          type="email"
-          placeholder="Enter your email "
-        />
-        <label className="self-start px-4 pt-2  font-medium">Password</label>
-        <input
-          className="rounded-full py-4 px-4 w-11/12"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={8}
-          type="password"
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-          title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
-        />
-        {error && <div>{error}</div>}
-        <button
-          className="bg-[--blue-2] rounded-full text-[--white] my-4 py-4 w-11/12"
-          type="submit"
-        >
-          Log In
-        </button>
-        <p className="text-[--light-blue-3] text-xs">
-          By clicking &quot;Sign Up&quot; I agree to LinkedAll&apos;s <br />
-          <Link href="/policy/terms" target="_blank">
-            Terms
-          </Link>{" "}
-          and{" "}
-          <Link href="/policy/privacy" target="_blank">
-            Privacy Policy
-          </Link>
-          .
-        </p>
-        <p>
-          Not signed up yet?
-          <Link
-            href={{
-              pathname: "/signup",
-              query: { listid: listId },
-            }}
-          >
-            Sign Up
-          </Link>
-        </p>
-      </form>
+        {isLoading ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          <img
+            src="/In-Blue-48.png"
+            className="w-7 inline pr-2"
+            alt="LinkedIn Logo"
+          />
+        )}
+        <p>LinkedIn</p>
+      </Button>
     </div>
   );
 };

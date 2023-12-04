@@ -1,68 +1,40 @@
-import ClipboardCopy from "@/app/lists/_components/clipboard-copy";
-import ListParticipants from "@/app/lists/_components/list-participants";
-import ListShareButtons from "@/app/lists/_components/list-share-buttons";
-import JoinList from "@/components/sections/join-list";
-import { createClient } from "@/lib/supabase/supabase-server";
-import {
-  get_list_from_short_id,
-  get_list_participants,
-} from "@/utils/types/collections.types";
+import ClipboardCopy from "@/app/(private)/dashboard/_components/_buttons/clipboard-copy";
+import ListShareButtons from "@/app/(private)/dashboard/_components/_buttons/list-share-buttons";
+import ListParticipants from "@/app/(private)/dashboard/_components/_displays/list-participants";
+import { getList } from "../../_actions/list-actions";
+import { JoinListNew } from "../../_components/join-list-new";
 
 export default async function ListPage({ params }: { params: { id: string } }) {
-  const supabase = await createClient();
-  const result = await supabase.rpc("get_list_from_short_id", {
-    shortid: params.id,
-  });
+  const list_response = await getList(params.id);
 
-  if (result.error) {
-    console.log(result.error);
-    return;
+  if (list_response?.error) {
+    throw new Error(list_response.error.message);
+  } else if (list_response?.message) {
+    throw new Error(list_response?.message);
+  } else if (!list_response?.data) {
+    throw new Error("No list data");
   }
-
-  const list = result.data as get_list_from_short_id["Returns"];
-  const { id, list_name } = list[0];
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    console.log("No user found");
-    return;
-  }
-
-  const participantsResult = await supabase.rpc("get_list_participants", {
-    list_id_param: id as string,
-    profile_id_param: user?.id,
-  });
-
-  if (participantsResult.error) {
-    console.log(participantsResult.error);
-    return;
-  }
-
-  const data = participantsResult.data as get_list_participants["Returns"];
-
-  const profile = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user?.id)
-    .single();
+  const { list, list_participants, user_id } = list_response?.data;
 
   return (
     <section className="lg:grid lg:grid-cols-2 lg:mx-8 lg:gap-4 ">
       <div>
         <div className="flex flex-col justify-around content-center items-center mt-4 mr-4">
           <h1 className="text-bold text-2xl text-[--dark-blue-3] text-center underline decoration-[--blue-2] decoration-2 underline-offset-4 mb-2   ">
-            {list_name as string}
+            {list.list_name as string}
           </h1>
           <ClipboardCopy copyText={params.id} />
-          <ListShareButtons listName={list_name} />
+          <ListShareButtons listName={list.list_name} />
         </div>
         {/* <p className="text-end m-2">People to add: {count - 1}</p> */}
-        {data.length == 0 ? (
-          <JoinList profile={profile.data} />
+        {list_participants.length == 0 ? (
+          <JoinListNew />
         ) : (
-          <ListParticipants data={data} listId={params.id} userId={user.id} />
+          <ListParticipants
+            data={list_participants}
+            listId={params.id}
+            userId={user_id}
+          />
         )}
       </div>
       <div className="mt-28 text-[--white] font-bold font-josefin">

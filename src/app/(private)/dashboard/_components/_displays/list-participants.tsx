@@ -3,7 +3,7 @@
 import { get_list_participants } from "@/utils/types/collections.types";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import PersonCard from "../../../components/cards/person-card";
+import PersonCard from "../../../../../components/cards/person-card";
 
 export default function ListParticipants({
   data,

@@ -1,15 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
-* {
+/* * {
   border: solid 1px red;
-}
+} */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 214.62 100% 94.9%;
+    --foreground: 216, 100%, 3.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -17,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 216, 100%, 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -33,26 +32,29 @@
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --input: 216, 100%, 50%;
     --ring: 222.2 84% 4.9%;
 
+    --sidebar: 216.9, 100%, 97.5%;
+    --sidebar-foreground: 216, 100%, 3.9%;
     --radius: 0.5rem;
 
-    --dark-blue-3: #00265c;
+    --dark-blue-3: hsl(215.2, 100%, 18%);
     --dark-blue-2: #00397e;
     --dark-blue-1: #004caf;
-    --blue-3: #005bda;
-    --blue-2: #0066ff;
+    --blue-3: hsl(215, 100%, 42.7%);
+    --blue-2: hsl(216, 100%, 50%);
     --blue-1: #3787ff;
-    --light-blue-3: #75a8ff;
-    --light-blue-2: #c2d8ff;
-    --light-blue-1: #e5f0ff;
-    --white: #f7faff;
+    --light-blue-3: hsl(217.8, 100%, 72.9%);
+    --light-blue-2: hsl(218.4, 100%, 88%) --light-blue-1:
+      hsl(214.62, 100%, 94.9%);
+    --white: hsl(216.9, 100%, 97.5%);
     --grey: #d3d3d3;
+    --dark-grey: #818181;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 216, 100%, 3.9%;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -79,6 +81,9 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    --sidebar: 216, 100%, 8%;
+    --sidebar-foreground: 216.9, 100%, 97.5%;
   }
 }
 
@@ -89,10 +94,6 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-input {
-  border: none;
 }
 
 .VIcharacter {
@@ -110,3 +111,25 @@ input {
   max-width: 80vw;
 }
 
+.visually-hidden {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(
+    1px 1px 1px 1px
+  ); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+  clip: rect(
+    1px,
+    1px,
+    1px,
+    1px
+  ); /*maybe deprecated but we need to support legacy browsers */
+  clip-path: inset(
+    50%
+  ); /*modern browsers, clip-path works inwards from each corner*/
+  white-space: nowrap; /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
+}

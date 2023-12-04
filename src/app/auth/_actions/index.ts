@@ -1,41 +1,92 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/supabase-server";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { z } from "zod";
+import { signInSchema, signUpSchema } from "./schema";
 
 // Email and Password
-export const signUpWithEmail = async (email: string, password: string) => {
+export const signUpWithEmail = async (
+  formData: z.infer<typeof signUpSchema>
+) => {
+  const origin = headers().get("origin");
   const supabase = await createClient();
   const { error } = await supabase.auth.signUp({
-    email,
-    password,
+    email: formData.emailAddress,
+    password: formData.password,
+    options: {
+      emailRedirectTo: `${origin}/auth/callback`,
+    },
   });
-  if (error) return error.message;
+  if (error) {
+    return { error: error.message };
+  } else {
+    return { success: true };
+  }
 };
 
-export const signInWithEmail = async (email: string, password: string) => {
+export const logInWithEmail = async (
+  formData: z.infer<typeof signInSchema>
+) => {
   const supabase = await createClient();
-  const result = await supabase.auth.signInWithPassword({
-    email,
-    password,
+  const { error } = await supabase.auth.signInWithPassword({
+    email: formData.emailAddress,
+    password: formData.password,
   });
 
-  return JSON.stringify(result);
+  if (error) {
+    return { error: error.message };
+  }
+
+  return redirect("/dashboard");
+};
+
+export const verifyOTP = async (email: string, token: string) => {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.verifyOtp({
+    email,
+    token,
+    type: "email",
+  });
+  if (error) return { error: error.message };
+  else return redirect("/dashboard");
 };
 
 // Generic
 export const signOut = async () => {
   const supabase = await createClient();
-  await supabase.auth.signOut();
-  redirect("/login");
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.log(error);
+  } else {
+    return redirect("/login");
+  }
 };
 
-export const verifyOTP = async (email: string, token: string) => {
+// LinkedIn
+export const signUpWithLinkedIn = async () => {
+  const origin = headers().get("origin");
   const supabase = await createClient();
-  const result = await supabase.auth.verifyOtp({
-    email,
-    token,
-    type: "email",
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "linkedin_oidc",
+    options: {
+      redirectTo: `${origin}/auth/callback`,
+    },
   });
-  return result;
+
+  if (error) return { error: error.message };
+};
+
+export const logInWithLinkedIn = async () => {
+  const origin = headers().get("origin");
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "linkedin_oidc",
+    options: {
+      redirectTo: `${origin}/auth/callback`,
+    },
+  });
+
+  if (error) return { error: error.message };
 };

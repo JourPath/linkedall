@@ -1,7 +1,8 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { NotificationButton } from "@/components/notification-button";
 import { createClient } from "@/lib/supabase/supabase-server";
-import { Sidebar } from "./_components/sidebar";
+import { ProfileViewer } from "./_components/_sections/profile-viewer";
+import { Sidebar } from "./_components/_sections/sidebar";
 import { UserNav } from "./_components/user-nav";
 
 export default async function DashboardLayout({
@@ -40,23 +41,21 @@ export default async function DashboardLayout({
   }
 
   return (
-    <html lang="en">
-      <body className={`flex flex-col h-screen justify-between`}>
-        <main className="grid lg:grid-cols-12">
-          <div className="lg:col-span-2">
-            <Sidebar lists={lists.data} hostedLists={hostedLists.data} />
+    <>
+      <main className="grid lg:grid-cols-12">
+        <div className="lg:col-span-2 bg-sidebar">
+          <Sidebar lists={lists.data} hostedLists={hostedLists.data} />
+        </div>
+        <div className="lg:col-span-7">{children}</div>
+        <div className="lg:col-span-3">
+          <div className="flex justify-between gap-4 m-4 p-2">
+            <NotificationButton />
+            <ModeToggle />
+            <UserNav profile={profile.data} />
           </div>
-          <div className="lg:col-span-7 bg-[--light-blue-1]">{children}</div>
-          <div className="lg:col-span-3">
-            <div className="flex justify-between gap-4 m-4 p-2">
-              <NotificationButton />
-              <ModeToggle />
-              <UserNav />
-            </div>
-            <div className=" ">Profile Viewer</div>
-          </div>
-        </main>
-      </body>
-    </html>
+          <ProfileViewer profile={profile.data} />
+        </div>
+      </main>
+    </>
   );
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export type Json =
   | string
   | number
@@ -10,6 +9,24 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      config: {
+        Row: {
+          created_at: string;
+          id: string;
+          subscriptions: Json;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          subscriptions?: Json;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          subscriptions?: Json;
+        };
+        Relationships: [];
+      };
       connections: {
         Row: {
           connection_id: string;
@@ -33,18 +50,21 @@ export interface Database {
           {
             foreignKeyName: "connections_connection_id_fkey";
             columns: ["connection_id"];
+            isOneToOne: false;
             referencedRelation: "profiles";
             referencedColumns: ["id"];
           },
           {
             foreignKeyName: "connections_list_id_fkey";
             columns: ["list_id"];
+            isOneToOne: false;
             referencedRelation: "lists";
             referencedColumns: ["id"];
           },
           {
             foreignKeyName: "connections_profile_id_fkey";
             columns: ["profile_id"];
+            isOneToOne: false;
             referencedRelation: "profiles";
             referencedColumns: ["id"];
           },
@@ -73,6 +93,7 @@ export interface Database {
           {
             foreignKeyName: "customers_id_fkey";
             columns: ["id"];
+            isOneToOne: true;
             referencedRelation: "users";
             referencedColumns: ["id"];
           },
@@ -98,12 +119,14 @@ export interface Database {
           {
             foreignKeyName: "list_participants_list_id_fkey";
             columns: ["list_id"];
+            isOneToOne: false;
             referencedRelation: "lists";
             referencedColumns: ["id"];
           },
           {
             foreignKeyName: "list_participants_participant_id_fkey";
             columns: ["participant_id"];
+            isOneToOne: false;
             referencedRelation: "profiles";
             referencedColumns: ["id"];
           },
@@ -124,7 +147,7 @@ export interface Database {
           id?: string;
           list_name?: string | null;
           list_num?: number;
-          short_id?: string;
+          short_id: string;
         };
         Update: {
           created_at?: string;
@@ -138,6 +161,7 @@ export interface Database {
           {
             foreignKeyName: "lists_host_id_fkey";
             columns: ["host_id"];
+            isOneToOne: false;
             referencedRelation: "profiles";
             referencedColumns: ["id"];
           },
@@ -146,32 +170,33 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string | null;
+          bio: string;
           full_name: string | null;
           id: string;
           linked_in: string | null;
           updated_at: string | null;
-          username: string | null;
         };
         Insert: {
           avatar_url?: string | null;
+          bio?: string;
           full_name?: string | null;
           id: string;
           linked_in?: string | null;
           updated_at?: string | null;
-          username?: string | null;
         };
         Update: {
           avatar_url?: string | null;
+          bio?: string;
           full_name?: string | null;
           id?: string;
           linked_in?: string | null;
           updated_at?: string | null;
-          username?: string | null;
         };
         Relationships: [
           {
             foreignKeyName: "profiles_id_fkey";
             columns: ["id"];
+            isOneToOne: true;
             referencedRelation: "users";
             referencedColumns: ["id"];
           },
@@ -182,6 +207,24 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
+      can_list_add_user: {
+        Args: {
+          a_list_id: string;
+        };
+        Returns: boolean;
+      };
+      can_user_host_list: {
+        Args: {
+          a_user_id: string;
+        };
+        Returns: boolean;
+      };
+      can_user_join_list: {
+        Args: {
+          a_user_id: string;
+        };
+        Returns: boolean;
+      };
       get_list_from_short_id: {
         Args: {
           shortid: string;
@@ -244,3 +287,83 @@ export interface Database {
     };
   };
 }
+
+export type Tables<
+  PublicTableNameOrOptions extends
+    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R;
+    }
+    ? R
+    : never
+  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
+        Database["public"]["Views"])
+    ? (Database["public"]["Tables"] &
+        Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+        Row: infer R;
+      }
+      ? R
+      : never
+    : never;
+
+export type TablesInsert<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I;
+    }
+    ? I
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+        Insert: infer I;
+      }
+      ? I
+      : never
+    : never;
+
+export type TablesUpdate<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U;
+    }
+    ? U
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+        Update: infer U;
+      }
+      ? U
+      : never
+    : never;
+
+export type Enums<
+  PublicEnumNameOrOptions extends
+    | keyof Database["public"]["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
+    ? Database["public"]["Enums"][PublicEnumNameOrOptions]
+    : never;

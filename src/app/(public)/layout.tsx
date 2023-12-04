@@ -7,12 +7,10 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`flex flex-col h-screen justify-between`}>
-        <NavBar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <>
+      <NavBar />
+      {children}
+      <Footer />
+    </>
   );
 }

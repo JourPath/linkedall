@@ -1,5 +1,6 @@
 "use client";
 import { signOut } from "@/app/auth/_actions";
+import SignOutButton from "@/app/auth/_components/sign_out_button";
 import { createClient } from "@/lib/supabase/supabase-browser";
 import { Profile } from "@/utils/types/collections.types";
 import { Disclosure } from "@headlessui/react";
@@ -101,16 +102,7 @@ export default function NavBar() {
                         {item.name}
                       </Link>
                     ))}
-                    {profile ? (
-                      <a
-                        onClick={signOut}
-                        className="text-[--dark-blue-3] hover:bg-[--dark-blue-3] hover:text-[--white] rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
-                      >
-                        Sign Out
-                      </a>
-                    ) : (
-                      ""
-                    )}
+                    {profile ? <SignOutButton /> : ""}
                   </div>
                 </div>
               </div>

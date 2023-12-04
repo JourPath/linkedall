@@ -1,63 +1,79 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/supabase-browser";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import VerificationInput from "react-verification-input";
-import { signUpWithEmail, verifyOTP } from "../_actions";
+import * as z from "zod";
 
-const SignUpForm = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+import { Separator } from "@/components/ui/separator";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { signUpWithEmail, signUpWithLinkedIn, verifyOTP } from "../_actions";
+import { signUpSchema } from "../_actions/schema";
+
+export default function SignUpForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<boolean>(false);
-  const [token, setToken] = useState<string>("");
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const plan = searchParams.get("plan");
-  const listId = searchParams.get("listid");
+  const [email, setEmail] = useState<string>("");
 
-  const signUpWithLinkedIn = async () => {
-    const supabase = createClient();
-    await supabase.auth.signInWithOAuth({
-      provider: "linkedin_oidc",
-      options: {
-        redirectTo: `${location.origin}/auth/callback`,
-      },
-    });
-  };
+  const { toast } = useToast();
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      emailAddress: "",
+      password: "",
+      passwordConfirm: "",
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+  async function onSubmit(formData: z.infer<typeof signUpSchema>) {
+    setIsLoading(true);
     try {
-      const error = await signUpWithEmail(email, password);
-      if (error) {
-        setError(error);
+      setEmail(formData.emailAddress);
+      const response = await signUpWithEmail(formData);
+      if (response?.error) {
+        toast({
+          title: "Error",
+          description: response.error,
+          variant: "destructive",
+        });
       } else {
         setConfirm(true);
       }
+      setIsLoading(false);
     } catch (error) {
-      console.log("Something went wrong!");
+      console.error(error);
+      setIsLoading(false);
     }
-  };
+  }
 
-  const handleConfirm = async (token: string) => {
-    setError(null);
+  async function handleConfirm(token: string) {
     try {
-      const { error } = await verifyOTP(email, token);
-      if (error) {
-        throw error;
-      } else {
-        router.push(
-          `auth/callback?plan=${plan}&&listid=${listId}&&signup=true`
-        );
+      const response = await verifyOTP(email, token);
+      if (response?.error) {
+        toast({
+          title: "Verification Error",
+          description: response?.error,
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      console.log("Something went wrong!");
+      console.log("Something wrong with sign up verification");
     }
-  };
+  }
 
   return (
     <div className="text-center rounded-xl bg-[--light-blue-1]">
@@ -77,97 +93,141 @@ const SignUpForm = () => {
           <VerificationInput
             length={6}
             validChars="0-9"
-            onChange={setToken}
-            onComplete={() => handleConfirm(token)}
+            onComplete={(token) => handleConfirm(token)}
             classNames={{
               character: "VIcharacter",
               container: "VIcontainer",
             }}
           />
-          {error && <div>{error}</div>}
         </div>
       ) : (
         <>
-          <button
-            className="bg-[--white] border-2 border-[--light-blue-2] font-medium rounded-full py-4 w-11/12 my-4 "
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="emailAddress"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        disabled={isLoading}
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        placeholder="name@example.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Enter your email address here.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        autoCorrect="off"
+                        autoCapitalize="none"
+                        type="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Enter strong password here.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="passwordConfirm"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        autoCorrect="off"
+                        autoCapitalize="none"
+                        type="password"
+                        disabled={isLoading}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Confirm strong password here.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button disabled={isLoading} type="submit">
+                {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+                Sign Up with Email
+              </Button>
+            </form>
+          </Form>
+          <Separator /> or continue with <Separator />
+          <Button
+            variant="outline"
+            type="button"
+            disabled={isLoading}
             onClick={signUpWithLinkedIn}
           >
-            <img
-              src="/In-Blue-48.png"
-              className="w-7 inline pr-2"
-              alt="LinkedIn Logo"
-            />
-            Sign Up With LinkedIn
-          </button>
-          <div className="flex flex-row items-center">
-            <div className="flex-1 h-1 bg-[--light-blue-2] ml-4" />
-            <div>
-              <p className="flex-1 align-self-center px-4">or</p>
-            </div>
-            <div className="flex-1 h-1 bg-[--light-blue-2] mr-4" />
-          </div>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col justify-center items-center my-4
-        "
-            id="signUpForm"
-          >
-            <label className="self-start px-4 font-medium">Email Address</label>
-            <input
-              className="rounded-full py-4 px-4 w-11/12"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              type="email"
-              placeholder="Enter your email "
-            />
-            <label className="self-start px-4 pt-2  font-medium">
-              Password
-            </label>
-            <input
-              className="rounded-full py-4 px-4 w-11/12"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              type="password"
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-              title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
-            />
-            {error && <div>{error}</div>}
-            <button
-              className="bg-[--blue-2] rounded-full text-[--white] my-4 py-4 w-11/12"
-              type="submit"
-            >
-              Sign Up
-            </button>
-            <p className="text-[--light-blue-3] text-xs">
-              By clicking &quot;Sign Up&quot; I agree to LinkedAll&apos;s <br />
-              <Link href="/policy/terms" target="_blank">
-                Terms
-              </Link>{" "}
-              and{" "}
-              <Link href="/policy/privacy" target="_blank">
-                Privacy Policy
-              </Link>
-              .
-            </p>
-            <p>
-              Already signed up?
-              <Link
-                href={{
-                  pathname: "/login",
-                  query: { listid: listId },
-                }}
-              >
-                Log in
-              </Link>
-            </p>
-          </form>
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <img
+                src="/In-Blue-48.png"
+                className="w-7 inline pr-2"
+                alt="LinkedIn Logo"
+              />
+            )}
+            <p>LinkedIn</p>
+          </Button>
         </>
       )}
     </div>
   );
-};
+}
 
-export default SignUpForm;
+//
+//             <p className="text-[--light-blue-3] text-xs">
+//               By clicking &quot;Sign Up&quot; I agree to LinkedAll&apos;s <br />
+//               <Link href="/policy/terms" target="_blank">
+//                 Terms
+//               </Link>{" "}
+//               and{" "}
+//               <Link href="/policy/privacy" target="_blank">
+//                 Privacy Policy
+//               </Link>
+//               .
+//             </p>
+//             <p>
+//               Already signed up?
+//               <Link
+//                 href={{
+//                   pathname: "/login",
+//                   query: { listid: listId },
+//                 }}
+//               >
+//                 Log in
+//               </Link>
+//             </p>
+//           </form>
+//         </>
+//       )}
+//     </div>
+//   );
+// };
