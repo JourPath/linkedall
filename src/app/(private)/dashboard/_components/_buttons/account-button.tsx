@@ -2,7 +2,7 @@
 import { useUserProfile } from "@/utils/context/profile-context";
 import { Profile } from "@/utils/types/collections.types";
 
-export default function AccountButton() {
+export default function AccountButton({ profile }: { profile: Profile }) {
   const { updateUserProfile } = useUserProfile();
 
   function handleProfile() {

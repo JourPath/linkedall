@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -51,12 +50,12 @@ export function UserNav({ profile }: { profile: Profile | null }) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <ProfileButton profile={profile!} />
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <AccountButton />
-            </DropdownMenuItem>
+          <DropdownMenuItem>
+            <ProfileButton profile={profile!} />
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <AccountButton profile={profile!} />
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <SignOutButton />
