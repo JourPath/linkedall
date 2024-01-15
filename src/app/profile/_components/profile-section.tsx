@@ -71,6 +71,7 @@ export default function ProfileSection({
           <AvatarButton
             url={avatar}
             onUpload={(url: string) => setAvatar(url)}
+            edit={false}
           />
         </div>
       </div>
