@@ -3,6 +3,7 @@
   "cSpell.words": [
     "Dashcard",
     "fkey",
+    "Linkify",
     "nextjs",
     "signup",
     "supabase"
@@ -11,7 +12,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports": true
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
   }
 }

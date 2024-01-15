@@ -1,13 +1,16 @@
 "use server"
 
-import { createClient } from "@/lib/supabase/supabase-server";
+import { cookies } from "next/headers";
+import { createClientAction } from "../supabase-action";
 export const readUserSession = async () => {
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
   return supabase.auth.getSession();
 }
 
 export const getUser = async () => {
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
   const {data:{session}} = await supabase.auth.getSession();
         if (!session) {
           return null;

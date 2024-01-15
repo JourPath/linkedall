@@ -1,5 +1,6 @@
 "use server";
-import { createClient } from "@/lib/supabase/supabase-server";
+import { createClientAction } from "@/lib/supabase/supabase-action";
+import { cookies } from "next/headers";
 import { z } from "zod";
 import { joinListCodeSchema, newListFormSchema } from "./schema";
 
@@ -7,7 +8,8 @@ export async function createNewList(
   formData: z.infer<typeof newListFormSchema>
 ) {
   try {
-    const supabase = await createClient();
+    const cookieStore = cookies();
+    const supabase = await createClientAction(cookieStore);
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -33,7 +35,8 @@ export async function createNewList(
 
 export async function joinList(formData: z.infer<typeof joinListCodeSchema>) {
   try {
-    const supabase = await createClient();
+    const cookieStore = cookies();
+    const supabase = await createClientAction(cookieStore);
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -69,7 +72,8 @@ export async function joinList(formData: z.infer<typeof joinListCodeSchema>) {
 
 export async function getList(short_id: string) {
   try {
-    const supabase = await createClient();
+    const cookieStore = cookies();
+    const supabase = await createClientAction(cookieStore);
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -94,6 +98,7 @@ export async function getList(short_id: string) {
         });
 
       if (get_participants_error) {
+        console.log(get_participants_error);
         return {
           error: get_participants_error,
         };
@@ -109,5 +114,61 @@ export async function getList(short_id: string) {
     }
   } catch (e) {
     return { message: "Failed to retrieve list " };
+  }
+}
+
+export async function leaveList(list_id: string) {
+  try {
+    const cookieStore = cookies();
+    const supabase = await createClientAction(cookieStore);
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
+    if (user) {
+      const { error } = await supabase
+        .from("list_participants")
+        .delete()
+        .eq("list_id", list_id)
+        .eq("participant_id", user.id);
+
+      if (error) {
+        return {
+          error: error.message,
+        };
+      } else {
+        return {
+          message: `Left list "${list_id}`,
+        };
+      }
+    }
+  } catch (e) {
+    return { message: "Failed to leave list " };
+  }
+}
+
+export async function deleteList(list_id: string) {
+  try {
+    const cookieStore = cookies();
+    const supabase = await createClientAction(cookieStore);
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
+    if (user) {
+      const { error } = await supabase.from("lists").delete().eq("id", list_id);
+
+      if (error) {
+        return {
+          error: error.message,
+        };
+      } else {
+        return {
+          message: `Deleted list "${list_id}`,
+        };
+      }
+    }
+  } catch (e) {
+    return { message: "Failed to delete list " };
   }
 }

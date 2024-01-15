@@ -17,10 +17,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export function NewListForm() {
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof newListFormSchema>>({
     resolver: zodResolver(newListFormSchema),
     defaultValues: {
@@ -54,7 +55,7 @@ export function NewListForm() {
           description: `Your list: ${response.data.list_name}  has been created.`,
           variant: "default",
         });
-        redirect(`/lists/${response.data.short_id}`);
+        router.push(`lists/${response.data.short_id}`);
       }
     } catch (error) {
       console.error(error);
@@ -63,7 +64,7 @@ export function NewListForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mx-8">
         <FormField
           control={form.control}
           name="list_name"

@@ -1,7 +1,7 @@
 "use client";
 import { signOut } from "@/app/auth/_actions";
 import SignOutButton from "@/app/auth/_components/sign_out_button";
-import { createClient } from "@/lib/supabase/supabase-browser";
+import { createClientBrowser } from "@/lib/supabase/supabase-browser";
 import { Profile } from "@/utils/types/collections.types";
 import { Disclosure } from "@headlessui/react";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import NavButton from "../buttons/nav-button";
-import ProfileButton from "../buttons/profile-button";
+import ProfileButton from "../buttons/profile-button2";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -19,7 +19,7 @@ export default function NavBar() {
   const [profile, setProfile] = useState<Profile | null>(null);
 
   async function getProfile() {
-    const supabase = createClient();
+    const supabase = createClientBrowser();
     const {
       data: { session },
     } = await supabase.auth.getSession();

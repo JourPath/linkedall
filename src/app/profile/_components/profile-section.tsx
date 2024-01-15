@@ -1,5 +1,5 @@
 "use client";
-import { createClient } from "@/lib/supabase/supabase-browser";
+import { createClientBrowser } from "@/lib/supabase/supabase-browser";
 import { Profile } from "@/utils/types/collections.types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ export default function ProfileSection({
   const [linkedIn, setLinkedIn] = useState("");
   const [avatar, setAvatar] = useState("");
   const [user, setUser] = useState(profile);
-  const supabase = createClient();
+  const supabase = createClientBrowser();
 
   const router = useRouter();
   // const searchParams = useSearchParams();

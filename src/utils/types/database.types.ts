@@ -139,7 +139,7 @@ export interface Database {
           id: string;
           list_name: string | null;
           list_num: number;
-          short_id: string;
+          short_id: string | null;
         };
         Insert: {
           created_at?: string;
@@ -147,7 +147,7 @@ export interface Database {
           id?: string;
           list_name?: string | null;
           list_num?: number;
-          short_id: string;
+          short_id?: string | null;
         };
         Update: {
           created_at?: string;
@@ -155,7 +155,7 @@ export interface Database {
           id?: string;
           list_name?: string | null;
           list_num?: number;
-          short_id?: string;
+          short_id?: string | null;
         };
         Relationships: [
           {
@@ -249,6 +249,7 @@ export interface Database {
           full_name: string;
           avatar_url: string;
           linked_in: string;
+          bio: string;
           created_at: string;
           connection: boolean;
         }[];

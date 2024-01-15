@@ -1,5 +1,6 @@
-import { createClient } from "@/lib/supabase/supabase-server";
+import { createClientServer } from "@/lib/supabase/supabase-server";
 import { List } from "@/utils/types/collections.types";
+import { cookies } from "next/headers";
 import DashboardTabs from "./dashboard-tabs";
 import Lists from "./lists";
 
@@ -18,7 +19,8 @@ export default async function DashTabs({
   lists: Lists;
   hostedLists: List[];
 }) {
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientServer(cookieStore);
   const {
     data: { session },
   } = await supabase.auth.getSession();

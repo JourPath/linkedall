@@ -24,3 +24,11 @@ export const signUpSchema = z
     message: "Passwords do not match",
     path: ["passwordConfirm"],
   });
+
+export const profileSchema = z.object({
+  full_name: z.string(),
+  linked_in: z.string(),
+  bio: z.string().max(200, {
+    message: "Bio must be less than 200 characters",
+  }),
+});

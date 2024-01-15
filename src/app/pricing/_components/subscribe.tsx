@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/supabase-browser";
+import { createClientBrowser } from "@/lib/supabase/supabase-browser";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ export default function Subscribe({
 
   useEffect(() => {
     const fetchSessionAndPlan = async () => {
-      const supabase = createClient();
+      const supabase = createClientBrowser();
       const {
         data: { session },
       } = await supabase.auth.getSession();

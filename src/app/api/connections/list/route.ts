@@ -1,11 +1,11 @@
-import { createClient } from "@/lib/supabase/supabase-route";
+import { createClientRoute } from "@/lib/supabase/supabase-route";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 // GET - show connections
 export async function PUT(req: NextRequest) {
   const cookieStore = cookies();
-  const supabase = await createClient(cookieStore);
+  const supabase = await createClientRoute(cookieStore);
   const { list_id } = await req.json();
   const { data: user } = await supabase.auth.getUser();
   if (user && user.user && user.user.id && list_id) {

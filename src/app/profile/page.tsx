@@ -1,9 +1,11 @@
 import ProfileSection from "@/app/profile/_components/profile-section";
 import SubscriptionSection from "@/app/profile/_components/subscription-section";
-import { createClient } from "@/lib/supabase/supabase-server";
+import { createClientServer } from "@/lib/supabase/supabase-server";
+import { cookies } from "next/headers";
 
 export default async function Profile() {
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientServer(cookieStore);
   const {
     data: { session },
   } = await supabase.auth.getSession();

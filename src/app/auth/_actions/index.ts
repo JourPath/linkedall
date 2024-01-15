@@ -1,7 +1,7 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/supabase-server";
-import { headers } from "next/headers";
+import { createClientAction } from "@/lib/supabase/supabase-action";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { signInSchema, signUpSchema } from "./schema";
@@ -11,7 +11,8 @@ export const signUpWithEmail = async (
   formData: z.infer<typeof signUpSchema>
 ) => {
   const origin = headers().get("origin");
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
   const { error } = await supabase.auth.signUp({
     email: formData.emailAddress,
     password: formData.password,
@@ -29,7 +30,8 @@ export const signUpWithEmail = async (
 export const logInWithEmail = async (
   formData: z.infer<typeof signInSchema>
 ) => {
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
   const { error } = await supabase.auth.signInWithPassword({
     email: formData.emailAddress,
     password: formData.password,
@@ -43,7 +45,8 @@ export const logInWithEmail = async (
 };
 
 export const verifyOTP = async (email: string, token: string) => {
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
   const { error } = await supabase.auth.verifyOtp({
     email,
     token,
@@ -55,10 +58,10 @@ export const verifyOTP = async (email: string, token: string) => {
 
 // Generic
 export const signOut = async () => {
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    console.log(error);
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
+  const response = await supabase.auth.signOut();
+  if (response.error) {
   } else {
     return redirect("/login");
   }
@@ -67,8 +70,9 @@ export const signOut = async () => {
 // LinkedIn
 export const signUpWithLinkedIn = async () => {
   const origin = headers().get("origin");
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithOAuth({
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "linkedin_oidc",
     options: {
       redirectTo: `${origin}/auth/callback`,
@@ -76,12 +80,14 @@ export const signUpWithLinkedIn = async () => {
   });
 
   if (error) return { error: error.message };
+  else return redirect(data.url);
 };
 
 export const logInWithLinkedIn = async () => {
   const origin = headers().get("origin");
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithOAuth({
+  const cookieStore = cookies();
+  const supabase = await createClientAction(cookieStore);
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "linkedin_oidc",
     options: {
       redirectTo: `${origin}/auth/callback`,
@@ -89,4 +95,5 @@ export const logInWithLinkedIn = async () => {
   });
 
   if (error) return { error: error.message };
+  else return redirect(data.url);
 };

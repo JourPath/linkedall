@@ -268,6 +268,7 @@ export interface Database {
           linked_in: string;
           created_at: string;
           connection: boolean;
+          bio: string;
         }[];
       };
       get_list_participants_with_connections: {

@@ -1,11 +1,11 @@
-import { createClient } from "@/lib/supabase/supabase-route";
+import { createClientRoute } from "@/lib/supabase/supabase-route";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
   const cookieStore = cookies();
-  const supabase = await createClient(cookieStore);
+  const supabase = await createClientRoute(cookieStore);
   const {
     data: { user },
   } = await supabase.auth.getUser();

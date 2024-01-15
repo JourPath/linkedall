@@ -9,15 +9,22 @@ type ListAll = {
   list_id: string;
   lists: {
     list_name: string | null;
-    short_id: string;
+    short_id: string | null;
+    host_id: string;
   } | null;
 };
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   lists: ListAll[];
   hostedLists: List[];
+  userId: string;
 }
 
-export function Sidebar({ className, lists, hostedLists }: SidebarProps) {
+export function Sidebar({
+  className,
+  lists,
+  hostedLists,
+  userId,
+}: SidebarProps) {
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4 h-screen">
@@ -72,24 +79,6 @@ export function Sidebar({ className, lists, hostedLists }: SidebarProps) {
                 Dashboard
               </Link>
             </Button>
-
-            <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-book-user h-4 w-4 mr-2"
-              >
-                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-                <circle cx="12" cy="8" r="2" />
-                <path d="M15 13a3 3 0 1 0-6 0" />
-              </svg>
-              Hosted Lists
-            </Button>
           </div>
         </div>
         <div className="py-2">
@@ -126,19 +115,15 @@ export function Sidebar({ className, lists, hostedLists }: SidebarProps) {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24 "
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mr-2 h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-4 h-4 text-[--blue-2] mr-2"
                     >
-                      <path d="M21 15V6" />
-                      <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                      <path d="M12 12H3" />
-                      <path d="M16 6H3" />
-                      <path d="M12 18H3" />
+                      <path
+                        fillRule="evenodd"
+                        d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     {list.list_name}
                   </Link>
@@ -157,46 +142,47 @@ export function Sidebar({ className, lists, hostedLists }: SidebarProps) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="lucide lucide-bookmark h-5 w-5 mr-2"
-              aria-labelledby="lists"
+              className="lucide lucide-book-marked h-5 w-5 mr-2"
             >
+              <polyline points="10 2 10 10 13 7 16 10 16 2" />
               <title id="lists">Lists</title>
-              <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
             </svg>
             Lists
           </h2>
           <ScrollArea className="h-[300px] px-1">
             <div className="space-y-1 p-2">
-              {lists?.map((list) => (
-                <Button
-                  key={list.lists?.list_name}
-                  variant="ghost"
-                  className="w-full justify-start font-normal"
-                >
-                  <Link
-                    href={`/dashboard/lists/${list.lists?.short_id}`}
-                    className="flex items-center"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mr-2 h-4 w-4"
+              {lists?.map((list) => {
+                if (list.lists?.host_id !== userId) {
+                  return (
+                    <Button
+                      key={list.lists?.list_name}
+                      variant="ghost"
+                      className="w-full justify-start font-normal flex content-center "
                     >
-                      <path d="M21 15V6" />
-                      <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                      <path d="M12 12H3" />
-                      <path d="M16 6H3" />
-                      <path d="M12 18H3" />
-                    </svg>
-                    {list.lists?.list_name}
-                  </Link>
-                </Button>
-              ))}
+                      <Link
+                        href={`/dashboard/lists/${list.lists?.short_id}`}
+                        className="flex items-center"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-4 h-4 text-[--blue-2] mr-2"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+
+                        {list.lists?.list_name}
+                      </Link>
+                    </Button>
+                  );
+                }
+              })}
             </div>
           </ScrollArea>
         </div>

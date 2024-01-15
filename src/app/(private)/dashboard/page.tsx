@@ -3,12 +3,22 @@ import { JoinListNew } from "./_components/join-list-new";
 
 export default async function Dashboard() {
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <div className="bg-background p-2">
         <JoinListNew />
       </div>
-      <div className="">Lists</div>
-    </>
+      <div className=" m-4 rounded-md bg-sidebar h-1/4">
+        <img
+          src="/Dashcard-2.png"
+          alt="See all the lists you have already joined"
+          className="rounded text-[--white]"
+        />
+        <h4>Get started instructions here</h4>
+      </div>
+      <div className=" m-4 rounded-md bg-sidebar h-1/4">
+        Recent Lists - maybe use timestamps on click or just recently joined?
+      </div>
+    </div>
 
     //     <main className="">
     //       <DashTabs lists={lists.data} hostedLists={hostedLists.data} />

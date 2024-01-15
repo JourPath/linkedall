@@ -75,6 +75,24 @@ export default function SignUpForm() {
     }
   }
 
+  async function signUpLinkedIn() {
+    setIsLoading(true);
+    try {
+      const response = await signUpWithLinkedIn();
+      if (response?.error) {
+        toast({
+          title: "Error",
+          description: response.error,
+          variant: "destructive",
+        });
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
+  }
+
   return (
     <div className="text-center rounded-xl bg-[--light-blue-1]">
       <img
@@ -179,23 +197,20 @@ export default function SignUpForm() {
             </form>
           </Form>
           <Separator /> or continue with <Separator />
-          <Button
-            variant="outline"
-            type="button"
-            disabled={isLoading}
-            onClick={signUpWithLinkedIn}
-          >
-            {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <img
-                src="/In-Blue-48.png"
-                className="w-7 inline pr-2"
-                alt="LinkedIn Logo"
-              />
-            )}
-            <p>LinkedIn</p>
-          </Button>
+          <form action={signUpWithLinkedIn}>
+            <button type="submit">
+              {isLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <img
+                  src="/In-Blue-48.png"
+                  className="w-7 inline pr-2"
+                  alt="LinkedIn Logo"
+                />
+              )}
+              <p>LinkedIn</p>
+            </button>
+          </form>
         </>
       )}
     </div>

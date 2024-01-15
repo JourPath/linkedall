@@ -1,18 +1,20 @@
 "use client";
-import { createClient } from "@/lib/supabase/supabase-browser";
+import { createClientBrowser } from "@/lib/supabase/supabase-browser";
 import { useRef, useState } from "react";
 
 export default function AvatarButton({
   url,
   onUpload,
+  edit,
 }: {
   url: string;
   onUpload: Function;
+  edit: boolean;
 }) {
   const [uploading, setUploading] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const supabase = createClient();
+  const supabase = createClientBrowser();
   async function uploadAvatar(event: React.ChangeEvent<HTMLInputElement>) {
     try {
       setUploading(true);
@@ -25,7 +27,7 @@ export default function AvatarButton({
       const fileExt = file.name.split(".").pop();
       const fileName = `${Math.random()}.${fileExt}`;
       const filePath = `${fileName}`;
-
+      console.log(filePath, file);
       let { error: uploadError } = await supabase.storage
         .from("avatars")
         .upload(filePath, file);
@@ -36,6 +38,7 @@ export default function AvatarButton({
       const {
         data: { publicUrl },
       } = supabase.storage.from("avatars").getPublicUrl(filePath);
+      console.log(publicUrl);
       onUpload(publicUrl);
     } catch (error) {
       if (error instanceof Error) {
@@ -54,7 +57,7 @@ export default function AvatarButton({
 
   return (
     <div className="flex flex-col items-center">
-      <button onClick={handleClick} className="w-20 h-20">
+      <button onClick={handleClick} className="w-20 h-20" disabled={!edit}>
         <input
           className="hidden"
           type="file"

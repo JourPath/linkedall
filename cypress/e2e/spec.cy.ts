@@ -6,15 +6,21 @@ describe("My First Test", () => {
   });
 });
 
+// sign up x
+// sign up linkedin x
+// sign up email x
+// log in x
+// log in linkedin x
+// log in email x
 // Dashboard Page
-// Join List
-// Hosted Lists
-// can close
-// Lists exclusing hosted lists
-// can leave list
-// Pricing Page
-// Profile Page
-// Home
-// Sign out
+// Join List x
+// Hosted Lists x
+// can close x
+// Lists exclusing hosted lists x
+// can leave list x
+// Pricing Page x
+// Profile Page x
+// Home x
+// Sign out x
 
 // people have connect button

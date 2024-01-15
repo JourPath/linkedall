@@ -1,7 +1,9 @@
 "use client";
 
+import { useUserProfile } from "@/utils/context/profile-context";
 import Link from "next/link";
 import { useState } from "react";
+import { Button } from "../ui/button";
 
 type Person = {
   list_id: string;
@@ -11,6 +13,7 @@ type Person = {
   linked_in: string;
   created_at: string;
   connection: boolean;
+  bio: string;
 };
 
 type LP = {
@@ -36,7 +39,7 @@ export default function PersonCard({
 }) {
   const [checked, setChecked] = useState(person.connection);
   const list_id = person.list_id;
-
+  const { updateUserProfile } = useUserProfile();
   // const getConnection = async (person: Person, list_id: string) => {
   //   const { data, error } = await supabase
   //     .from("connections")
@@ -76,6 +79,17 @@ export default function PersonCard({
     }
   };
 
+  const handleProfile = async (person: Person) => {
+    updateUserProfile({
+      avatar_url: person.avatar_url,
+      bio: person.bio,
+      full_name: person.full_name,
+      id: person.participant_id,
+      linked_in: person.linked_in,
+      updated_at: person.created_at,
+    });
+  };
+
   const addConnection = async (connection_id: string, list_id: string) => {
     setChecked(true);
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/connections`, {
@@ -101,47 +115,53 @@ export default function PersonCard({
             : "border-[--light-blue-3] bg-[--light-blue-2]"
         }`}
       >
-        <div
-          className={`relative w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 shrink-0`}
+        <button
+          onClick={() => handleProfile(person)}
+          className="w-8/12 flex flex-row items-center"
         >
-          {person.avatar_url ? (
-            <img
-              className={` ${
-                checked ? "grayscale" : ""
-              } rounded-full w-12 h-12 shrink-0`}
-              src={person.avatar_url}
-              alt={`${person.full_name}'s avatar`}
-            />
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className=""
-            >
-              <path
-                fillRule="evenodd"
-                d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                clipRule="evenodd"
+          <div
+            className={`relative w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 shrink-0`}
+          >
+            {person.avatar_url ? (
+              <img
+                className={` ${
+                  checked ? "grayscale" : ""
+                } rounded-full w-12 h-12 shrink-0`}
+                src={person.avatar_url}
+                alt={`${person.full_name}'s avatar`}
               />
-            </svg>
-          )}
-        </div>
-        <p className="text-md w-1/3 line-clamp-2 ml-2 ">{person.full_name}</p>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className=""
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+          </div>
+          <p className="text-md w-1/3 line-clamp-2 ml-2 ">{person.full_name}</p>
+        </button>
         <Link
           href={`https://linkedin.com/in/${person.linked_in}`}
           target="blank"
-          className="h-12 justify-center flex"
+          className="h-12 justify-center flex items-center"
         >
-          <button
-            className="text-lg mr-2 font-medium text-[--dark-blue-3]"
+          <Button
+            variant="default"
+            className={`${checked ? "grayscale" : ""}`}
             onClick={() => handleClick(person.participant_id, list_id)}
           >
             Connect
-          </button>
+          </Button>
         </Link>
         <div className="flex items-center">
-          <label className=" rounded-full text-gray-900 dark:text-gray-300">
+          <label className="flex items-center rounded-full text-gray-900 dark:text-gray-300">
             <input
               type="checkbox"
               checked={checked}

@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 
-export default function ProfileButton({
+export default function ProfileButton2({
   open,
   avatarUrl,
 }: {

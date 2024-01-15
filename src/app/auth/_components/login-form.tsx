@@ -19,8 +19,9 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
-import { logInWithEmail, logInWithLinkedIn } from "../_actions";
+import { logInWithEmail } from "../_actions";
 import { signInSchema } from "../_actions/schema";
+import LinkedInLogInButton from "./linked-in-log-in";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -111,23 +112,7 @@ const LoginForm = () => {
         </form>
       </Form>
       <Separator /> or continue with <Separator />
-      <Button
-        variant="outline"
-        type="button"
-        disabled={isLoading}
-        onClick={logInWithLinkedIn}
-      >
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <img
-            src="/In-Blue-48.png"
-            className="w-7 inline pr-2"
-            alt="LinkedIn Logo"
-          />
-        )}
-        <p>LinkedIn</p>
-      </Button>
+      <LinkedInLogInButton />
     </div>
   );
 };

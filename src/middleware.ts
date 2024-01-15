@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/supabase-middleware";
 import { type NextRequest } from "next/server";
+import { createClientMiddleware } from "./lib/supabase/supabase-middleware";
 
 export async function middleware(request: NextRequest) {
-  const { supabase, response } = createClient(request);
+  const { supabase, response } = createClientMiddleware(request);
 
   // tps://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
   await supabase.auth.getSession();

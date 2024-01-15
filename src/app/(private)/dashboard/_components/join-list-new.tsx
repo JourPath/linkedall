@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { joinList } from "../_actions/list-actions";
@@ -18,6 +18,7 @@ import { joinListCodeSchema } from "../_actions/schema";
 
 export function JoinListNew() {
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof joinListCodeSchema>>({
     resolver: zodResolver(joinListCodeSchema),
     defaultValues: {
@@ -26,7 +27,6 @@ export function JoinListNew() {
   });
 
   async function onSubmit(formData: z.infer<typeof joinListCodeSchema>) {
-    console.log(formData);
     try {
       const response = await joinList(formData);
       if (response?.error || response?.message) {
@@ -36,7 +36,7 @@ export function JoinListNew() {
           variant: "destructive",
         });
       } else if (response?.success) {
-        redirect(`/lists/${formData.short_id}`);
+        router.push(`dashboard/lists/${formData.short_id}`);
       }
     } catch (error) {
       console.error(error);

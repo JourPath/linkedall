@@ -1,4 +1,5 @@
-import { createClient } from "@/lib/supabase/supabase-server";
+import { createClientServer } from "@/lib/supabase/supabase-server";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -10,7 +11,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const supabase = await createClient();
+  const cookieStore = cookies();
+  const supabase = await createClientServer(cookieStore);
 
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

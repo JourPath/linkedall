@@ -1,3 +1,4 @@
+import ProfileButton from "@/app/(private)/dashboard/_components/_buttons/profile-button";
 import SignOutButton from "@/app/auth/_components/sign_out_button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Profile } from "@/utils/types/collections.types";
+import AccountButton from "./_buttons/account-button";
 
 export function UserNav({ profile }: { profile: Profile | null }) {
   return (
@@ -49,9 +51,12 @@ export function UserNav({ profile }: { profile: Profile | null }) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>Account</DropdownMenuItem>
-          </DropdownMenuGroup>
+            <DropdownMenuItem>
+              <ProfileButton profile={profile!} />
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <AccountButton />
+            </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <SignOutButton />
